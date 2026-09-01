@@ -134,7 +134,7 @@ onMounted(() => {
         />
 
         <div
-          class="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 transition-all duration-700"
+          class="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 transition-all duration-700 place-items-center"
           :class="statsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'"
         >
           <div

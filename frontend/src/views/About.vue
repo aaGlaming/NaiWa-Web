@@ -118,7 +118,7 @@ const funFacts = [
 
     <!-- Characteristics -->
     <section class="relative py-24 px-6">
-      <div class="max-w-6xl mx-auto">
+      <div class="max-w-4xl mx-auto">
         <SectionTitle
           title="奶蛙特征"
           subtitle="这些特点让它成为互联网顶流"
@@ -128,7 +128,7 @@ const funFacts = [
           gradient
         />
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 place-items-center">
           <MaximalCard
             v-for="(char, index) in characteristics"
             :key="char.title"
@@ -148,7 +148,7 @@ const funFacts = [
 
     <!-- Usage Scenarios -->
     <section class="relative py-24 px-6">
-      <div class="max-w-6xl mx-auto">
+      <div class="max-w-4xl mx-auto">
         <SectionTitle
           title="使用场景"
           subtitle="奶蛙表情包的正确打开方式"
@@ -157,7 +157,7 @@ const funFacts = [
           emoji="🎯"
         />
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 place-items-center">
           <div
             v-for="(scenario, index) in usageScenarios"
             :key="scenario.title"
