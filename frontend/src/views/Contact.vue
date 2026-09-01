@@ -86,7 +86,7 @@ const faqItems = [
     </section>
 
     <!-- Contact Methods -->
-    <section class="relative py-12 px-6">
+    <section class="relative py-24 px-6">
       <div class="max-w-4xl mx-auto">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 place-items-center">
           <div

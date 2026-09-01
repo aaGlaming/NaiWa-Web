@@ -235,7 +235,7 @@ onUnmounted(() => {
     </section>
 
     <!-- Main Content -->
-    <section class="relative py-12 px-6">
+    <section class="relative py-24 px-6">
       <div class="max-w-6xl mx-auto">
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
 

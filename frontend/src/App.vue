@@ -113,7 +113,7 @@ function toggleMenu() {
     <CardReveal v-if="showCardReveal" @close="showCardReveal = false" />
 
     <!-- Main Content -->
-    <main class="relative z-10 pt-20">
+    <main class="relative z-10 pt-24">
       <RouterView />
     </main>
 

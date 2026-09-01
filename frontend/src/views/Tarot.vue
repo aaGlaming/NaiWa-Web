@@ -142,11 +142,11 @@ onMounted(() => {
     </section>
 
     <!-- Main Content -->
-    <section class="relative py-12 px-6">
+    <section class="relative py-16 px-6 pt-24">
       <div class="max-w-6xl mx-auto">
 
         <!-- Controls -->
-        <div class="flex flex-wrap items-center justify-center gap-4 mb-12">
+        <div class="flex flex-wrap items-center justify-center gap-4 mb-16">
           <!-- Spread Mode -->
           <div class="flex items-center gap-2 p-2 rounded-2xl border-4 border-max-secondary bg-max-muted/50">
             <button
@@ -296,7 +296,7 @@ onMounted(() => {
         </div>
 
         <!-- Instructions -->
-        <div class="mt-8 p-4 rounded-2xl border-2 border-dashed border-max-accent/30 bg-max-muted/30">
+        <div class="mt-16 p-4 rounded-2xl border-2 border-dashed border-max-accent/30 bg-max-muted/30">
           <p class="text-white/50 text-sm text-center">
             💡 提示：选择牌阵模式 → 点击洗牌 → 点击抽牌 → 点击卡牌翻转查看结果
           </p>
