@@ -5,6 +5,8 @@ import MaximalButton from '@/components/ui/MaximalButton.vue'
 import FloatingShape from '@/components/ui/FloatingShape.vue'
 import tarotData from '@/data/tarot.json'
 
+const baseUrl = import.meta.env.BASE_URL || '/'
+
 // 状态
 const deck = ref([])
 const drawnCards = ref([])
