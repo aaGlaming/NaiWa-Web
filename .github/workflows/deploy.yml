@@ -35,9 +35,6 @@ jobs:
         working-directory: frontend
         run: npm run build
 
-      - name: Copy images to dist
-        run: cp -r images frontend/dist/images
-
       - name: Setup Pages
         uses: actions/configure-pages@v4
 

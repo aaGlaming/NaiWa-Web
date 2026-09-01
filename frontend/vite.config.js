@@ -4,7 +4,7 @@ import { defineConfig } from 'vite'
 import { fileURLToPath, URL } from 'node:url'
 
 export default defineConfig({
-  base: '/NaiWa-Web/',
+  base: './',
   plugins: [vue(), tailwindcss()],
   resolve: {
     alias: {
