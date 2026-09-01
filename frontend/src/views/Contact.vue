@@ -33,9 +33,9 @@ async function handleSubmit() {
 }
 
 const contactMethods = [
-  { title: '邮箱', value: 'naiwa@example.com', emoji: '📧', colorIndex: 0 },
-  { title: '社交媒体', value: '@naiwa_world', emoji: '📱', colorIndex: 1 },
-  { title: 'GitHub', value: 'github.com/naiwa', emoji: '💻', colorIndex: 2 }
+  { title: '邮箱', value: 'a36194113019@gmail.com', emoji: '📧', colorIndex: 0 },
+  { title: '社交媒体', value: '13056991779', emoji: '📱', colorIndex: 1 },
+  { title: 'GitHub', value: 'github.com/aaGlaming', emoji: '💻', colorIndex: 2 }
 ]
 
 const faqItems = [
