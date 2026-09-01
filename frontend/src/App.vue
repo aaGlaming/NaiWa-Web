@@ -13,6 +13,7 @@ const navItems = [
   { path: '/gallery', label: '图片库', icon: '🖼️' },
   { path: '/lucky', label: '抽卡', icon: '🎰' },
   { path: '/wallpaper', label: '壁纸', icon: '🎨' },
+  { path: '/tarot', label: '塔罗牌', icon: '🔮' },
   { path: '/contact', label: '联系', icon: '💌' }
 ]
 
