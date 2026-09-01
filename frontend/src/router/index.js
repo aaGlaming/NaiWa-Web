@@ -17,6 +17,16 @@ const routes = [
     component: () => import('@/views/Gallery.vue')
   },
   {
+    path: '/lucky',
+    name: 'LuckyDraw',
+    component: () => import('@/views/LuckyDraw.vue')
+  },
+  {
+    path: '/wallpaper',
+    name: 'Wallpaper',
+    component: () => import('@/views/Wallpaper.vue')
+  },
+  {
     path: '/contact',
     name: 'Contact',
     component: () => import('@/views/Contact.vue')

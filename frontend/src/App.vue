@@ -11,6 +11,8 @@ const navItems = [
   { path: '/', label: '首页', icon: '🏠' },
   { path: '/about', label: '关于奶蛙', icon: '🐸' },
   { path: '/gallery', label: '图片库', icon: '🖼️' },
+  { path: '/lucky', label: '抽卡', icon: '🎰' },
+  { path: '/wallpaper', label: '壁纸', icon: '🎨' },
   { path: '/contact', label: '联系', icon: '💌' }
 ]
 
