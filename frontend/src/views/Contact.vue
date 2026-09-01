@@ -87,7 +87,7 @@ const faqItems = [
 
     <!-- Contact Methods -->
     <section class="relative py-12 px-6">
-      <div class="max-w-4xl mx-auto">
+      <div class="max-w-5xl mx-auto">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div
             v-for="(method, index) in contactMethods"

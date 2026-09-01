@@ -118,7 +118,7 @@ const funFacts = [
 
     <!-- Characteristics -->
     <section class="relative py-24 px-6">
-      <div class="max-w-7xl mx-auto">
+      <div class="max-w-6xl mx-auto">
         <SectionTitle
           title="奶蛙特征"
           subtitle="这些特点让它成为互联网顶流"
@@ -192,7 +192,7 @@ const funFacts = [
           <div
             v-for="(fact, index) in funFacts"
             :key="index"
-            class="flex items-start gap-4 p-6 rounded-2xl border-4 bg-max-muted/60 backdrop-blur-sm transition-all duration-300 hover:scale-[1.02]"
+            class="flex items-center gap-4 p-5 rounded-2xl border-4 bg-max-muted/60 backdrop-blur-sm transition-all duration-300 hover:scale-[1.02] mx-auto max-w-3xl"
             :style="{
               borderColor: ACCENT_COLORS[index % 5],
               boxShadow: `4px 4px 0 ${ACCENT_COLORS[(index + 1) % 5]}`
