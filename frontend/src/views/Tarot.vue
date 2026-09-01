@@ -122,7 +122,7 @@ onMounted(() => {
     <!-- Hero Section -->
     <section class="relative min-h-[35vh] flex items-center justify-center px-6 py-30 overflow-hidden">
       <div class="absolute inset-0 flex items-center justify-center pointer-events-none" aria-hidden="true">
-        <span class="text-[10rem] md:text-[18rem] font-heading font-bold text-max-quinary/10 uppercase select-none leading-none">
+        <span class="text-[10rem] md:text-[18rem] font-heading font-bold text-[#C4B5FD]/10 uppercase select-none leading-none">
           TAROT
         </span>
       </div>
@@ -133,10 +133,10 @@ onMounted(() => {
 
       <div class="relative z-20 text-center max-w-4xl mx-auto">
         <div class="text-8xl md:text-9xl mb-9 animate-wiggle">🔮</div>
-        <h1 class="font-heading text-5xl md:text-7xl lg:text-8xl font-bold uppercase leading-none mb-9 text-shadow-mega text-max-quinary">
+        <h1 class="font-heading text-5xl md:text-7xl lg:text-8xl font-bold uppercase leading-none mb-9 text-shadow-mega text-[#C4B5FD]">
           奶蛙塔罗牌
         </h1>
-        <p class="text-xl md:text-2xl text-white/80 max-w-3xl mx-auto">
+        <p class="text-xl md:text-2xl text-black/80 max-w-3xl mx-auto">
           让奶蛙为你揭示命运的奥秘<br class="hidden md:block" />
           每一张牌都是奶蛙的祝福
         </p>
@@ -150,14 +150,14 @@ onMounted(() => {
         <!-- Controls -->
         <div class="flex flex-wrap items-center justify-center gap-6 mb-36">
           <!-- Spread Mode -->
-          <div class="flex items-center gap-3 p-2 rounded-2xl border-4 border-max-secondary bg-max-muted/50">
+          <div class="flex items-center gap-3 p-2 rounded-2xl border-4 border-black bg-[#C4B5FD]/50">
             <button
               @click="spreadMode = 'single'"
               class="px-4 py-3 rounded-xl font-heading font-bold text-sm transition-all duration-300"
               :class="[
                 spreadMode === 'single'
-                  ? 'bg-max-secondary text-max-background'
-                  : 'text-white/70 hover:text-white'
+                  ? 'bg-[#FFD93D] text-max-background'
+                  : 'text-black/70 hover:text-white'
               ]"
             >
               🎴 单张占卜
@@ -167,8 +167,8 @@ onMounted(() => {
               class="px-4 py-3 rounded-xl font-heading font-bold text-sm transition-all duration-300"
               :class="[
                 spreadMode === 'three'
-                  ? 'bg-max-secondary text-max-background'
-                  : 'text-white/70 hover:text-white'
+                  ? 'bg-[#FFD93D] text-max-background'
+                  : 'text-black/70 hover:text-white'
               ]"
             >
               🃏 三张牌阵
@@ -176,13 +176,13 @@ onMounted(() => {
           </div>
 
           <!-- Reversed Toggle -->
-          <label class="flex items-center gap-3 px-4 py-3 rounded-2xl border-4 border-max-tertiary bg-max-muted/50 cursor-pointer">
+          <label class="flex items-center gap-3 px-4 py-3 rounded-2xl border-4 border-black bg-[#C4B5FD]/50 cursor-pointer">
             <input
               type="checkbox"
               v-model="allowReversed"
               class="w-5 h-5 accent-max-tertiary"
             />
-            <span class="text-white/70 text-sm font-heading">允许逆位</span>
+            <span class="text-black/70 text-sm font-heading">允许逆位</span>
           </label>
 
           <!-- Shuffle Button -->
@@ -220,14 +220,14 @@ onMounted(() => {
         </div>
 
         <!-- Reading Area -->
-        <div class="relative p-8 md:p-12 rounded-3xl border-4 border-max-quinary bg-max-muted/30 min-h-[600px]"
+        <div class="relative p-8 md:p-12 rounded-3xl border-4 border-black bg-[#C4B5FD]/30 min-h-[600px]"
           style="box-shadow: 8px 8px 0 #7B2FFF, 16px 16px 0 #FFE600; background-image: radial-gradient(circle, rgba(123, 47, 255, 0.1) 1px, transparent 1px); background-size: 20px 20px;">
 
           <!-- Empty State -->
           <div v-if="drawnCards.length === 0 && !isShuffling" class="flex flex-col items-center justify-center h-[300px]">
             <div class="text-6xl mb-6 animate-float">🔮</div>
-            <p class="text-white/50 text-xl">点击"抽牌"开始占卜</p>
-            <p class="text-white/30 text-sm mt-3">先洗牌，再抽牌</p>
+            <p class="text-black/50 text-xl">点击"抽牌"开始占卜</p>
+            <p class="text-black/30 text-sm mt-3">先洗牌，再抽牌</p>
           </div>
 
           <!-- Shuffling Animation -->
@@ -236,7 +236,7 @@ onMounted(() => {
               <div
                 v-for="i in 5"
                 :key="i"
-                class="w-20 h-32 rounded-xl border-4 border-max-quinary bg-max-muted animate-shuffle"
+                class="w-20 h-32 rounded-xl border-4 border-black bg-[#C4B5FD] animate-shuffle"
                 :style="{ '--i': i }"
               >
                 <img
@@ -266,9 +266,9 @@ onMounted(() => {
             <!-- Reading Result -->
             <Transition name="fade">
               <div v-if="showResult && currentReading" class="mt-18 max-w-2xl text-center">
-                <div class="p-8 rounded-3xl border-4 border-max-accent bg-max-muted/80"
+                <div class="p-8 rounded-3xl border-4 border-[#FF6B6B] bg-[#C4B5FD]/80"
                   style="box-shadow: 6px 6px 0 #FFE600, 12px 12px 0 #FF3AF2;">
-                  <h3 class="font-heading text-2xl font-bold text-max-accent uppercase mb-6">🔮 奶蛙解读</h3>
+                  <h3 class="font-heading text-2xl font-bold text-[#FF6B6B] uppercase mb-6">🔮 奶蛙解读</h3>
 
                   <!-- Keywords -->
                   <div class="flex flex-wrap justify-center gap-4.5 mb-9">
@@ -286,7 +286,7 @@ onMounted(() => {
                   </div>
 
                   <!-- Interpretation -->
-                  <p class="text-white/80 text-lg leading-relaxed">
+                  <p class="text-black/80 text-lg leading-relaxed">
                     {{ currentReading.interpretation }}
                   </p>
 
@@ -298,8 +298,8 @@ onMounted(() => {
         </div>
 
         <!-- Instructions -->
-        <div class="mt-24 p-4 rounded-2xl border-2 border-dashed border-max-accent/30 bg-max-muted/30">
-          <p class="text-white/50 text-sm text-center">
+        <div class="mt-24 p-4 rounded-2xl border-2 border-dashed border-[#FF6B6B]/30 bg-[#C4B5FD]/30">
+          <p class="text-black/50 text-sm text-center">
             💡 提示：选择牌阵模式 → 点击洗牌 → 点击抽牌 → 点击卡牌翻转查看结果
           </p>
         </div>

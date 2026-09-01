@@ -255,7 +255,7 @@ onMounted(() => {
     <!-- Hero Section -->
     <section class="relative min-h-[35vh] flex items-center justify-center px-6 py-30 overflow-hidden">
       <div class="absolute inset-0 flex items-center justify-center pointer-events-none" aria-hidden="true">
-        <span class="text-[10rem] md:text-[18rem] font-heading font-bold text-max-quaternary/10 uppercase select-none leading-none">
+        <span class="text-[10rem] md:text-[18rem] font-heading font-bold text-[#FF6B6B]/10 uppercase select-none leading-none">
           WALLPAPER
         </span>
       </div>
@@ -265,10 +265,10 @@ onMounted(() => {
 
       <div class="relative z-20 text-center max-w-4xl mx-auto">
         <div class="text-8xl md:text-9xl mb-9 animate-wiggle">🖼️</div>
-        <h1 class="font-heading text-5xl md:text-7xl lg:text-8xl font-bold uppercase leading-none mb-9 text-shadow-mega text-max-quaternary">
+        <h1 class="font-heading text-5xl md:text-7xl lg:text-8xl font-bold uppercase leading-none mb-9 text-shadow-mega text-[#FF6B6B]">
           壁纸生成器
         </h1>
-        <p class="text-xl md:text-2xl text-white/80 max-w-3xl mx-auto">
+        <p class="text-xl md:text-2xl text-black/80 max-w-3xl mx-auto">
           选择你喜欢的奶蛙图片，一键生成专属壁纸
         </p>
       </div>
@@ -282,9 +282,9 @@ onMounted(() => {
           <!-- Left Panel: Settings -->
           <div class="lg:col-span-1 space-y-9">
             <!-- Size Preset -->
-            <div class="p-6 rounded-3xl border-4 border-max-accent bg-max-muted/80"
+            <div class="p-6 rounded-3xl border-4 border-[#FF6B6B] bg-[#C4B5FD]/80"
               style="box-shadow: 6px 6px 0 #FFE600, 12px 12px 0 #FF3AF2;">
-              <h3 class="font-heading text-xl font-bold text-max-accent uppercase mb-6">📐 尺寸选择</h3>
+              <h3 class="font-heading text-xl font-bold text-[#FF6B6B] uppercase mb-6">📐 尺寸选择</h3>
               <div class="grid grid-cols-2 gap-3">
                 <button
                   v-for="preset in sizePresets"
@@ -293,22 +293,22 @@ onMounted(() => {
                   class="px-3 py-3 rounded-xl border-2 text-sm font-bold transition-all duration-300"
                   :class="[
                     wallpaperWidth === preset.width && wallpaperHeight === preset.height
-                      ? 'bg-max-accent text-max-background border-max-accent'
-                      : 'border-max-muted text-white/70 hover:border-max-accent'
+                      ? 'bg-[#FF6B6B] text-max-background border-[#FF6B6B]'
+                      : 'border-black text-black/70 hover:border-[#FF6B6B]'
                   ]"
                 >
                   {{ preset.name }}
                 </button>
               </div>
-              <div class="mt-6 text-white/60 text-sm">
-                当前: <span class="text-max-accent font-bold">{{ wallpaperWidth }} × {{ wallpaperHeight }}</span>
+              <div class="mt-6 text-black/60 text-sm">
+                当前: <span class="text-[#FF6B6B] font-bold">{{ wallpaperWidth }} × {{ wallpaperHeight }}</span>
               </div>
             </div>
 
             <!-- Background Color -->
-            <div class="p-6 rounded-3xl border-4 border-max-secondary bg-max-muted/80"
+            <div class="p-6 rounded-3xl border-4 border-black bg-[#C4B5FD]/80"
               style="box-shadow: 6px 6px 0 #FF3AF2, 12px 12px 0 #00F5D4;">
-              <h3 class="font-heading text-xl font-bold text-max-secondary uppercase mb-6">🎨 背景颜色</h3>
+              <h3 class="font-heading text-xl font-bold text-[#FFD93D] uppercase mb-6">🎨 背景颜色</h3>
               <div class="space-y-3">
                 <button
                   v-for="color in bgColorOptions"
@@ -317,15 +317,15 @@ onMounted(() => {
                   class="w-full px-4 py-4.5 rounded-xl border-2 text-left transition-all duration-300 flex items-center gap-4.5"
                   :class="[
                     bgColor === color.value
-                      ? 'border-max-secondary bg-max-secondary/20'
-                      : 'border-max-muted hover:border-max-secondary'
+                      ? 'border-black bg-[#FFD93D]/20'
+                      : 'border-black hover:border-black'
                   ]"
                 >
                   <div
                     class="w-8 h-8 rounded-lg border-2 border-white/20"
                     :style="{ background: color.value === 'gradient-purple' ? 'linear-gradient(135deg, #0D0D1A, #2D1B4E)' : color.value === 'gradient-blue' ? 'linear-gradient(135deg, #0D0D1A, #1a1a3a)' : color.value === 'gradient-pink' ? 'linear-gradient(135deg, #2D1B4E, #4a1a5e)' : color.value }"
                   ></div>
-                  <span class="text-white/80">{{ color.name }}</span>
+                  <span class="text-black/80">{{ color.name }}</span>
                 </button>
               </div>
             </div>
@@ -360,20 +360,20 @@ onMounted(() => {
           <div class="lg:col-span-2 space-y-9">
             <!-- Image Selection Header -->
             <div class="flex items-center justify-between">
-              <h3 class="font-heading text-2xl font-bold text-max-accent uppercase">
+              <h3 class="font-heading text-2xl font-bold text-[#FF6B6B] uppercase">
                 🖼️ 选择图片 ({{ selectedImages.length }}/12)
               </h3>
               <button
                 v-if="selectedImages.length > 0"
                 @click="selectedImages = []"
-                class="text-max-secondary hover:text-white transition-colors text-sm"
+                class="text-[#FFD93D] hover:text-white transition-colors text-sm"
               >
                 清空选择
               </button>
             </div>
 
             <!-- Image Grid -->
-            <div class="grid grid-cols-4 sm:grid-cols-5 md:grid-cols-6 gap-3 max-h-[400px] overflow-y-auto p-4 rounded-3xl border-4 border-max-tertiary bg-max-muted/50">
+            <div class="grid grid-cols-4 sm:grid-cols-5 md:grid-cols-6 gap-3 max-h-[400px] overflow-y-auto p-4 rounded-3xl border-4 border-black bg-[#C4B5FD]/50">
               <div
                 v-for="(image, index) in allImages"
                 :key="image.filename"
@@ -381,8 +381,8 @@ onMounted(() => {
                 class="relative aspect-square rounded-xl border-2 overflow-hidden cursor-pointer transition-all duration-200"
                 :class="[
                   isSelected(image)
-                    ? 'border-max-accent scale-105 shadow-lg ring-2 ring-max-accent'
-                    : 'border-transparent hover:border-max-secondary hover:scale-105'
+                    ? 'border-[#FF6B6B] scale-105 shadow-lg ring-2 ring-max-accent'
+                    : 'border-transparent hover:border-black hover:scale-105'
                 ]"
               >
                 <img
@@ -393,13 +393,13 @@ onMounted(() => {
                 />
                 <div
                   v-if="isSelected(image)"
-                  class="absolute top-1 right-1 w-6 h-6 rounded-full bg-max-accent flex items-center justify-center text-max-background text-xs font-bold"
+                  class="absolute top-1 right-1 w-6 h-6 rounded-full bg-[#FF6B6B] flex items-center justify-center text-max-background text-xs font-bold"
                 >
                   ✓
                 </div>
                 <div
                   v-if="isSelected(image)"
-                  class="absolute bottom-1 left-1 px-2 py-1 rounded-full bg-max-background/80 text-max-accent text-xs font-bold"
+                  class="absolute bottom-1 left-1 px-2 py-1 rounded-full bg-[#FFFDF5]/80 text-[#FF6B6B] text-xs font-bold"
                 >
                   #{{ selectedImages.indexOf(image) + 1 }}
                 </div>
@@ -407,16 +407,16 @@ onMounted(() => {
             </div>
 
             <!-- Canvas Preview -->
-            <div class="p-4 rounded-3xl border-4 border-max-quaternary bg-max-muted/50"
+            <div class="p-4 rounded-3xl border-4 border-black bg-[#C4B5FD]/50"
               style="box-shadow: 6px 6px 0 #FF6B35, 12px 12px 0 #7B2FFF;">
-              <h3 class="font-heading text-xl font-bold text-max-quaternary uppercase mb-6">📱 壁纸预览</h3>
+              <h3 class="font-heading text-xl font-bold text-[#FF6B6B] uppercase mb-6">📱 壁纸预览</h3>
               <div class="relative bg-black rounded-2xl overflow-hidden" style="aspect-ratio: 16/9;">
                 <canvas
                   ref="canvasRef"
                   class="w-full h-full object-contain"
                 ></canvas>
                 <div v-if="selectedImages.length === 0" class="absolute inset-0 flex items-center justify-center">
-                  <p class="text-white/40 text-lg">请先选择图片或点击"一键生成"</p>
+                  <p class="text-black/40 text-lg">请先选择图片或点击"一键生成"</p>
                 </div>
               </div>
             </div>
@@ -436,11 +436,11 @@ onMounted(() => {
           <div class="relative max-w-6xl w-full">
             <button
               @click="showPreview = false"
-              class="absolute -top-12 right-0 w-10 h-10 rounded-full border-4 border-max-secondary bg-max-background text-max-secondary hover:bg-max-secondary hover:text-max-background transition-all duration-300 flex items-center justify-center text-lg font-bold z-10"
+              class="absolute -top-12 right-0 w-10 h-10 rounded-full border-4 border-black bg-[#FFFDF5] text-[#FFD93D] hover:bg-[#FFD93D] hover:text-max-background transition-all duration-300 flex items-center justify-center text-lg font-bold z-10"
             >
               ✕
             </button>
-            <div class="rounded-3xl border-4 border-max-accent overflow-hidden"
+            <div class="rounded-3xl border-4 border-[#FF6B6B] overflow-hidden"
               style="box-shadow: 12px 12px 0 #FFE600, 24px 24px 0 #FF3AF2;">
               <canvas ref="canvasRef" class="w-full"></canvas>
             </div>

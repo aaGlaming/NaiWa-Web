@@ -213,7 +213,7 @@ onUnmounted(() => {
     <!-- Hero Section -->
     <section class="relative min-h-[35vh] flex items-center justify-center px-6 py-30 overflow-hidden">
       <div class="absolute inset-0 flex items-center justify-center pointer-events-none" aria-hidden="true">
-        <span class="text-[10rem] md:text-[18rem] font-heading font-bold text-max-secondary/10 uppercase select-none leading-none">
+        <span class="text-[10rem] md:text-[18rem] font-heading font-bold text-[#FFD93D]/10 uppercase select-none leading-none">
           LUCKY
         </span>
       </div>
@@ -224,10 +224,10 @@ onUnmounted(() => {
 
       <div class="relative z-20 text-center max-w-4xl mx-auto">
         <div class="text-8xl md:text-9xl mb-9 animate-wiggle">🎰</div>
-        <h1 class="font-heading text-5xl md:text-7xl lg:text-8xl font-bold uppercase leading-none mb-9 text-shadow-mega text-max-secondary">
+        <h1 class="font-heading text-5xl md:text-7xl lg:text-8xl font-bold uppercase leading-none mb-9 text-shadow-mega text-[#FFD93D]">
           奶蛙抽卡机
         </h1>
-        <p class="text-xl md:text-2xl text-white/80 max-w-3xl mx-auto">
+        <p class="text-xl md:text-2xl text-black/80 max-w-3xl mx-auto">
           每次抽取一张或十张奶蛙卡牌<br class="hidden md:block" />
           集齐所有稀有卡牌！
         </p>
@@ -242,14 +242,14 @@ onUnmounted(() => {
           <!-- Left Panel: Stats & Controls -->
           <div class="lg:col-span-1 space-y-9">
             <!-- Draw Mode -->
-            <div class="flex items-center gap-3 p-2 rounded-2xl border-4 border-max-secondary bg-max-muted/50">
+            <div class="flex items-center gap-3 p-2 rounded-2xl border-4 border-black bg-[#C4B5FD]/50">
               <button
                 @click="drawMode = 'single'"
                 class="flex-1 px-4 py-4.5 rounded-xl font-heading font-bold text-sm transition-all duration-300"
                 :class="[
                   drawMode === 'single'
-                    ? 'bg-max-secondary text-max-background'
-                    : 'text-white/70 hover:text-white'
+                    ? 'bg-[#FFD93D] text-max-background'
+                    : 'text-black/70 hover:text-white'
                 ]"
               >
                 🎴 单抽
@@ -259,8 +259,8 @@ onUnmounted(() => {
                 class="flex-1 px-4 py-4.5 rounded-xl font-heading font-bold text-sm transition-all duration-300"
                 :class="[
                   drawMode === 'ten'
-                    ? 'bg-max-secondary text-max-background'
-                    : 'text-white/70 hover:text-white'
+                    ? 'bg-[#FFD93D] text-max-background'
+                    : 'text-black/70 hover:text-white'
                 ]"
               >
                 🎰 十连抽
@@ -293,32 +293,32 @@ onUnmounted(() => {
             </MaximalButton>
 
             <!-- Hint -->
-            <p v-if="drawnCards.length > 0 && hasUnrevealed" class="text-white/40 text-sm text-center">
+            <p v-if="drawnCards.length > 0 && hasUnrevealed" class="text-black/40 text-sm text-center">
               💡 按 Enter 一键查看 | 点击卡牌逐张翻转
             </p>
 
             <!-- Rarity Info -->
-            <div class="p-6 rounded-3xl border-4 border-max-accent bg-max-muted/80"
+            <div class="p-6 rounded-3xl border-4 border-[#FF6B6B] bg-[#C4B5FD]/80"
               style="box-shadow: 6px 6px 0 #FFE600, 12px 12px 0 #FF3AF2;">
-              <h3 class="font-heading text-xl font-bold text-max-accent uppercase mb-6">📊 稀有度概率</h3>
+              <h3 class="font-heading text-xl font-bold text-[#FF6B6B] uppercase mb-6">📊 稀有度概率</h3>
               <div class="space-y-4.5">
                 <div v-for="(config, rarity) in rarityConfig" :key="rarity" class="flex items-center justify-between">
                   <span class="font-bold" :style="{ color: config.color }">
                     {{ config.label }} ({{ rarity }})
                   </span>
-                  <span class="text-white/60">{{ config.weight }}%</span>
+                  <span class="text-black/60">{{ config.weight }}%</span>
                 </div>
               </div>
             </div>
 
             <!-- Draw Stats -->
-            <div class="p-6 rounded-3xl border-4 border-max-tertiary bg-max-muted/80"
+            <div class="p-6 rounded-3xl border-4 border-black bg-[#C4B5FD]/80"
               style="box-shadow: 6px 6px 0 #00F5D4, 12px 12px 0 #FFE600;">
-              <h3 class="font-heading text-xl font-bold text-max-tertiary uppercase mb-6">📈 我的统计</h3>
+              <h3 class="font-heading text-xl font-bold text-[#C4B5FD] uppercase mb-6">📈 我的统计</h3>
               <div class="space-y-3">
-                <div class="flex items-center justify-between text-white/70">
+                <div class="flex items-center justify-between text-black/70">
                   <span>总抽卡次数</span>
-                  <span class="font-bold text-max-accent">{{ stats.N + stats.R + stats.SR + stats.SSR }}</span>
+                  <span class="font-bold text-[#FF6B6B]">{{ stats.N + stats.R + stats.SR + stats.SSR }}</span>
                 </div>
                 <div class="flex items-center justify-between">
                   <span :style="{ color: '#4CAF50' }">普通</span>
@@ -345,14 +345,14 @@ onUnmounted(() => {
 
           <!-- Right Panel: Card Display -->
           <div class="lg:col-span-2">
-            <div class="p-8 rounded-3xl border-4 border-max-quaternary bg-max-muted/50 min-h-[400px] flex items-center justify-center"
+            <div class="p-8 rounded-3xl border-4 border-black bg-[#C4B5FD]/50 min-h-[400px] flex items-center justify-center"
               style="box-shadow: 6px 6px 0 #FF6B35, 12px 12px 0 #7B2FFF;">
 
               <!-- Empty State -->
               <div v-if="drawnCards.length === 0" class="text-center">
                 <div class="text-8xl mb-6 animate-float">🐸</div>
-                <p class="text-white/50 text-xl">点击"开始抽卡"试试运气吧！</p>
-                <p class="text-white/30 text-sm mt-3">支持单抽和十连抽</p>
+                <p class="text-black/50 text-xl">点击"开始抽卡"试试运气吧！</p>
+                <p class="text-black/30 text-sm mt-3">支持单抽和十连抽</p>
               </div>
 
               <!-- Card Display -->

@@ -97,7 +97,7 @@ function skip() {
     </Transition>
 
     <!-- 跳过提示 -->
-    <div class="absolute bottom-8 text-white/50 text-lg animate-pulse z-10">
+    <div class="absolute bottom-8 text-black/50 text-lg animate-pulse z-10">
       点击任意处跳过
     </div>
   </div>

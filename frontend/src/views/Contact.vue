@@ -63,7 +63,7 @@ const faqItems = [
     <!-- Hero Section -->
     <section class="relative min-h-[50vh] flex items-center justify-center px-6 py-36 overflow-hidden">
       <div class="absolute inset-0 flex items-center justify-center pointer-events-none" aria-hidden="true">
-        <span class="text-[10rem] md:text-[18rem] font-heading font-bold text-max-quaternary/10 uppercase select-none leading-none">
+        <span class="text-[10rem] md:text-[18rem] font-heading font-bold text-[#FF6B6B]/10 uppercase select-none leading-none">
           CONTACT
         </span>
       </div>
@@ -75,10 +75,10 @@ const faqItems = [
 
       <div class="relative z-20 text-center max-w-4xl mx-auto">
         <div class="text-8xl md:text-9xl mb-9 animate-wiggle">💌</div>
-        <h1 class="font-heading text-5xl md:text-7xl lg:text-8xl font-bold uppercase leading-none mb-9 text-shadow-mega text-max-quaternary">
+        <h1 class="font-heading text-5xl md:text-7xl lg:text-8xl font-bold uppercase leading-none mb-9 text-shadow-mega text-[#FF6B6B]">
           联系我们
         </h1>
-        <p class="text-xl md:text-2xl text-white/80 max-w-3xl mx-auto">
+        <p class="text-xl md:text-2xl text-black/80 max-w-3xl mx-auto">
           有问题、建议或合作意向？<br class="hidden md:block" />
           欢迎随时联系我们
         </p>
@@ -92,7 +92,7 @@ const faqItems = [
           <div
             v-for="(method, index) in contactMethods"
             :key="method.title"
-            class="text-center p-6 rounded-3xl border-4 bg-max-muted/60 backdrop-blur-sm transition-all duration-300 hover:scale-105"
+            class="text-center p-6 rounded-3xl border-4 bg-[#C4B5FD]/60 backdrop-blur-sm transition-all duration-300 hover:scale-105"
             :style="{
               borderColor: ACCENT_COLORS[method.colorIndex],
               boxShadow: `4px 4px 0 ${ACCENT_COLORS[(method.colorIndex + 1) % 5]}, 8px 8px 0 ${ACCENT_COLORS[(method.colorIndex + 2) % 5]}`
@@ -102,7 +102,7 @@ const faqItems = [
             <h3 class="font-heading text-lg font-bold uppercase mb-1.5" :style="{ color: ACCENT_COLORS[method.colorIndex] }">
               {{ method.title }}
             </h3>
-            <p class="text-white/70">{{ method.value }}</p>
+            <p class="text-black/70">{{ method.value }}</p>
           </div>
         </div>
       </div>
@@ -123,10 +123,10 @@ const faqItems = [
         <MaximalCard v-if="submitted" :colorIndex="2" pattern="dots">
           <div class="text-center py-18">
             <div class="text-7xl mb-9 animate-bounce-subtle">🎉</div>
-            <h3 class="font-heading text-3xl font-bold text-max-tertiary uppercase mb-6 text-shadow-double">
+            <h3 class="font-heading text-3xl font-bold text-[#C4B5FD] uppercase mb-6 text-shadow-double">
               发送成功！
             </h3>
-            <p class="text-white/80 text-lg mb-9">感谢你的留言，我们会尽快回复你！</p>
+            <p class="text-black/80 text-lg mb-9">感谢你的留言，我们会尽快回复你！</p>
             <MaximalButton color="tertiary" size="md" @click="submitted = false">
               发送更多消息
             </MaximalButton>
@@ -137,13 +137,13 @@ const faqItems = [
         <MaximalCard v-else :colorIndex="3" pattern="stripes">
           <form @submit.prevent="handleSubmit" class="space-y-9">
             <!-- Error -->
-            <div v-if="error" class="p-4 rounded-2xl border-4 border-max-secondary bg-max-secondary/10 text-max-secondary text-center">
+            <div v-if="error" class="p-4 rounded-2xl border-4 border-black bg-[#FFD93D]/10 text-[#FFD93D] text-center">
               {{ error }}
             </div>
 
             <!-- Name -->
             <div>
-              <label class="block font-heading text-sm font-bold text-max-accent uppercase tracking-wider mb-3">
+              <label class="block font-heading text-sm font-bold text-[#FF6B6B] uppercase tracking-wider mb-3">
                 🐸 你的名字
               </label>
               <input
@@ -151,13 +151,13 @@ const faqItems = [
                 type="text"
                 required
                 placeholder="输入你的名字"
-                class="w-full px-6 py-6 rounded-full border-4 border-max-accent bg-max-muted/50 backdrop-blur-sm text-white text-lg placeholder-white/40 focus:border-max-secondary focus:ring-4 focus:ring-max-secondary/30 focus:ring-offset-2 focus:ring-offset-max-background outline-none transition-all duration-300"
+                class="w-full px-6 py-6 rounded-full border-4 border-[#FF6B6B] bg-[#C4B5FD]/50 backdrop-blur-sm text-white text-lg placeholder-white/40 focus:border-black focus:ring-4 focus:ring-max-secondary/30 focus:ring-offset-2 focus:ring-offset-max-background outline-none transition-all duration-300"
               />
             </div>
 
             <!-- Email -->
             <div>
-              <label class="block font-heading text-sm font-bold text-max-secondary uppercase tracking-wider mb-3">
+              <label class="block font-heading text-sm font-bold text-[#FFD93D] uppercase tracking-wider mb-3">
                 📧 邮箱地址
               </label>
               <input
@@ -165,13 +165,13 @@ const faqItems = [
                 type="email"
                 required
                 placeholder="输入你的邮箱"
-                class="w-full px-6 py-6 rounded-full border-4 border-max-secondary bg-max-muted/50 backdrop-blur-sm text-white text-lg placeholder-white/40 focus:border-max-tertiary focus:ring-4 focus:ring-max-tertiary/30 focus:ring-offset-2 focus:ring-offset-max-background outline-none transition-all duration-300"
+                class="w-full px-6 py-6 rounded-full border-4 border-black bg-[#C4B5FD]/50 backdrop-blur-sm text-white text-lg placeholder-white/40 focus:border-black focus:ring-4 focus:ring-max-tertiary/30 focus:ring-offset-2 focus:ring-offset-max-background outline-none transition-all duration-300"
               />
             </div>
 
             <!-- Subject -->
             <div>
-              <label class="block font-heading text-sm font-bold text-max-tertiary uppercase tracking-wider mb-3">
+              <label class="block font-heading text-sm font-bold text-[#C4B5FD] uppercase tracking-wider mb-3">
                 📌 主题
               </label>
               <input
@@ -179,13 +179,13 @@ const faqItems = [
                 type="text"
                 required
                 placeholder="消息主题"
-                class="w-full px-6 py-6 rounded-full border-4 border-max-tertiary bg-max-muted/50 backdrop-blur-sm text-white text-lg placeholder-white/40 focus:border-max-quaternary focus:ring-4 focus:ring-max-quaternary/30 focus:ring-offset-2 focus:ring-offset-max-background outline-none transition-all duration-300"
+                class="w-full px-6 py-6 rounded-full border-4 border-black bg-[#C4B5FD]/50 backdrop-blur-sm text-white text-lg placeholder-white/40 focus:border-black focus:ring-4 focus:ring-max-quaternary/30 focus:ring-offset-2 focus:ring-offset-max-background outline-none transition-all duration-300"
               />
             </div>
 
             <!-- Message -->
             <div>
-              <label class="block font-heading text-sm font-bold text-max-quaternary uppercase tracking-wider mb-3">
+              <label class="block font-heading text-sm font-bold text-[#FF6B6B] uppercase tracking-wider mb-3">
                 💬 留言内容
               </label>
               <textarea
@@ -193,7 +193,7 @@ const faqItems = [
                 required
                 rows="5"
                 placeholder="写下你想说的..."
-                class="w-full px-6 py-6 rounded-3xl border-4 border-max-quaternary bg-max-muted/50 backdrop-blur-sm text-white text-lg placeholder-white/40 focus:border-max-quinary focus:ring-4 focus:ring-max-quinary/30 focus:ring-offset-2 focus:ring-offset-max-background outline-none transition-all duration-300 resize-none"
+                class="w-full px-6 py-6 rounded-3xl border-4 border-black bg-[#C4B5FD]/50 backdrop-blur-sm text-white text-lg placeholder-white/40 focus:border-black focus:ring-4 focus:ring-max-quinary/30 focus:ring-offset-2 focus:ring-offset-max-background outline-none transition-all duration-300 resize-none"
               ></textarea>
             </div>
 
@@ -235,7 +235,7 @@ const faqItems = [
             <h3 class="font-heading text-lg font-bold uppercase mb-4.5" :style="{ color: ACCENT_COLORS[index % 5] }">
               {{ item.question }}
             </h3>
-            <p class="text-white/80 text-base leading-relaxed">{{ item.answer }}</p>
+            <p class="text-black/80 text-base leading-relaxed">{{ item.answer }}</p>
           </MaximalCard>
         </div>
       </div>
@@ -244,21 +244,21 @@ const faqItems = [
     <!-- Bottom CTA -->
     <section class="relative py-36 px-6">
       <div class="max-w-4xl mx-auto text-center">
-        <div class="relative p-12 rounded-3xl border-4 border-max-quaternary bg-max-muted/80 backdrop-blur-sm pattern-checker"
+        <div class="relative p-12 rounded-3xl border-4 border-black bg-[#C4B5FD]/80 backdrop-blur-sm pattern-checker"
           style="box-shadow: 8px 8px 0 #FF6B35, 16px 16px 0 #7B2FFF, 24px 24px 0 #FFE600;"
         >
           <div class="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden" aria-hidden="true">
-            <span class="text-[8rem] md:text-[12rem] font-heading font-bold text-max-quaternary/5 uppercase select-none leading-none">
+            <span class="text-[8rem] md:text-[12rem] font-heading font-bold text-[#FF6B6B]/5 uppercase select-none leading-none">
               HI
             </span>
           </div>
 
           <div class="relative z-10">
             <div class="text-5xl mb-6 animate-wiggle">👋</div>
-            <h2 class="font-heading text-2xl md:text-4xl font-bold uppercase text-max-quaternary text-shadow-double mb-6">
+            <h2 class="font-heading text-2xl md:text-4xl font-bold uppercase text-[#FF6B6B] text-shadow-double mb-6">
               期待你的来信！
             </h2>
-            <p class="text-white/70 text-lg mb-9">
+            <p class="text-black/70 text-lg mb-9">
               无论你是奶蛙爱好者、表情包创作者，还是只是想聊聊天，我们都欢迎你！
             </p>
             <MaximalButton variant="secondary" color="quaternary" size="md" icon="🐸" @click="$router.push('/')">

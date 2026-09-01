@@ -38,20 +38,20 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="p-6 rounded-3xl border-4 border-max-secondary bg-max-muted/80"
+  <div class="p-6  border-4 border-black bg-[#C4B5FD]/80"
     style="box-shadow: 6px 6px 0 #FF3AF2, 12px 12px 0 #00F5D4;">
     <div class="flex items-center justify-between mb-4">
-      <h3 class="font-heading text-xl font-bold text-max-secondary uppercase">📋 抽卡记录</h3>
+      <h3 class="font-heading text-xl font-bold text-[#FFD93D] uppercase">📋 抽卡记录</h3>
       <button
         v-if="history.length > 0"
         @click="clearHistory"
-        class="text-sm text-white/50 hover:text-max-secondary transition-colors"
+        class="text-sm text-black/50 hover:text-[#FFD93D] transition-colors"
       >
         清空记录
       </button>
     </div>
 
-    <div v-if="history.length === 0" class="text-center py-8 text-white/40">
+    <div v-if="history.length === 0" class="text-center py-8 text-black/40">
       <p class="text-4xl mb-2">🎰</p>
       <p>还没有抽卡记录</p>
     </div>
@@ -60,7 +60,7 @@ onMounted(() => {
       <div
         v-for="(record, index) in history.slice().reverse()"
         :key="index"
-        class="flex items-center gap-3 p-3 rounded-xl bg-max-background/50 border border-max-muted"
+        class="flex items-center gap-3 p-3 rounded-xl bg-[#FFFDF5]/50 border border-black"
       >
         <img
           :src="`${baseUrl}images/${record.image}`"
@@ -68,8 +68,8 @@ onMounted(() => {
           class="w-10 h-10 rounded-lg object-cover"
         />
         <div class="flex-1 min-w-0">
-          <p class="text-white/80 text-sm truncate">{{ record.image }}</p>
-          <p class="text-white/40 text-xs">{{ formatTime(record.timestamp) }}</p>
+          <p class="text-black/80 text-sm truncate">{{ record.image }}</p>
+          <p class="text-black/40 text-xs">{{ formatTime(record.timestamp) }}</p>
         </div>
         <span
           class="px-2 py-1 rounded-full text-xs font-bold"

@@ -24,36 +24,36 @@ const props = defineProps({
 const emit = defineEmits(['click'])
 
 const colorMap = {
-  accent:    { bg: 'bg-max-accent', border: 'border-max-accent', text: 'text-max-background', hover: 'hover:bg-max-secondary hover:border-max-secondary' },
-  secondary: { bg: 'bg-max-secondary', border: 'border-max-secondary', text: 'text-white', hover: 'hover:bg-max-accent hover:border-max-accent' },
-  tertiary:  { bg: 'bg-max-tertiary', border: 'border-max-tertiary', text: 'text-max-background', hover: 'hover:bg-max-quaternary hover:border-max-quaternary' },
-  quaternary:{ bg: 'bg-max-quaternary', border: 'border-max-quaternary', text: 'text-white', hover: 'hover:bg-max-quinary hover:border-max-quinary' },
-  quinary:   { bg: 'bg-max-quinary', border: 'border-max-quinary', text: 'text-white', hover: 'hover:bg-max-accent hover:border-max-accent' }
+  accent:     'bg-[#FF6B6B] text-white',
+  secondary:  'bg-[#FFD93D] text-black',
+  tertiary:   'bg-[#C4B5FD] text-black',
+  quaternary: 'bg-white text-black',
+  quinary:    'bg-[#FF6B6B] text-white'
 }
 
 const sizeClasses = {
-  sm: 'h-10 px-6 text-sm',
-  md: 'h-14 px-10 text-base',
-  lg: 'h-16 px-12 text-lg'
+  sm: 'h-10 px-5 text-xs',
+  md: 'h-12 px-8 text-sm',
+  lg: 'h-14 px-10 text-base'
 }
 
-const colors = computed(() => colorMap[props.color] || colorMap.accent)
+const colorClass = computed(() => colorMap[props.color] || colorMap.accent)
 
 const classes = computed(() => {
-  const base = 'relative inline-flex items-center justify-center gap-2 font-heading font-bold uppercase tracking-widest rounded-full border-4 transition-all duration-300 cursor-pointer select-none'
+  const base = 'relative inline-flex items-center justify-center gap-2 font-heading font-bold uppercase tracking-wider border-4 border-black transition-all duration-100 cursor-pointer select-none'
   const size = sizeClasses[props.size]
 
   if (props.variant === 'primary') {
-    return `${base} ${size} ${colors.value.bg} ${colors.value.border} ${colors.value.text} ${colors.value.hover} hover:scale-110 active:scale-95 shadow-multi hover:shadow-multi-lg`
+    return `${base} ${size} ${colorClass.value} shadow-neo-sm hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] active:translate-x-[4px] active:translate-y-[4px]`
   }
   if (props.variant === 'secondary') {
-    return `${base} ${size} bg-transparent ${colors.value.border} ${colors.value.text} border-dashed ${colors.value.hover} hover:scale-105 hover:border-solid active:scale-95`
+    return `${base} ${size} bg-transparent ${colorClass.value.replace('bg-', 'border-4 border-black hover:bg-').split(' ')[0]} border-black hover:shadow-neo-sm hover:translate-x-[2px] hover:translate-y-[2px] active:translate-x-[4px] active:translate-y-[4px]`
   }
   if (props.variant === 'outline') {
-    return `${base} ${size} bg-max-muted/50 ${colors.value.border} ${colors.value.text} ${colors.value.hover} hover:scale-105 active:scale-95 shadow-multi hover:shadow-multi-lg`
+    return `${base} ${size} bg-white text-black shadow-neo-sm hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] active:translate-x-[4px] active:translate-y-[4px]`
   }
   // ghost
-  return `${base} ${size} bg-transparent border-transparent ${colors.value.text} hover:bg-max-muted/30 hover:border-max-muted hover:scale-105`
+  return `${base} ${size} bg-transparent border-transparent hover:border-black hover:bg-[#FFD93D] hover:shadow-neo-sm hover:translate-x-[2px] hover:translate-y-[2px]`
 })
 </script>
 

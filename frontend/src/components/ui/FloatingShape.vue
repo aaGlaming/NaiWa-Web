@@ -1,12 +1,11 @@
 <script setup>
 import { computed } from 'vue'
-import { getAccentColor } from '@/utils'
 
 const props = defineProps({
   colorIndex: { type: Number, default: 0 },
   size: { type: String, default: 'md' },
-  shape: { type: String, default: 'circle', validator: v => ['circle', 'square', 'diamond'].includes(v) },
-  animation: { type: String, default: 'float', validator: v => ['float', 'float-reverse', 'wiggle', 'bounce', 'spin'].includes(v) },
+  shape: { type: String, default: 'square' },
+  animation: { type: String, default: 'float' },
   top: String,
   left: String,
   right: String,
@@ -14,7 +13,7 @@ const props = defineProps({
   emoji: String
 })
 
-const color = computed(() => getAccentColor(props.colorIndex))
+const colors = ['#FF6B6B', '#FFD93D', '#C4B5FD', '#000000', '#FFFFFF']
 
 const sizeClasses = {
   sm: 'w-6 h-6',
@@ -25,20 +24,19 @@ const sizeClasses = {
 
 const shapeClasses = {
   circle: 'rounded-full',
-  square: 'rounded-xl',
-  diamond: 'rounded-xl rotate-45'
+  square: '',
+  diamond: 'rotate-45'
 }
 
 const animClasses = {
   'float': 'animate-float',
-  'float-reverse': 'animate-float-reverse',
-  'wiggle': 'animate-wiggle',
-  'bounce': 'animate-bounce-subtle',
-  'spin': 'animate-spin-slow'
+  'spin': 'animate-spin-slow',
+  'bounce': 'animate-bounce-subtle'
 }
 
 const style = computed(() => ({
-  backgroundColor: color.value,
+  backgroundColor: colors[props.colorIndex % colors.length],
+  border: '3px solid #000',
   position: 'absolute',
   top: props.top,
   left: props.left,
@@ -50,10 +48,10 @@ const style = computed(() => ({
 
 <template>
   <div
-    :class="[sizeClasses[size], shapeClasses[shape], animClasses[animation], 'opacity-50 pointer-events-none']"
+    :class="[sizeClasses[size], shapeClasses[shape], animClasses[animation], 'pointer-events-none']"
     :style="style"
     aria-hidden="true"
   >
-    <span v-if="emoji" class="flex items-center justify-center h-full text-2xl">{{ emoji }}</span>
+    <span v-if="emoji" class="flex items-center justify-center h-full text-xl">{{ emoji }}</span>
   </div>
 </template>

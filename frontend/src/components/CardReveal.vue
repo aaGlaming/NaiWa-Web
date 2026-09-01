@@ -106,7 +106,7 @@ onUnmounted(() => {
             >
               <!-- 卡牌背面 -->
               <div
-                class="absolute inset-0 rounded-2xl border-4 flex flex-col items-center justify-center backface-hidden"
+                class="absolute inset-0  border-4 flex flex-col items-center justify-center backface-hidden"
                 :style="{
                   borderColor: ACCENT_COLORS[index % 5],
                   backgroundColor: '#2D1B4E',
@@ -124,7 +124,7 @@ onUnmounted(() => {
 
               <!-- 卡牌正面 -->
               <div
-                class="absolute inset-0 rounded-2xl border-4 overflow-hidden rotate-y-180 backface-hidden"
+                class="absolute inset-0  border-4 overflow-hidden rotate-y-180 backface-hidden"
                 :style="{
                   borderColor: ACCENT_COLORS[(index + 2) % 5],
                   boxShadow: `0 0 20px ${ACCENT_COLORS[(index + 2) % 5]}40`
@@ -138,7 +138,7 @@ onUnmounted(() => {
                 <!-- 单张下载按钮 -->
                 <button
                   @click.stop="downloadImage(image)"
-                  class="absolute bottom-2 right-2 w-8 h-8 rounded-full bg-max-background/80 border-2 flex items-center justify-center text-sm transition-all duration-300 hover:scale-110"
+                  class="absolute bottom-2 right-2 w-8 h-8 rounded-full bg-[#FFFDF5]/80 border-2 flex items-center justify-center text-sm transition-all duration-300 hover:scale-110"
                   :style="{
                     borderColor: ACCENT_COLORS[index % 5],
                     color: ACCENT_COLORS[index % 5]
@@ -153,7 +153,7 @@ onUnmounted(() => {
         </div>
 
         <!-- 提示文字 -->
-        <p class="text-white/60 text-lg font-body animate-pulse">
+        <p class="text-black/60 text-lg font-body animate-pulse">
           💡 按 Enter 直接显示所有
         </p>
       </div>
@@ -166,23 +166,23 @@ onUnmounted(() => {
         class="fixed inset-0 z-[210] flex items-center justify-center bg-black/80 backdrop-blur-sm"
       >
         <div
-          class="relative max-w-2xl w-full mx-4 rounded-3xl border-4 p-8 pattern-mesh"
+          class="relative max-w-2xl w-full mx-4  border-4 p-8 pattern-mesh"
           style="background-color: #2D1B4E; border-color: #FFE600; box-shadow: 12px 12px 0 #FFE600, 24px 24px 0 #FF3AF2, 36px 36px 0 #00F5D4;"
         >
           <!-- 关闭按钮 -->
           <button
             @click="closeModal"
-            class="absolute top-4 right-4 w-10 h-10 rounded-full border-4 border-max-secondary bg-max-background text-max-secondary hover:bg-max-secondary hover:text-max-background transition-all duration-300 flex items-center justify-center text-lg font-bold"
+            class="absolute top-4 right-4 w-10 h-10 rounded-full border-4 border-black bg-[#FFFDF5] text-[#FFD93D] hover:bg-[#FFD93D] hover:text-max-background transition-all duration-300 flex items-center justify-center text-lg font-bold"
           >
             ✕
           </button>
 
           <!-- 标题 -->
           <div class="text-center mb-6">
-            <h2 class="font-heading text-3xl md:text-4xl font-bold uppercase text-max-accent text-shadow-double mb-2">
+            <h2 class="font-heading text-3xl md:text-4xl font-bold uppercase text-[#FF6B6B] text-shadow-double mb-2">
               恭喜获得！
             </h2>
-            <p class="text-white/70">你抽到了这5张奶蛙卡牌</p>
+            <p class="text-black/70">你抽到了这5张奶蛙卡牌</p>
           </div>
 
           <!-- 卡牌预览 -->
@@ -215,7 +215,7 @@ onUnmounted(() => {
             <!-- 关闭 -->
             <button
               @click="closeModal"
-              class="px-8 py-3 rounded-full border-4 border-dashed border-max-secondary text-max-secondary font-heading font-bold uppercase tracking-wider transition-all duration-300 hover:bg-max-secondary hover:text-max-background hover:border-solid hover:scale-105"
+              class="px-8 py-3 rounded-full border-4 border-dashed border-black text-[#FFD93D] font-heading font-bold uppercase tracking-wider transition-all duration-300 hover:bg-[#FFD93D] hover:text-max-background hover:border-solid hover:scale-105"
             >
               ✕ 关闭
             </button>

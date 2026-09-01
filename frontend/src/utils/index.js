@@ -1,17 +1,15 @@
 /**
- * Color rotation for the five accent colors
+ * Neo-Brutalism color system
  */
 export const ACCENT_COLORS = [
-  '#FFE600', // Yellow (primary)
-  '#FF3AF2', // Magenta
-  '#00F5D4', // Cyan
-  '#FF6B35', // Orange
-  '#7B2FFF'  // Purple
+  '#FF6B6B',  // Hot Red
+  '#FFD93D',  // Vivid Yellow
+  '#C4B5FD',  // Soft Violet
+  '#000000',  // Black
+  '#FFFFFF'   // White
 ]
 
-export const ACCENT_COLOR_NAMES = [
-  'accent', 'secondary', 'tertiary', 'quaternary', 'quinary'
-]
+export const ACCENT_COLOR_NAMES = ['accent', 'secondary', 'muted', 'black', 'white']
 
 /**
  * Get accent color by index (with modulo rotation)
@@ -21,21 +19,13 @@ export function getAccentColor(index) {
 }
 
 /**
- * Get clashing border color for a given background accent
- */
-export function getClashingBorder(bgIndex) {
-  const clashIndex = (bgIndex + 2) % ACCENT_COLORS.length
-  return ACCENT_COLORS[clashIndex]
-}
-
-/**
  * Format image filename for display
  */
 export function formatFilename(filename) {
   return filename
-    .replace(/\.[^/.]+$/, '') // Remove extension
-    .replace(/_/g, ' ')       // Replace underscores with spaces
-    .replace(/-/g, ' ')       // Replace hyphens with spaces
+    .replace(/\.[^/.]+$/, '')
+    .replace(/_/g, ' ')
+    .replace(/-/g, ' ')
 }
 
 /**

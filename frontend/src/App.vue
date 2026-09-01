@@ -1,6 +1,6 @@
 <script setup>
 import { RouterView, RouterLink, useRoute } from 'vue-router'
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 import CardReveal from '@/components/CardReveal.vue'
 
 const route = useRoute()
@@ -17,93 +17,75 @@ const navItems = [
   { path: '/contact', label: '联系', icon: '💌' }
 ]
 
-const currentNavIndex = computed(() => {
-  return navItems.findIndex(item => item.path === route.path)
-})
-
 function toggleMenu() {
   isMenuOpen.value = !isMenuOpen.value
 }
 </script>
 
 <template>
-  <div class="min-h-screen bg-max-background relative overflow-hidden">
-    <!-- Global Pattern Layers -->
-    <div class="fixed inset-0 pointer-events-none z-0 pattern-dots opacity-30"></div>
-    <div class="fixed inset-0 pointer-events-none z-0 pattern-stripes opacity-20"></div>
-    <div class="fixed inset-0 pointer-events-none z-0 pattern-mesh"></div>
-
-    <!-- Floating Decorative Shapes -->
-    <div class="fixed top-[10%] left-[5%] w-6 h-6 bg-max-accent rounded-full animate-float opacity-60 z-30" aria-hidden="true"></div>
-    <div class="fixed top-[20%] right-[8%] w-8 h-8 bg-max-secondary rotate-45 animate-float-reverse opacity-50 z-30" aria-hidden="true"></div>
-    <div class="fixed bottom-[15%] left-[10%] w-10 h-10 bg-max-tertiary rounded-full animate-wiggle opacity-40 z-30" aria-hidden="true"></div>
-    <div class="fixed top-[60%] right-[5%] w-5 h-5 bg-max-quaternary animate-bounce-subtle opacity-50 z-30" aria-hidden="true"></div>
-    <div class="fixed bottom-[30%] right-[15%] w-7 h-7 bg-max-quinary rounded-full animate-float opacity-45 z-30" aria-hidden="true"></div>
+  <div class="min-h-screen bg-[#FFFDF5] text-[#000] relative overflow-hidden">
+    <!-- Global Pattern Layer -->
+    <div class="fixed inset-0 pointer-events-none z-0 pattern-dots opacity-[0.03]"></div>
 
     <!-- Navigation Header -->
-    <header class="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-max-background/80 border-b-4 border-max-accent">
-      <nav class="max-w-7xl mx-auto px-6 py-6 flex items-center justify-between">
+    <header class="fixed top-0 left-0 right-0 z-50 bg-[#FFFDF5] border-b-4 border-black">
+      <nav class="max-w-7xl mx-auto px-6 py-5 flex items-center justify-between">
         <!-- Logo -->
-        <RouterLink to="/" class="flex items-center gap-4.5 group">
-          <span class="text-4xl animate-wiggle">🐸</span>
-          <span class="font-heading text-2xl font-bold uppercase text-max-accent text-shadow-double group-hover:text-max-secondary transition-colors duration-300">
+        <RouterLink to="/" class="flex items-center gap-3 group">
+          <div class="w-12 h-12 bg-[#FFD93D] border-4 border-black flex items-center justify-center shadow-neo-sm group-hover:shadow-neo group-hover:translate-x-[2px] group-hover:translate-y-[2px] transition-all duration-100">
+            <span class="text-2xl">🐸</span>
+          </div>
+          <span class="font-heading text-2xl font-black uppercase tracking-tight">
             奶蛙世界
           </span>
         </RouterLink>
 
         <!-- Desktop Nav -->
-        <div class="hidden md:flex items-center gap-3">
+        <div class="hidden md:flex items-center gap-2">
           <RouterLink
-            v-for="(item, index) in navItems"
+            v-for="item in navItems"
             :key="item.path"
             :to="item.path"
-            class="relative px-5 py-3 font-heading font-bold uppercase tracking-wider text-sm border-2 transition-all duration-300 rounded-full"
+            class="px-4 py-2.5 font-heading font-bold uppercase tracking-wide text-xs border-4 border-black transition-all duration-100"
             :class="[
               route.path === item.path
-                ? 'bg-max-accent text-max-background border-max-accent shadow-multi scale-105'
-                : 'border-max-secondary text-max-foreground hover:bg-max-secondary hover:border-max-secondary hover:text-max-background hover:scale-105'
+                ? 'bg-[#FF6B6B] text-white shadow-neo-sm translate-x-[2px] translate-y-[2px] shadow-none'
+                : 'bg-[#FFD93D] hover:bg-[#FF6B6B] hover:text-white shadow-neo-sm hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-none active:translate-x-[4px] active:translate-y-[4px]'
             ]"
           >
-            <span class="mr-1">{{ item.icon }}</span>
-            {{ item.label }}
+            {{ item.icon }} {{ item.label }}
           </RouterLink>
         </div>
 
         <!-- Mobile Menu Toggle -->
         <button
           @click="toggleMenu"
-          class="md:hidden p-2 border-4 border-max-secondary rounded-full text-max-secondary hover:bg-max-secondary hover:text-max-background transition-all duration-300"
+          class="md:hidden w-12 h-12 border-4 border-black bg-[#FFD93D] flex items-center justify-center shadow-neo-sm transition-all duration-100 active:translate-x-[2px] active:translate-y-[2px] active:shadow-none"
           :aria-label="isMenuOpen ? '关闭菜单' : '打开菜单'"
         >
-          <svg v-if="!isMenuOpen" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-          </svg>
-          <svg v-else xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-          </svg>
+          <span class="text-2xl font-black">{{ isMenuOpen ? '✕' : '☰' }}</span>
         </button>
       </nav>
 
       <!-- Mobile Menu -->
       <div
         v-show="isMenuOpen"
-        class="md:hidden border-t-4 border-max-secondary bg-max-background/95 backdrop-blur-md"
+        class="md:hidden border-t-4 border-black bg-[#FFFDF5]"
       >
-        <div class="px-6 py-6 flex flex-col gap-4.5">
+        <div class="px-6 py-4 flex flex-col gap-3">
           <RouterLink
             v-for="item in navItems"
             :key="item.path"
             :to="item.path"
             @click="isMenuOpen = false"
-            class="px-5 py-4.5 font-heading font-bold uppercase tracking-wider text-sm border-4 rounded-2xl text-center transition-all duration-300"
+            class="px-5 py-4 font-heading font-bold uppercase tracking-wide text-sm border-4 border-black text-center transition-all duration-100"
             :class="[
               route.path === item.path
-                ? 'bg-max-accent text-max-background border-max-accent'
-                : 'border-max-tertiary text-max-foreground hover:bg-max-tertiary hover:text-max-background'
+                ? 'bg-[#FF6B6B] text-white shadow-neo-sm translate-x-[2px] translate-y-[2px] shadow-none'
+                : 'bg-[#FFD93D] shadow-neo-sm active:translate-x-[2px] active:translate-y-[2px] active:shadow-none'
             ]"
           >
-            <span class="mr-2">{{ item.icon }}</span>
-            {{ item.label }}
+            {{ item.icon }} {{ item.label }}
           </RouterLink>
         </div>
       </div>
@@ -113,34 +95,36 @@ function toggleMenu() {
     <CardReveal v-if="showCardReveal" @close="showCardReveal = false" />
 
     <!-- Main Content -->
-    <main class="relative z-10 pt-36">
+    <main class="relative z-10 pt-28">
       <RouterView />
     </main>
 
     <!-- Footer -->
-    <footer class="relative z-10 border-t-8 border-double border-max-secondary mt-36">
-      <div class="max-w-7xl mx-auto px-8 py-14">
+    <footer class="relative z-10 border-t-8 border-black bg-[#FFD93D] mt-24">
+      <div class="max-w-7xl mx-auto px-8 py-16">
         <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
           <!-- Brand -->
           <div>
-            <div class="flex items-center gap-4.5 mb-4">
-              <span class="text-5xl animate-wiggle">🐸</span>
-              <h3 class="font-heading text-3xl font-bold text-max-accent text-shadow-double">奶蛙世界</h3>
+            <div class="flex items-center gap-3 mb-4">
+              <div class="w-12 h-12 bg-[#FF6B6B] border-4 border-black flex items-center justify-center shadow-neo-sm">
+                <span class="text-2xl">🐸</span>
+              </div>
+              <h3 class="font-heading text-3xl font-black uppercase tracking-tight">奶蛙世界</h3>
             </div>
-            <p class="text-white/70 text-lg">
+            <p class="text-black/70 text-lg">
               探索奶蛙的奇妙世界，感受互联网文化的独特魅力。
             </p>
           </div>
 
           <!-- Links (two columns) -->
           <div>
-            <h4 class="font-heading text-xl font-bold text-max-tertiary uppercase tracking-wider mb-4">导航</h4>
+            <h4 class="font-heading text-xl font-black uppercase tracking-wider mb-4 border-b-4 border-black pb-2 inline-block">导航</h4>
             <div class="grid grid-cols-2 gap-x-6 gap-y-3">
               <RouterLink
                 v-for="item in navItems"
                 :key="item.path"
                 :to="item.path"
-                class="text-white/70 hover:text-max-accent transition-colors text-base"
+                class="font-bold text-base border-b-2 border-transparent hover:border-black hover:bg-[#FF6B6B] hover:text-white px-1 transition-all duration-100"
               >
                 {{ item.icon }} {{ item.label }}
               </RouterLink>
@@ -149,23 +133,23 @@ function toggleMenu() {
 
           <!-- Info -->
           <div>
-            <h4 class="font-heading text-xl font-bold text-max-quaternary uppercase tracking-wider mb-4">关于</h4>
-            <p class="text-white/70 text-base mb-2">图片素材来源于网络公开资源</p>
-            <p class="text-white/70 text-base">仅供个人娱乐，非商业用途</p>
+            <h4 class="font-heading text-xl font-black uppercase tracking-wider mb-4 border-b-4 border-black pb-2 inline-block">关于</h4>
+            <p class="text-black/70 text-base mb-2">图片素材来源于网络公开资源</p>
+            <p class="text-black/70 text-base">仅供个人娱乐，非商业用途</p>
             <div class="mt-4 flex flex-wrap gap-2">
-              <span class="px-3 py-1.5 bg-max-muted rounded-full text-sm text-max-accent border-2 border-max-accent">🐸 奶蛙</span>
-              <span class="px-3 py-1.5 bg-max-muted rounded-full text-sm text-max-secondary border-2 border-max-secondary">😄 表情包</span>
-              <span class="px-3 py-1.5 bg-max-muted rounded-full text-sm text-max-tertiary border-2 border-max-tertiary">🎬 动画</span>
+              <span class="px-3 py-1.5 bg-[#FF6B6B] text-white border-2 border-black font-bold text-sm shadow-neo-sm">🐸 奶蛙</span>
+              <span class="px-3 py-1.5 bg-[#C4B5FD] border-2 border-black font-bold text-sm shadow-neo-sm">😄 表情包</span>
+              <span class="px-3 py-1.5 bg-white border-2 border-black font-bold text-sm shadow-neo-sm">🎬 动画</span>
             </div>
           </div>
         </div>
 
         <!-- Bottom Bar -->
-        <div class="mt-10 pt-7 border-t-4 border-dashed border-max-quinary text-center">
-          <p class="text-white/50 text-base">
-            © 2026 奶蛙世界 - 个人娱乐项目 | 设计风格: Maximalism / Dopamine
+        <div class="mt-12 pt-8 border-t-4 border-black text-center">
+          <p class="font-bold text-base uppercase tracking-wider">
+            © 2026 奶蛙世界 - 个人娱乐项目 | 设计风格: Neo-Brutalism
           </p>
-          <p class="text-white/30 text-sm mt-2">
+          <p class="text-black/50 text-sm mt-2">
             角色形象版权归原作者所有，请勿用于商业用途
           </p>
         </div>

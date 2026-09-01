@@ -52,16 +52,16 @@ const cardBackUrl = computed(() => {
           v-if="cardBackUrl"
           :src="cardBackUrl"
           alt="牌背"
-          class="w-full h-full object-cover rounded-2xl"
+          class="w-full h-full object-cover "
         />
-        <div v-else class="w-full h-full rounded-2xl bg-gradient-to-br from-max-muted to-max-background border-4 border-max-accent flex items-center justify-center">
+        <div v-else class="w-full h-full  bg-gradient-to-br from-max-muted to-max-background border-4 border-[#FF6B6B] flex items-center justify-center">
           <span class="text-4xl">🔮</span>
         </div>
       </div>
 
       <!-- 卡牌正面 -->
       <div class="tarot-card-face tarot-card-front">
-        <div class="w-full h-full rounded-2xl overflow-hidden border-4 border-max-secondary bg-max-background relative">
+        <div class="w-full h-full  overflow-hidden border-4 border-black bg-[#FFFDF5] relative">
           <img
             v-if="cardImageUrl"
             :src="cardImageUrl"
@@ -78,7 +78,7 @@ const cardBackUrl = computed(() => {
 
     <!-- 位置标签 -->
     <div v-if="position && isRevealed" class="text-center mt-2">
-      <span class="text-max-accent font-heading font-bold text-sm uppercase tracking-wider">
+      <span class="text-[#FF6B6B] font-heading font-bold text-sm uppercase tracking-wider">
         {{ position }}
       </span>
     </div>
