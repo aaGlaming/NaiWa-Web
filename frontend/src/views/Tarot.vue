@@ -146,7 +146,7 @@ onMounted(() => {
       <div class="max-w-6xl mx-auto">
 
         <!-- Controls -->
-        <div class="flex flex-wrap items-center justify-center gap-6 mb-24">
+        <div class="flex flex-wrap items-center justify-center gap-6 mb-36">
           <!-- Spread Mode -->
           <div class="flex items-center gap-3 p-2 rounded-2xl border-4 border-max-secondary bg-max-muted/50">
             <button
@@ -218,7 +218,7 @@ onMounted(() => {
         </div>
 
         <!-- Reading Area -->
-        <div class="relative p-8 md:p-12 rounded-3xl border-4 border-max-quinary bg-max-muted/30 min-h-[400px]"
+        <div class="relative p-8 md:p-12 rounded-3xl border-4 border-max-quinary bg-max-muted/30 min-h-[600px]"
           style="box-shadow: 8px 8px 0 #7B2FFF, 16px 16px 0 #FFE600; background-image: radial-gradient(circle, rgba(123, 47, 255, 0.1) 1px, transparent 1px); background-size: 20px 20px;">
 
           <!-- Empty State -->

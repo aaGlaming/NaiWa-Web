@@ -119,11 +119,11 @@ function toggleMenu() {
 
     <!-- Footer -->
     <footer class="relative z-10 border-t-8 border-double border-max-secondary mt-36">
-      <div class="max-w-7xl mx-auto px-8 py-24">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-18">
+      <div class="max-w-7xl mx-auto px-8 py-14">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
           <!-- Brand -->
           <div>
-            <div class="flex items-center gap-4.5 mb-6">
+            <div class="flex items-center gap-4.5 mb-4">
               <span class="text-5xl animate-wiggle">🐸</span>
               <h3 class="font-heading text-3xl font-black text-max-accent text-shadow-double">奶蛙世界</h3>
             </div>
@@ -132,15 +132,15 @@ function toggleMenu() {
             </p>
           </div>
 
-          <!-- Links -->
+          <!-- Links (two columns) -->
           <div>
-            <h4 class="font-heading text-xl font-bold text-max-tertiary uppercase tracking-wider mb-6">导航</h4>
-            <div class="flex flex-col gap-3">
+            <h4 class="font-heading text-xl font-bold text-max-tertiary uppercase tracking-wider mb-4">导航</h4>
+            <div class="grid grid-cols-2 gap-x-6 gap-y-3">
               <RouterLink
                 v-for="item in navItems"
                 :key="item.path"
                 :to="item.path"
-                class="text-white/70 hover:text-max-accent transition-colors text-lg"
+                class="text-white/70 hover:text-max-accent transition-colors text-base"
               >
                 {{ item.icon }} {{ item.label }}
               </RouterLink>
@@ -149,10 +149,10 @@ function toggleMenu() {
 
           <!-- Info -->
           <div>
-            <h4 class="font-heading text-xl font-bold text-max-quaternary uppercase tracking-wider mb-6">关于</h4>
-            <p class="text-white/70 text-lg mb-3">图片素材来源于网络公开资源</p>
-            <p class="text-white/70 text-lg">仅供个人娱乐，非商业用途</p>
-            <div class="mt-6 flex gap-3">
+            <h4 class="font-heading text-xl font-bold text-max-quaternary uppercase tracking-wider mb-4">关于</h4>
+            <p class="text-white/70 text-base mb-2">图片素材来源于网络公开资源</p>
+            <p class="text-white/70 text-base">仅供个人娱乐，非商业用途</p>
+            <div class="mt-4 flex flex-wrap gap-2">
               <span class="px-3 py-1.5 bg-max-muted rounded-full text-sm text-max-accent border-2 border-max-accent">🐸 奶蛙</span>
               <span class="px-3 py-1.5 bg-max-muted rounded-full text-sm text-max-secondary border-2 border-max-secondary">😄 表情包</span>
               <span class="px-3 py-1.5 bg-max-muted rounded-full text-sm text-max-tertiary border-2 border-max-tertiary">🎬 动画</span>
@@ -161,11 +161,11 @@ function toggleMenu() {
         </div>
 
         <!-- Bottom Bar -->
-        <div class="mt-18 pt-12 border-t-4 border-dashed border-max-quinary text-center">
-          <p class="text-white/50 text-lg">
+        <div class="mt-10 pt-7 border-t-4 border-dashed border-max-quinary text-center">
+          <p class="text-white/50 text-base">
             © 2026 奶蛙世界 - 个人娱乐项目 | 设计风格: Maximalism / Dopamine
           </p>
-          <p class="text-white/30 text-sm mt-3">
+          <p class="text-white/30 text-sm mt-2">
             角色形象版权归原作者所有，请勿用于商业用途
           </p>
         </div>
