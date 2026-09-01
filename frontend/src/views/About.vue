@@ -81,7 +81,7 @@ const funFacts = [
 
     <!-- Origin Story -->
     <section class="relative py-24 px-6">
-      <div class="max-w-5xl mx-auto">
+      <div class="max-w-4xl mx-auto">
         <SectionTitle
           title="起源故事"
           subtitle="一切从2015年的那个夏天开始"

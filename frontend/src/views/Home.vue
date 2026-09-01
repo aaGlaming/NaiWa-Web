@@ -124,7 +124,7 @@ onMounted(() => {
 
     <!-- ========== Stats Section ========== -->
     <section class="relative py-24 px-6">
-      <div class="max-w-6xl mx-auto">
+      <div class="max-w-4xl mx-auto">
         <SectionTitle
           title="奶蛙数据"
           subtitle="这个小可爱到底有多火？"
@@ -158,7 +158,7 @@ onMounted(() => {
 
     <!-- ========== Features Section ========== -->
     <section class="relative py-24 px-6">
-      <div class="max-w-7xl mx-auto">
+      <div class="max-w-6xl mx-auto">
         <SectionTitle
           title="为什么奶蛙这么火"
           subtitle="这些特质让它成为互联网顶流"
