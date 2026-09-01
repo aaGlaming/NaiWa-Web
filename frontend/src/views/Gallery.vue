@@ -7,6 +7,7 @@ import MaximalButton from '@/components/ui/MaximalButton.vue'
 import FloatingShape from '@/components/ui/FloatingShape.vue'
 import { ACCENT_COLORS } from '@/utils'
 
+const baseUrl = import.meta.env.BASE_URL || '/'
 const store = useImageStore()
 
 const previewImage = ref(null)
@@ -308,7 +309,7 @@ onMounted(() => {
           <!-- Image -->
           <div class="flex items-center justify-center min-h-[400px] bg-max-background rounded-2xl mb-6 overflow-hidden">
             <img
-              :src="`${import.meta.env.BASE_URL}images/${previewImage.filename}`"
+              :src="`${baseUrl}images/${previewImage.filename}`"
               :alt="previewImage.filename"
               class="max-w-full max-h-[60vh] object-contain"
             />

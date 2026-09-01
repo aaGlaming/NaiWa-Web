@@ -18,6 +18,9 @@ const isAnimated = computed(() =>
   props.image.filename.endsWith('.gif') || props.image.filename.endsWith('.webp')
 )
 
+const baseUrl = import.meta.env.BASE_URL || '/'
+const imageUrl = computed(() => `${baseUrl}images/${props.image.filename}`)
+
 const categoryBadge = computed(() => {
   const map = {
     emoji: { label: '表情包', color: '#FF3AF2' },
@@ -108,7 +111,7 @@ function fallbackDownload(url, filename) {
     <!-- Image -->
     <div class="relative overflow-hidden rounded-2xl mb-4 aspect-square bg-max-background flex items-center justify-center">
       <img
-        :src="`/images/${image.filename}`"
+        :src="imageUrl"
         :alt="displayName"
         class="w-full h-full object-contain transition-transform duration-300 group-hover:scale-110"
         loading="lazy"
