@@ -1,9 +1,11 @@
 <script setup>
 import { RouterView, RouterLink, useRoute } from 'vue-router'
 import { ref, computed } from 'vue'
+import CardReveal from '@/components/CardReveal.vue'
 
 const route = useRoute()
 const isMenuOpen = ref(false)
+const showCardReveal = ref(true)
 
 const navItems = [
   { path: '/', label: '首页', icon: '🏠' },
@@ -103,6 +105,9 @@ function toggleMenu() {
         </div>
       </div>
     </header>
+
+    <!-- Card Reveal Popup -->
+    <CardReveal v-if="showCardReveal" @close="showCardReveal = false" />
 
     <!-- Main Content -->
     <main class="relative z-10 pt-20">
