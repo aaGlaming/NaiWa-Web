@@ -63,7 +63,7 @@ onMounted(() => {
 <template>
   <div>
     <!-- ========== Hero Section ========== -->
-    <section class="relative min-h-screen flex items-center justify-center px-6 py-24 overflow-hidden">
+    <section class="relative min-h-screen flex items-center justify-center px-6 py-36 overflow-hidden">
       <!-- Background Text -->
       <div class="absolute inset-0 flex items-center justify-center pointer-events-none" aria-hidden="true">
         <span class="text-[15rem] md:text-[25rem] font-heading font-black text-max-accent/10 uppercase select-none leading-none">
@@ -86,27 +86,27 @@ onMounted(() => {
         :class="heroVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'"
       >
         <!-- Emoji -->
-        <div class="text-8xl md:text-9xl mb-6 animate-bounce-subtle">🐸</div>
+        <div class="text-8xl md:text-9xl mb-9 animate-bounce-subtle">🐸</div>
 
         <!-- Main Title -->
-        <h1 class="font-heading text-5xl md:text-7xl lg:text-9xl font-black uppercase leading-none mb-6 text-shadow-mega">
+        <h1 class="font-heading text-5xl md:text-7xl lg:text-9xl font-black uppercase leading-none mb-9 text-shadow-mega">
           <span class="text-max-accent">奶蛙</span>
           <br />
           <span class="gradient-text">世界</span>
         </h1>
 
         <!-- Subtitle -->
-        <p class="text-xl md:text-2xl text-white/80 mb-4 max-w-3xl mx-auto leading-relaxed">
+        <p class="text-xl md:text-2xl text-white/80 mb-6 max-w-3xl mx-auto leading-relaxed">
           探索这个风靡互联网的可爱角色<br class="hidden md:block" />
           感受奶蛙带来的治愈与欢乐
         </p>
 
-        <p class="text-lg text-white/50 mb-10">
+        <p class="text-lg text-white/50 mb-15">
           🌟 一个让你瞬间放松的佛系小可爱 🌟
         </p>
 
         <!-- CTA Buttons -->
-        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-6">
           <MaximalButton color="accent" size="lg" icon="🐸" @click="$router.push('/about')">
             了解奶蛙
           </MaximalButton>
@@ -123,7 +123,7 @@ onMounted(() => {
     </section>
 
     <!-- ========== Stats Section ========== -->
-    <section class="relative py-24 px-6">
+    <section class="relative py-36 px-6">
       <div class="max-w-4xl mx-auto">
         <SectionTitle
           title="奶蛙数据"
@@ -134,7 +134,7 @@ onMounted(() => {
         />
 
         <div
-          class="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8 transition-all duration-700 place-items-center"
+          class="grid grid-cols-2 md:grid-cols-4 gap-9 md:gap-12 transition-all duration-700 place-items-center"
           :class="statsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'"
         >
           <div
@@ -146,18 +146,18 @@ onMounted(() => {
               boxShadow: `6px 6px 0 ${ACCENT_COLORS[(index + 1) % 5]}, 12px 12px 0 ${ACCENT_COLORS[(index + 2) % 5]}`
             }"
           >
-            <div class="text-3xl md:text-4xl mb-2">{{ stat.emoji }}</div>
+            <div class="text-3xl md:text-4xl mb-3">{{ stat.emoji }}</div>
             <div class="font-heading text-3xl md:text-4xl font-black text-shadow-double" :style="{ color: ACCENT_COLORS[index] }">
               {{ stat.value }}
             </div>
-            <div class="text-white/60 text-sm mt-1 uppercase tracking-wider">{{ stat.label }}</div>
+            <div class="text-white/60 text-sm mt-1.5 uppercase tracking-wider">{{ stat.label }}</div>
           </div>
         </div>
       </div>
     </section>
 
     <!-- ========== Features Section ========== -->
-    <section class="relative py-24 px-6">
+    <section class="relative py-36 px-6">
       <div class="max-w-6xl mx-auto">
         <SectionTitle
           title="为什么奶蛙这么火"
@@ -168,7 +168,7 @@ onMounted(() => {
           gradient
         />
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-18">
           <MaximalCard
             v-for="(feature, index) in features"
             :key="feature.title"
@@ -177,8 +177,8 @@ onMounted(() => {
             :offset="index > 1"
             :pattern="feature.pattern"
           >
-            <div class="text-5xl mb-4 animate-wiggle">{{ feature.emoji }}</div>
-            <h3 class="font-heading text-2xl md:text-3xl font-black uppercase mb-4" :style="{ color: ACCENT_COLORS[feature.colorIndex] }">
+            <div class="text-5xl mb-6 animate-wiggle">{{ feature.emoji }}</div>
+            <h3 class="font-heading text-2xl md:text-3xl font-black uppercase mb-6" :style="{ color: ACCENT_COLORS[feature.colorIndex] }">
               {{ feature.title }}
             </h3>
             <p class="text-white/80 text-lg leading-relaxed">
@@ -190,7 +190,7 @@ onMounted(() => {
     </section>
 
     <!-- ========== Timeline Section ========== -->
-    <section class="relative py-24 px-6">
+    <section class="relative py-36 px-6">
       <div class="max-w-4xl mx-auto">
         <SectionTitle
           title="奶蛙编年史"
@@ -204,11 +204,11 @@ onMounted(() => {
           <!-- Timeline Line -->
           <div class="absolute left-8 md:left-1/2 top-0 bottom-0 w-1 bg-max-accent/50 -translate-x-1/2"></div>
 
-          <div class="space-y-12">
+          <div class="space-y-18">
             <div
               v-for="(item, index) in timeline"
               :key="item.year"
-              class="relative flex items-center gap-6 md:gap-0"
+              class="relative flex items-center gap-9 md:gap-0"
               :class="index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'"
             >
               <!-- Dot -->
@@ -228,7 +228,7 @@ onMounted(() => {
                 :class="index % 2 === 0 ? 'md:pr-16 md:text-right' : 'md:pl-16'"
               >
                 <div
-                  class="inline-block px-4 py-2 rounded-2xl border-4 mb-2 font-heading font-black text-xl"
+                  class="inline-block px-4 py-3 rounded-2xl border-4 mb-3 font-heading font-black text-xl"
                   :style="{
                     borderColor: ACCENT_COLORS[index],
                     color: ACCENT_COLORS[index],
@@ -246,7 +246,7 @@ onMounted(() => {
     </section>
 
     <!-- ========== CTA Section ========== -->
-    <section class="relative py-24 px-6">
+    <section class="relative py-36 px-6">
       <div class="max-w-4xl mx-auto text-center">
         <div class="relative p-12 md:p-16 rounded-3xl border-4 border-max-accent bg-max-muted/80 backdrop-blur-sm pattern-mesh"
           style="box-shadow: 12px 12px 0 #FFE600, 24px 24px 0 #FF3AF2, 36px 36px 0 #00F5D4;"
@@ -259,11 +259,11 @@ onMounted(() => {
           </div>
 
           <div class="relative z-10">
-            <div class="text-6xl mb-6 animate-wiggle">🐸✨</div>
-            <h2 class="font-heading text-3xl md:text-5xl font-black uppercase text-max-accent text-shadow-triple mb-6">
+            <div class="text-6xl mb-9 animate-wiggle">🐸✨</div>
+            <h2 class="font-heading text-3xl md:text-5xl font-black uppercase text-max-accent text-shadow-triple mb-9">
               准备好被奶蛙治愈了吗？
             </h2>
-            <p class="text-white/70 text-lg md:text-xl mb-8 max-w-2xl mx-auto">
+            <p class="text-white/70 text-lg md:text-xl mb-12 max-w-2xl mx-auto">
               从今天开始，让奶蛙成为你的精神伙伴。无论是工作疲惫还是生活压力，看看奶蛙，一切都变得不那么重要了。
             </p>
             <MaximalButton color="accent" size="lg" icon="🖼️" @click="$router.push('/gallery')">

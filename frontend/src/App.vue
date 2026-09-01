@@ -42,9 +42,9 @@ function toggleMenu() {
 
     <!-- Navigation Header -->
     <header class="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-max-background/80 border-b-4 border-max-accent">
-      <nav class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+      <nav class="max-w-7xl mx-auto px-6 py-6 flex items-center justify-between">
         <!-- Logo -->
-        <RouterLink to="/" class="flex items-center gap-3 group">
+        <RouterLink to="/" class="flex items-center gap-4.5 group">
           <span class="text-4xl animate-wiggle">🐸</span>
           <span class="font-heading text-2xl font-black uppercase text-max-accent text-shadow-double group-hover:text-max-secondary transition-colors duration-300">
             奶蛙世界
@@ -52,12 +52,12 @@ function toggleMenu() {
         </RouterLink>
 
         <!-- Desktop Nav -->
-        <div class="hidden md:flex items-center gap-2">
+        <div class="hidden md:flex items-center gap-3">
           <RouterLink
             v-for="(item, index) in navItems"
             :key="item.path"
             :to="item.path"
-            class="relative px-5 py-2 font-heading font-bold uppercase tracking-wider text-sm border-2 transition-all duration-300 rounded-full"
+            class="relative px-5 py-3 font-heading font-bold uppercase tracking-wider text-sm border-2 transition-all duration-300 rounded-full"
             :class="[
               route.path === item.path
                 ? 'bg-max-accent text-max-background border-max-accent shadow-multi scale-105'
@@ -89,13 +89,13 @@ function toggleMenu() {
         v-show="isMenuOpen"
         class="md:hidden border-t-4 border-max-secondary bg-max-background/95 backdrop-blur-md"
       >
-        <div class="px-6 py-4 flex flex-col gap-3">
+        <div class="px-6 py-6 flex flex-col gap-4.5">
           <RouterLink
             v-for="item in navItems"
             :key="item.path"
             :to="item.path"
             @click="isMenuOpen = false"
-            class="px-5 py-3 font-heading font-bold uppercase tracking-wider text-sm border-4 rounded-2xl text-center transition-all duration-300"
+            class="px-5 py-4.5 font-heading font-bold uppercase tracking-wider text-sm border-4 rounded-2xl text-center transition-all duration-300"
             :class="[
               route.path === item.path
                 ? 'bg-max-accent text-max-background border-max-accent'
@@ -113,17 +113,17 @@ function toggleMenu() {
     <CardReveal v-if="showCardReveal" @close="showCardReveal = false" />
 
     <!-- Main Content -->
-    <main class="relative z-10 pt-24">
+    <main class="relative z-10 pt-36">
       <RouterView />
     </main>
 
     <!-- Footer -->
-    <footer class="relative z-10 border-t-8 border-double border-max-secondary mt-24">
-      <div class="max-w-7xl mx-auto px-8 py-16">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+    <footer class="relative z-10 border-t-8 border-double border-max-secondary mt-36">
+      <div class="max-w-7xl mx-auto px-8 py-24">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-18">
           <!-- Brand -->
           <div>
-            <div class="flex items-center gap-3 mb-4">
+            <div class="flex items-center gap-4.5 mb-6">
               <span class="text-5xl animate-wiggle">🐸</span>
               <h3 class="font-heading text-3xl font-black text-max-accent text-shadow-double">奶蛙世界</h3>
             </div>
@@ -134,8 +134,8 @@ function toggleMenu() {
 
           <!-- Links -->
           <div>
-            <h4 class="font-heading text-xl font-bold text-max-tertiary uppercase tracking-wider mb-4">导航</h4>
-            <div class="flex flex-col gap-2">
+            <h4 class="font-heading text-xl font-bold text-max-tertiary uppercase tracking-wider mb-6">导航</h4>
+            <div class="flex flex-col gap-3">
               <RouterLink
                 v-for="item in navItems"
                 :key="item.path"
@@ -149,23 +149,23 @@ function toggleMenu() {
 
           <!-- Info -->
           <div>
-            <h4 class="font-heading text-xl font-bold text-max-quaternary uppercase tracking-wider mb-4">关于</h4>
-            <p class="text-white/70 text-lg mb-2">图片素材来源于网络公开资源</p>
+            <h4 class="font-heading text-xl font-bold text-max-quaternary uppercase tracking-wider mb-6">关于</h4>
+            <p class="text-white/70 text-lg mb-3">图片素材来源于网络公开资源</p>
             <p class="text-white/70 text-lg">仅供个人娱乐，非商业用途</p>
-            <div class="mt-4 flex gap-2">
-              <span class="px-3 py-1 bg-max-muted rounded-full text-sm text-max-accent border-2 border-max-accent">🐸 奶蛙</span>
-              <span class="px-3 py-1 bg-max-muted rounded-full text-sm text-max-secondary border-2 border-max-secondary">😄 表情包</span>
-              <span class="px-3 py-1 bg-max-muted rounded-full text-sm text-max-tertiary border-2 border-max-tertiary">🎬 动画</span>
+            <div class="mt-6 flex gap-3">
+              <span class="px-3 py-1.5 bg-max-muted rounded-full text-sm text-max-accent border-2 border-max-accent">🐸 奶蛙</span>
+              <span class="px-3 py-1.5 bg-max-muted rounded-full text-sm text-max-secondary border-2 border-max-secondary">😄 表情包</span>
+              <span class="px-3 py-1.5 bg-max-muted rounded-full text-sm text-max-tertiary border-2 border-max-tertiary">🎬 动画</span>
             </div>
           </div>
         </div>
 
         <!-- Bottom Bar -->
-        <div class="mt-12 pt-8 border-t-4 border-dashed border-max-quinary text-center">
+        <div class="mt-18 pt-12 border-t-4 border-dashed border-max-quinary text-center">
           <p class="text-white/50 text-lg">
             © 2026 奶蛙世界 - 个人娱乐项目 | 设计风格: Maximalism / Dopamine
           </p>
-          <p class="text-white/30 text-sm mt-2">
+          <p class="text-white/30 text-sm mt-3">
             角色形象版权归原作者所有，请勿用于商业用途
           </p>
         </div>

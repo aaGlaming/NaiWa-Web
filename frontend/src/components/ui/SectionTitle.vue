@@ -24,8 +24,8 @@ const alignClass = computed(() => ({
 </script>
 
 <template>
-  <div :class="['mb-12 md:mb-16', alignClass]">
-    <div class="flex items-center justify-center gap-3 mb-4" :class="align === 'center' ? 'justify-center' : align === 'right' ? 'justify-end' : ''">
+  <div :class="['mb-18 md:mb-24', alignClass]">
+    <div class="flex items-center justify-center gap-4.5 mb-6" :class="align === 'center' ? 'justify-center' : align === 'right' ? 'justify-end' : ''">
       <span v-if="emoji" class="text-4xl md:text-5xl animate-wiggle">{{ emoji }}</span>
       <h2
         class="font-heading text-4xl md:text-5xl lg:text-7xl font-black uppercase leading-none"

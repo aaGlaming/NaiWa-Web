@@ -253,7 +253,7 @@ onMounted(() => {
 <template>
   <div>
     <!-- Hero Section -->
-    <section class="relative min-h-[35vh] flex items-center justify-center px-6 py-20 overflow-hidden">
+    <section class="relative min-h-[35vh] flex items-center justify-center px-6 py-30 overflow-hidden">
       <div class="absolute inset-0 flex items-center justify-center pointer-events-none" aria-hidden="true">
         <span class="text-[10rem] md:text-[18rem] font-heading font-black text-max-quaternary/10 uppercase select-none leading-none">
           WALLPAPER
@@ -264,8 +264,8 @@ onMounted(() => {
       <FloatingShape :colorIndex="0" size="lg" shape="diamond" animation="float-reverse" top="20%" right="8%" />
 
       <div class="relative z-20 text-center max-w-4xl mx-auto">
-        <div class="text-8xl md:text-9xl mb-6 animate-wiggle">🖼️</div>
-        <h1 class="font-heading text-5xl md:text-7xl lg:text-8xl font-black uppercase leading-none mb-6 text-shadow-mega text-max-quaternary">
+        <div class="text-8xl md:text-9xl mb-9 animate-wiggle">🖼️</div>
+        <h1 class="font-heading text-5xl md:text-7xl lg:text-8xl font-black uppercase leading-none mb-9 text-shadow-mega text-max-quaternary">
           壁纸生成器
         </h1>
         <p class="text-xl md:text-2xl text-white/80 max-w-3xl mx-auto">
@@ -275,22 +275,22 @@ onMounted(() => {
     </section>
 
     <!-- Main Content -->
-    <section class="relative py-24 px-6">
+    <section class="relative py-36 px-6">
       <div class="max-w-7xl mx-auto">
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
 
           <!-- Left Panel: Settings -->
-          <div class="lg:col-span-1 space-y-6">
+          <div class="lg:col-span-1 space-y-9">
             <!-- Size Preset -->
             <div class="p-6 rounded-3xl border-4 border-max-accent bg-max-muted/80"
               style="box-shadow: 6px 6px 0 #FFE600, 12px 12px 0 #FF3AF2;">
-              <h3 class="font-heading text-xl font-black text-max-accent uppercase mb-4">📐 尺寸选择</h3>
-              <div class="grid grid-cols-2 gap-2">
+              <h3 class="font-heading text-xl font-black text-max-accent uppercase mb-6">📐 尺寸选择</h3>
+              <div class="grid grid-cols-2 gap-3">
                 <button
                   v-for="preset in sizePresets"
                   :key="preset.name"
                   @click="setSize(preset)"
-                  class="px-3 py-2 rounded-xl border-2 text-sm font-bold transition-all duration-300"
+                  class="px-3 py-3 rounded-xl border-2 text-sm font-bold transition-all duration-300"
                   :class="[
                     wallpaperWidth === preset.width && wallpaperHeight === preset.height
                       ? 'bg-max-accent text-max-background border-max-accent'
@@ -300,7 +300,7 @@ onMounted(() => {
                   {{ preset.name }}
                 </button>
               </div>
-              <div class="mt-4 text-white/60 text-sm">
+              <div class="mt-6 text-white/60 text-sm">
                 当前: <span class="text-max-accent font-bold">{{ wallpaperWidth }} × {{ wallpaperHeight }}</span>
               </div>
             </div>
@@ -308,13 +308,13 @@ onMounted(() => {
             <!-- Background Color -->
             <div class="p-6 rounded-3xl border-4 border-max-secondary bg-max-muted/80"
               style="box-shadow: 6px 6px 0 #FF3AF2, 12px 12px 0 #00F5D4;">
-              <h3 class="font-heading text-xl font-black text-max-secondary uppercase mb-4">🎨 背景颜色</h3>
-              <div class="space-y-2">
+              <h3 class="font-heading text-xl font-black text-max-secondary uppercase mb-6">🎨 背景颜色</h3>
+              <div class="space-y-3">
                 <button
                   v-for="color in bgColorOptions"
                   :key="color.name"
                   @click="bgColor = color.value"
-                  class="w-full px-4 py-3 rounded-xl border-2 text-left transition-all duration-300 flex items-center gap-3"
+                  class="w-full px-4 py-4.5 rounded-xl border-2 text-left transition-all duration-300 flex items-center gap-4.5"
                   :class="[
                     bgColor === color.value
                       ? 'border-max-secondary bg-max-secondary/20'
@@ -331,7 +331,7 @@ onMounted(() => {
             </div>
 
             <!-- Action Buttons -->
-            <div class="space-y-3">
+            <div class="space-y-4.5">
               <MaximalButton
                 color="accent"
                 size="lg"
@@ -357,7 +357,7 @@ onMounted(() => {
           </div>
 
           <!-- Right Panel: Image Selection + Preview -->
-          <div class="lg:col-span-2 space-y-6">
+          <div class="lg:col-span-2 space-y-9">
             <!-- Image Selection Header -->
             <div class="flex items-center justify-between">
               <h3 class="font-heading text-2xl font-black text-max-accent uppercase">
@@ -373,7 +373,7 @@ onMounted(() => {
             </div>
 
             <!-- Image Grid -->
-            <div class="grid grid-cols-4 sm:grid-cols-5 md:grid-cols-6 gap-2 max-h-[400px] overflow-y-auto p-4 rounded-3xl border-4 border-max-tertiary bg-max-muted/50">
+            <div class="grid grid-cols-4 sm:grid-cols-5 md:grid-cols-6 gap-3 max-h-[400px] overflow-y-auto p-4 rounded-3xl border-4 border-max-tertiary bg-max-muted/50">
               <div
                 v-for="(image, index) in allImages"
                 :key="image.filename"
@@ -399,7 +399,7 @@ onMounted(() => {
                 </div>
                 <div
                   v-if="isSelected(image)"
-                  class="absolute bottom-1 left-1 px-2 py-0.5 rounded-full bg-max-background/80 text-max-accent text-xs font-bold"
+                  class="absolute bottom-1 left-1 px-2 py-1 rounded-full bg-max-background/80 text-max-accent text-xs font-bold"
                 >
                   #{{ selectedImages.indexOf(image) + 1 }}
                 </div>
@@ -409,7 +409,7 @@ onMounted(() => {
             <!-- Canvas Preview -->
             <div class="p-4 rounded-3xl border-4 border-max-quaternary bg-max-muted/50"
               style="box-shadow: 6px 6px 0 #FF6B35, 12px 12px 0 #7B2FFF;">
-              <h3 class="font-heading text-xl font-black text-max-quaternary uppercase mb-4">📱 壁纸预览</h3>
+              <h3 class="font-heading text-xl font-black text-max-quaternary uppercase mb-6">📱 壁纸预览</h3>
               <div class="relative bg-black rounded-2xl overflow-hidden" style="aspect-ratio: 16/9;">
                 <canvas
                   ref="canvasRef"
@@ -444,7 +444,7 @@ onMounted(() => {
               style="box-shadow: 12px 12px 0 #FFE600, 24px 24px 0 #FF3AF2;">
               <canvas ref="canvasRef" class="w-full"></canvas>
             </div>
-            <div class="mt-6 text-center">
+            <div class="mt-9 text-center">
               <MaximalButton color="accent" size="lg" icon="⬇️" @click="downloadWallpaper">
                 下载壁纸 ({{ wallpaperWidth }}×{{ wallpaperHeight }})
               </MaximalButton>

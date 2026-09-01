@@ -61,7 +61,7 @@ const faqItems = [
 <template>
   <div>
     <!-- Hero Section -->
-    <section class="relative min-h-[50vh] flex items-center justify-center px-6 py-24 overflow-hidden">
+    <section class="relative min-h-[50vh] flex items-center justify-center px-6 py-36 overflow-hidden">
       <div class="absolute inset-0 flex items-center justify-center pointer-events-none" aria-hidden="true">
         <span class="text-[10rem] md:text-[18rem] font-heading font-black text-max-quaternary/10 uppercase select-none leading-none">
           CONTACT
@@ -74,8 +74,8 @@ const faqItems = [
       <FloatingShape :colorIndex="1" size="lg" shape="circle" animation="bounce" bottom="20%" right="12%" />
 
       <div class="relative z-20 text-center max-w-4xl mx-auto">
-        <div class="text-8xl md:text-9xl mb-6 animate-wiggle">💌</div>
-        <h1 class="font-heading text-5xl md:text-7xl lg:text-8xl font-black uppercase leading-none mb-6 text-shadow-mega text-max-quaternary">
+        <div class="text-8xl md:text-9xl mb-9 animate-wiggle">💌</div>
+        <h1 class="font-heading text-5xl md:text-7xl lg:text-8xl font-black uppercase leading-none mb-9 text-shadow-mega text-max-quaternary">
           联系我们
         </h1>
         <p class="text-xl md:text-2xl text-white/80 max-w-3xl mx-auto">
@@ -86,9 +86,9 @@ const faqItems = [
     </section>
 
     <!-- Contact Methods -->
-    <section class="relative py-24 px-6">
+    <section class="relative py-36 px-6">
       <div class="max-w-4xl mx-auto">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 place-items-center">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-9 place-items-center">
           <div
             v-for="(method, index) in contactMethods"
             :key="method.title"
@@ -98,8 +98,8 @@ const faqItems = [
               boxShadow: `4px 4px 0 ${ACCENT_COLORS[(method.colorIndex + 1) % 5]}, 8px 8px 0 ${ACCENT_COLORS[(method.colorIndex + 2) % 5]}`
             }"
           >
-            <div class="text-4xl mb-3 animate-bounce-subtle">{{ method.emoji }}</div>
-            <h3 class="font-heading text-lg font-black uppercase mb-1" :style="{ color: ACCENT_COLORS[method.colorIndex] }">
+            <div class="text-4xl mb-4.5 animate-bounce-subtle">{{ method.emoji }}</div>
+            <h3 class="font-heading text-lg font-black uppercase mb-1.5" :style="{ color: ACCENT_COLORS[method.colorIndex] }">
               {{ method.title }}
             </h3>
             <p class="text-white/70">{{ method.value }}</p>
@@ -109,7 +109,7 @@ const faqItems = [
     </section>
 
     <!-- Contact Form -->
-    <section class="relative py-24 px-6">
+    <section class="relative py-36 px-6">
       <div class="max-w-3xl mx-auto">
         <SectionTitle
           title="发送消息"
@@ -121,12 +121,12 @@ const faqItems = [
 
         <!-- Success State -->
         <MaximalCard v-if="submitted" :colorIndex="2" pattern="dots">
-          <div class="text-center py-12">
-            <div class="text-7xl mb-6 animate-bounce-subtle">🎉</div>
-            <h3 class="font-heading text-3xl font-black text-max-tertiary uppercase mb-4 text-shadow-double">
+          <div class="text-center py-18">
+            <div class="text-7xl mb-9 animate-bounce-subtle">🎉</div>
+            <h3 class="font-heading text-3xl font-black text-max-tertiary uppercase mb-6 text-shadow-double">
               发送成功！
             </h3>
-            <p class="text-white/80 text-lg mb-6">感谢你的留言，我们会尽快回复你！</p>
+            <p class="text-white/80 text-lg mb-9">感谢你的留言，我们会尽快回复你！</p>
             <MaximalButton color="tertiary" size="md" @click="submitted = false">
               发送更多消息
             </MaximalButton>
@@ -135,7 +135,7 @@ const faqItems = [
 
         <!-- Form -->
         <MaximalCard v-else :colorIndex="3" pattern="stripes">
-          <form @submit.prevent="handleSubmit" class="space-y-6">
+          <form @submit.prevent="handleSubmit" class="space-y-9">
             <!-- Error -->
             <div v-if="error" class="p-4 rounded-2xl border-4 border-max-secondary bg-max-secondary/10 text-max-secondary text-center">
               {{ error }}
@@ -143,7 +143,7 @@ const faqItems = [
 
             <!-- Name -->
             <div>
-              <label class="block font-heading text-sm font-bold text-max-accent uppercase tracking-wider mb-2">
+              <label class="block font-heading text-sm font-bold text-max-accent uppercase tracking-wider mb-3">
                 🐸 你的名字
               </label>
               <input
@@ -151,13 +151,13 @@ const faqItems = [
                 type="text"
                 required
                 placeholder="输入你的名字"
-                class="w-full px-6 py-4 rounded-full border-4 border-max-accent bg-max-muted/50 backdrop-blur-sm text-white text-lg placeholder-white/40 focus:border-max-secondary focus:ring-4 focus:ring-max-secondary/30 focus:ring-offset-2 focus:ring-offset-max-background outline-none transition-all duration-300"
+                class="w-full px-6 py-6 rounded-full border-4 border-max-accent bg-max-muted/50 backdrop-blur-sm text-white text-lg placeholder-white/40 focus:border-max-secondary focus:ring-4 focus:ring-max-secondary/30 focus:ring-offset-2 focus:ring-offset-max-background outline-none transition-all duration-300"
               />
             </div>
 
             <!-- Email -->
             <div>
-              <label class="block font-heading text-sm font-bold text-max-secondary uppercase tracking-wider mb-2">
+              <label class="block font-heading text-sm font-bold text-max-secondary uppercase tracking-wider mb-3">
                 📧 邮箱地址
               </label>
               <input
@@ -165,13 +165,13 @@ const faqItems = [
                 type="email"
                 required
                 placeholder="输入你的邮箱"
-                class="w-full px-6 py-4 rounded-full border-4 border-max-secondary bg-max-muted/50 backdrop-blur-sm text-white text-lg placeholder-white/40 focus:border-max-tertiary focus:ring-4 focus:ring-max-tertiary/30 focus:ring-offset-2 focus:ring-offset-max-background outline-none transition-all duration-300"
+                class="w-full px-6 py-6 rounded-full border-4 border-max-secondary bg-max-muted/50 backdrop-blur-sm text-white text-lg placeholder-white/40 focus:border-max-tertiary focus:ring-4 focus:ring-max-tertiary/30 focus:ring-offset-2 focus:ring-offset-max-background outline-none transition-all duration-300"
               />
             </div>
 
             <!-- Subject -->
             <div>
-              <label class="block font-heading text-sm font-bold text-max-tertiary uppercase tracking-wider mb-2">
+              <label class="block font-heading text-sm font-bold text-max-tertiary uppercase tracking-wider mb-3">
                 📌 主题
               </label>
               <input
@@ -179,13 +179,13 @@ const faqItems = [
                 type="text"
                 required
                 placeholder="消息主题"
-                class="w-full px-6 py-4 rounded-full border-4 border-max-tertiary bg-max-muted/50 backdrop-blur-sm text-white text-lg placeholder-white/40 focus:border-max-quaternary focus:ring-4 focus:ring-max-quaternary/30 focus:ring-offset-2 focus:ring-offset-max-background outline-none transition-all duration-300"
+                class="w-full px-6 py-6 rounded-full border-4 border-max-tertiary bg-max-muted/50 backdrop-blur-sm text-white text-lg placeholder-white/40 focus:border-max-quaternary focus:ring-4 focus:ring-max-quaternary/30 focus:ring-offset-2 focus:ring-offset-max-background outline-none transition-all duration-300"
               />
             </div>
 
             <!-- Message -->
             <div>
-              <label class="block font-heading text-sm font-bold text-max-quaternary uppercase tracking-wider mb-2">
+              <label class="block font-heading text-sm font-bold text-max-quaternary uppercase tracking-wider mb-3">
                 💬 留言内容
               </label>
               <textarea
@@ -193,12 +193,12 @@ const faqItems = [
                 required
                 rows="5"
                 placeholder="写下你想说的..."
-                class="w-full px-6 py-4 rounded-3xl border-4 border-max-quaternary bg-max-muted/50 backdrop-blur-sm text-white text-lg placeholder-white/40 focus:border-max-quinary focus:ring-4 focus:ring-max-quinary/30 focus:ring-offset-2 focus:ring-offset-max-background outline-none transition-all duration-300 resize-none"
+                class="w-full px-6 py-6 rounded-3xl border-4 border-max-quaternary bg-max-muted/50 backdrop-blur-sm text-white text-lg placeholder-white/40 focus:border-max-quinary focus:ring-4 focus:ring-max-quinary/30 focus:ring-offset-2 focus:ring-offset-max-background outline-none transition-all duration-300 resize-none"
               ></textarea>
             </div>
 
             <!-- Submit -->
-            <div class="text-center pt-4">
+            <div class="text-center pt-6">
               <MaximalButton
                 color="quaternary"
                 size="lg"
@@ -215,7 +215,7 @@ const faqItems = [
     </section>
 
     <!-- FAQ Section -->
-    <section class="relative py-24 px-6">
+    <section class="relative py-36 px-6">
       <div class="max-w-4xl mx-auto">
         <SectionTitle
           title="常见问题"
@@ -225,14 +225,14 @@ const faqItems = [
           emoji="❓"
         />
 
-        <div class="space-y-4">
+        <div class="space-y-6">
           <MaximalCard
             v-for="(item, index) in faqItems"
             :key="item.question"
             :colorIndex="index % 5"
             :rotate="index % 2 === 1"
           >
-            <h3 class="font-heading text-lg font-black uppercase mb-3" :style="{ color: ACCENT_COLORS[index % 5] }">
+            <h3 class="font-heading text-lg font-black uppercase mb-4.5" :style="{ color: ACCENT_COLORS[index % 5] }">
               {{ item.question }}
             </h3>
             <p class="text-white/80 text-base leading-relaxed">{{ item.answer }}</p>
@@ -242,7 +242,7 @@ const faqItems = [
     </section>
 
     <!-- Bottom CTA -->
-    <section class="relative py-24 px-6">
+    <section class="relative py-36 px-6">
       <div class="max-w-4xl mx-auto text-center">
         <div class="relative p-12 rounded-3xl border-4 border-max-quaternary bg-max-muted/80 backdrop-blur-sm pattern-checker"
           style="box-shadow: 8px 8px 0 #FF6B35, 16px 16px 0 #7B2FFF, 24px 24px 0 #FFE600;"
@@ -254,11 +254,11 @@ const faqItems = [
           </div>
 
           <div class="relative z-10">
-            <div class="text-5xl mb-4 animate-wiggle">👋</div>
-            <h2 class="font-heading text-2xl md:text-4xl font-black uppercase text-max-quaternary text-shadow-double mb-4">
+            <div class="text-5xl mb-6 animate-wiggle">👋</div>
+            <h2 class="font-heading text-2xl md:text-4xl font-black uppercase text-max-quaternary text-shadow-double mb-6">
               期待你的来信！
             </h2>
-            <p class="text-white/70 text-lg mb-6">
+            <p class="text-white/70 text-lg mb-9">
               无论你是奶蛙爱好者、表情包创作者，还是只是想聊聊天，我们都欢迎你！
             </p>
             <MaximalButton variant="secondary" color="quaternary" size="md" icon="🐸" @click="$router.push('/')">

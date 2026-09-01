@@ -102,7 +102,7 @@ onMounted(() => {
 <template>
   <div>
     <!-- Hero Section -->
-    <section class="relative min-h-[50vh] flex items-center justify-center px-6 py-24 overflow-hidden">
+    <section class="relative min-h-[50vh] flex items-center justify-center px-6 py-36 overflow-hidden">
       <div class="absolute inset-0 flex items-center justify-center pointer-events-none" aria-hidden="true">
         <span class="text-[10rem] md:text-[18rem] font-heading font-black text-max-tertiary/10 uppercase select-none leading-none">
           GALLERY
@@ -115,8 +115,8 @@ onMounted(() => {
       <FloatingShape :colorIndex="1" size="lg" shape="circle" animation="bounce" bottom="20%" right="12%" />
 
       <div class="relative z-20 text-center max-w-4xl mx-auto">
-        <div class="text-8xl md:text-9xl mb-6 animate-wiggle">🖼️</div>
-        <h1 class="font-heading text-5xl md:text-7xl lg:text-8xl font-black uppercase leading-none mb-6 text-shadow-mega text-max-tertiary">
+        <div class="text-8xl md:text-9xl mb-9 animate-wiggle">🖼️</div>
+        <h1 class="font-heading text-5xl md:text-7xl lg:text-8xl font-black uppercase leading-none mb-9 text-shadow-mega text-max-tertiary">
           图片库
         </h1>
         <p class="text-xl md:text-2xl text-white/80 max-w-3xl mx-auto">
@@ -127,8 +127,8 @@ onMounted(() => {
     </section>
 
     <!-- Stats Bar -->
-    <section class="relative py-6 px-6 border-y-4 border-dashed border-max-accent">
-      <div class="max-w-6xl mx-auto flex flex-wrap items-center justify-center gap-6 md:gap-12">
+    <section class="relative py-9 px-6 border-y-4 border-dashed border-max-accent">
+      <div class="max-w-6xl mx-auto flex flex-wrap items-center justify-center gap-9 md:gap-18">
         <div class="text-center">
           <div class="font-heading text-2xl font-black text-max-accent">{{ store.stats.total }}</div>
           <div class="text-white/60 text-sm">总计</div>
@@ -149,15 +149,15 @@ onMounted(() => {
     </section>
 
     <!-- Filters -->
-    <section class="relative py-8 px-6">
+    <section class="relative py-12 px-6">
       <div class="max-w-6xl mx-auto">
         <!-- Search -->
-        <div class="mb-6">
+        <div class="mb-9">
           <div class="relative max-w-md mx-auto">
             <input
               type="text"
               placeholder="🔍 搜索图片..."
-              class="w-full px-6 py-4 rounded-full border-4 border-max-secondary bg-max-muted/50 backdrop-blur-sm text-white text-lg font-body placeholder-white/40 focus:border-max-accent focus:ring-4 focus:ring-max-accent/30 focus:ring-offset-2 focus:ring-offset-max-background outline-none transition-all duration-300"
+              class="w-full px-6 py-6 rounded-full border-4 border-max-secondary bg-max-muted/50 backdrop-blur-sm text-white text-lg font-body placeholder-white/40 focus:border-max-accent focus:ring-4 focus:ring-max-accent/30 focus:ring-offset-2 focus:ring-offset-max-background outline-none transition-all duration-300"
               :value="store.searchQuery"
               @input="handleSearch($event.target.value)"
             />
@@ -165,12 +165,12 @@ onMounted(() => {
         </div>
 
         <!-- Category Tabs -->
-        <div class="flex flex-wrap items-center justify-center gap-3">
+        <div class="flex flex-wrap items-center justify-center gap-4.5">
           <button
             v-for="(cat, index) in store.categories"
             :key="cat.id"
             @click="handleCategoryChange(cat.id)"
-            class="px-5 py-2 rounded-full border-4 font-heading font-bold uppercase tracking-wider text-sm transition-all duration-300"
+            class="px-5 py-3 rounded-full border-4 font-heading font-bold uppercase tracking-wider text-sm transition-all duration-300"
             :class="[
               store.currentCategory === cat.id
                 ? 'scale-105 shadow-multi'
@@ -187,7 +187,7 @@ onMounted(() => {
         </div>
 
         <!-- Download All Button -->
-        <div class="mt-6 text-center">
+        <div class="mt-9 text-center">
           <MaximalButton color="accent" size="md" icon="⬇️" @click="downloadAll">
             下载当前分类全部图片 ({{ store.filteredImages.length }})
           </MaximalButton>
@@ -196,32 +196,32 @@ onMounted(() => {
     </section>
 
     <!-- Gallery Grid -->
-    <section class="relative py-12 px-6">
+    <section class="relative py-18 px-6">
       <div class="max-w-7xl mx-auto">
         <!-- Loading State -->
-        <div v-if="store.loading" class="text-center py-24">
-          <div class="text-6xl animate-spin-slow mb-4">⏳</div>
+        <div v-if="store.loading" class="text-center py-36">
+          <div class="text-6xl animate-spin-slow mb-6">⏳</div>
           <p class="text-white/60 text-xl">加载中...</p>
         </div>
 
         <!-- Error State -->
-        <div v-else-if="store.error" class="text-center py-24">
-          <div class="text-6xl mb-4">😵</div>
-          <p class="text-max-secondary text-xl mb-4">{{ store.error }}</p>
+        <div v-else-if="store.error" class="text-center py-36">
+          <div class="text-6xl mb-6">😵</div>
+          <p class="text-max-secondary text-xl mb-6">{{ store.error }}</p>
           <MaximalButton color="secondary" size="md" @click="store.fetchImages()">
             重试
           </MaximalButton>
         </div>
 
         <!-- Empty State -->
-        <div v-else-if="paginatedImages.length === 0" class="text-center py-24">
-          <div class="text-6xl mb-4 animate-wiggle">🐸</div>
-          <p class="text-white/60 text-xl mb-2">没有找到匹配的图片</p>
+        <div v-else-if="paginatedImages.length === 0" class="text-center py-36">
+          <div class="text-6xl mb-6 animate-wiggle">🐸</div>
+          <p class="text-white/60 text-xl mb-3">没有找到匹配的图片</p>
           <p class="text-white/40 text-lg">试试其他搜索词或分类吧</p>
         </div>
 
         <!-- Image Grid -->
-        <div v-else class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 md:gap-6">
+        <div v-else class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-6 md:gap-9">
           <ImageCard
             v-for="(image, index) in paginatedImages"
             :key="image.filename"
@@ -233,7 +233,7 @@ onMounted(() => {
         </div>
 
         <!-- Pagination -->
-        <div v-if="totalPages > 1" class="mt-12 flex items-center justify-center gap-3">
+        <div v-if="totalPages > 1" class="mt-18 flex items-center justify-center gap-4.5">
           <MaximalButton
             variant="secondary"
             color="tertiary"
@@ -307,7 +307,7 @@ onMounted(() => {
           </button>
 
           <!-- Image -->
-          <div class="flex items-center justify-center min-h-[400px] bg-max-background rounded-2xl mb-6 overflow-hidden">
+          <div class="flex items-center justify-center min-h-[400px] bg-max-background rounded-2xl mb-9 overflow-hidden">
             <img
               :src="`${baseUrl}images/${previewImage.filename}`"
               :alt="previewImage.filename"
@@ -317,10 +317,10 @@ onMounted(() => {
 
           <!-- Info -->
           <div class="text-center">
-            <h3 class="font-heading text-xl font-black text-max-accent uppercase tracking-wider mb-2">
+            <h3 class="font-heading text-xl font-black text-max-accent uppercase tracking-wider mb-3">
               {{ previewImage.filename }}
             </h3>
-            <div class="inline-block px-4 py-1 rounded-full border-2 text-sm font-heading font-bold"
+            <div class="inline-block px-4 py-1.5 rounded-full border-2 text-sm font-heading font-bold"
               :style="{
                 borderColor: ACCENT_COLORS[0],
                 color: ACCENT_COLORS[0]

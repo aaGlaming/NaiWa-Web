@@ -118,7 +118,7 @@ onMounted(() => {
 <template>
   <div>
     <!-- Hero Section -->
-    <section class="relative min-h-[35vh] flex items-center justify-center px-6 py-20 overflow-hidden">
+    <section class="relative min-h-[35vh] flex items-center justify-center px-6 py-30 overflow-hidden">
       <div class="absolute inset-0 flex items-center justify-center pointer-events-none" aria-hidden="true">
         <span class="text-[10rem] md:text-[18rem] font-heading font-black text-max-quinary/10 uppercase select-none leading-none">
           TAROT
@@ -130,8 +130,8 @@ onMounted(() => {
       <FloatingShape :colorIndex="2" size="md" shape="square" animation="wiggle" bottom="15%" left="10%" />
 
       <div class="relative z-20 text-center max-w-4xl mx-auto">
-        <div class="text-8xl md:text-9xl mb-6 animate-wiggle">🔮</div>
-        <h1 class="font-heading text-5xl md:text-7xl lg:text-8xl font-black uppercase leading-none mb-6 text-shadow-mega text-max-quinary">
+        <div class="text-8xl md:text-9xl mb-9 animate-wiggle">🔮</div>
+        <h1 class="font-heading text-5xl md:text-7xl lg:text-8xl font-black uppercase leading-none mb-9 text-shadow-mega text-max-quinary">
           奶蛙塔罗牌
         </h1>
         <p class="text-xl md:text-2xl text-white/80 max-w-3xl mx-auto">
@@ -142,16 +142,16 @@ onMounted(() => {
     </section>
 
     <!-- Main Content -->
-    <section class="relative py-16 px-6 pt-24">
+    <section class="relative py-24 px-6 pt-36">
       <div class="max-w-6xl mx-auto">
 
         <!-- Controls -->
-        <div class="flex flex-wrap items-center justify-center gap-4 mb-16">
+        <div class="flex flex-wrap items-center justify-center gap-6 mb-24">
           <!-- Spread Mode -->
-          <div class="flex items-center gap-2 p-2 rounded-2xl border-4 border-max-secondary bg-max-muted/50">
+          <div class="flex items-center gap-3 p-2 rounded-2xl border-4 border-max-secondary bg-max-muted/50">
             <button
               @click="spreadMode = 'single'"
-              class="px-4 py-2 rounded-xl font-heading font-bold text-sm transition-all duration-300"
+              class="px-4 py-3 rounded-xl font-heading font-bold text-sm transition-all duration-300"
               :class="[
                 spreadMode === 'single'
                   ? 'bg-max-secondary text-max-background'
@@ -162,7 +162,7 @@ onMounted(() => {
             </button>
             <button
               @click="spreadMode = 'three'"
-              class="px-4 py-2 rounded-xl font-heading font-bold text-sm transition-all duration-300"
+              class="px-4 py-3 rounded-xl font-heading font-bold text-sm transition-all duration-300"
               :class="[
                 spreadMode === 'three'
                   ? 'bg-max-secondary text-max-background'
@@ -174,7 +174,7 @@ onMounted(() => {
           </div>
 
           <!-- Reversed Toggle -->
-          <label class="flex items-center gap-2 px-4 py-2 rounded-2xl border-4 border-max-tertiary bg-max-muted/50 cursor-pointer">
+          <label class="flex items-center gap-3 px-4 py-3 rounded-2xl border-4 border-max-tertiary bg-max-muted/50 cursor-pointer">
             <input
               type="checkbox"
               v-model="allowReversed"
@@ -223,14 +223,14 @@ onMounted(() => {
 
           <!-- Empty State -->
           <div v-if="drawnCards.length === 0 && !isShuffling" class="flex flex-col items-center justify-center h-[300px]">
-            <div class="text-6xl mb-4 animate-float">🔮</div>
+            <div class="text-6xl mb-6 animate-float">🔮</div>
             <p class="text-white/50 text-xl">点击"抽牌"开始占卜</p>
-            <p class="text-white/30 text-sm mt-2">先洗牌，再抽牌</p>
+            <p class="text-white/30 text-sm mt-3">先洗牌，再抽牌</p>
           </div>
 
           <!-- Shuffling Animation -->
           <div v-if="isShuffling" class="flex items-center justify-center h-[300px]">
-            <div class="flex gap-4">
+            <div class="flex gap-6">
               <div
                 v-for="i in 5"
                 :key="i"
@@ -248,7 +248,7 @@ onMounted(() => {
 
           <!-- Drawn Cards -->
           <div v-if="drawnCards.length > 0 && !isShuffling" class="flex flex-col items-center">
-            <div class="flex flex-wrap items-end justify-center gap-6 md:gap-10">
+            <div class="flex flex-wrap items-end justify-center gap-9 md:gap-15">
               <div v-for="(card, index) in drawnCards" :key="card.id" class="text-center">
                 <TarotCard
                   :card="card"
@@ -263,17 +263,17 @@ onMounted(() => {
 
             <!-- Reading Result -->
             <Transition name="fade">
-              <div v-if="showResult && currentReading" class="mt-12 max-w-2xl text-center">
+              <div v-if="showResult && currentReading" class="mt-18 max-w-2xl text-center">
                 <div class="p-8 rounded-3xl border-4 border-max-accent bg-max-muted/80"
                   style="box-shadow: 6px 6px 0 #FFE600, 12px 12px 0 #FF3AF2;">
-                  <h3 class="font-heading text-2xl font-black text-max-accent uppercase mb-4">🔮 奶蛙解读</h3>
+                  <h3 class="font-heading text-2xl font-black text-max-accent uppercase mb-6">🔮 奶蛙解读</h3>
 
                   <!-- Keywords -->
-                  <div class="flex flex-wrap justify-center gap-3 mb-6">
+                  <div class="flex flex-wrap justify-center gap-4.5 mb-9">
                     <span
                       v-for="(kw, i) in currentReading.keywords"
                       :key="i"
-                      class="px-4 py-2 rounded-full border-2 font-heading font-bold text-sm"
+                      class="px-4 py-3 rounded-full border-2 font-heading font-bold text-sm"
                       :style="{
                         borderColor: ['#FFE600', '#FF3AF2', '#00F5D4'][i % 3],
                         color: ['#FFE600', '#FF3AF2', '#00F5D4'][i % 3]
@@ -288,7 +288,7 @@ onMounted(() => {
                     {{ currentReading.interpretation }}
                   </p>
 
-                  <div class="mt-6 text-4xl animate-wiggle">🐸✨</div>
+                  <div class="mt-9 text-4xl animate-wiggle">🐸✨</div>
                 </div>
               </div>
             </Transition>
@@ -296,7 +296,7 @@ onMounted(() => {
         </div>
 
         <!-- Instructions -->
-        <div class="mt-16 p-4 rounded-2xl border-2 border-dashed border-max-accent/30 bg-max-muted/30">
+        <div class="mt-24 p-4 rounded-2xl border-2 border-dashed border-max-accent/30 bg-max-muted/30">
           <p class="text-white/50 text-sm text-center">
             💡 提示：选择牌阵模式 → 点击洗牌 → 点击抽牌 → 点击卡牌翻转查看结果
           </p>
