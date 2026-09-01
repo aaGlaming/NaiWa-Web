@@ -122,7 +122,7 @@ onMounted(() => {
     <!-- Hero Section -->
     <section class="relative min-h-[35vh] flex items-center justify-center px-6 py-30 overflow-hidden">
       <div class="absolute inset-0 flex items-center justify-center pointer-events-none" aria-hidden="true">
-        <span class="text-[10rem] md:text-[18rem] font-heading font-bold text-[#C4B5FD]/10 uppercase select-none leading-none">
+        <span class="text-[10rem] md:text-[18rem] font-heading font-black text-[#C4B5FD]/10 uppercase select-none leading-none">
           TAROT
         </span>
       </div>
@@ -132,8 +132,8 @@ onMounted(() => {
       <FloatingShape :colorIndex="2" size="md" shape="square" animation="wiggle" bottom="15%" left="10%" />
 
       <div class="relative z-20 text-center max-w-4xl mx-auto">
-        <div class="text-8xl md:text-9xl mb-9 animate-wiggle">🔮</div>
-        <h1 class="font-heading text-5xl md:text-7xl lg:text-8xl font-bold uppercase leading-none mb-9 text-shadow-mega text-[#C4B5FD]">
+        <div class="text-8xl md:text-9xl mb-9 animate-bounce-subtle">🔮</div>
+        <h1 class="font-heading text-5xl md:text-7xl lg:text-8xl font-black uppercase leading-none mb-9  text-[#C4B5FD]">
           奶蛙塔罗牌
         </h1>
         <p class="text-xl md:text-2xl text-black/80 max-w-3xl mx-auto">
@@ -153,7 +153,7 @@ onMounted(() => {
           <div class="flex items-center gap-3 p-2 rounded-2xl border-4 border-black bg-[#C4B5FD]/50">
             <button
               @click="spreadMode = 'single'"
-              class="px-4 py-3 rounded-xl font-heading font-bold text-sm transition-all duration-300"
+              class="px-4 py-3 rounded-xl font-heading font-black text-sm transition-all duration-300"
               :class="[
                 spreadMode === 'single'
                   ? 'bg-[#FFD93D] text-max-background'
@@ -164,7 +164,7 @@ onMounted(() => {
             </button>
             <button
               @click="spreadMode = 'three'"
-              class="px-4 py-3 rounded-xl font-heading font-bold text-sm transition-all duration-300"
+              class="px-4 py-3 rounded-xl font-heading font-black text-sm transition-all duration-300"
               :class="[
                 spreadMode === 'three'
                   ? 'bg-[#FFD93D] text-max-background'
@@ -220,14 +220,14 @@ onMounted(() => {
         </div>
 
         <!-- Reading Area -->
-        <div class="relative p-8 md:p-12 rounded-3xl border-4 border-black bg-[#C4B5FD]/30 min-h-[600px]"
-          style="box-shadow: 8px 8px 0 #7B2FFF, 16px 16px 0 #FFE600; background-image: radial-gradient(circle, rgba(123, 47, 255, 0.1) 1px, transparent 1px); background-size: 20px 20px;">
+        <div class="relative p-8 md:p-12 border-8 border-black bg-[#FFFDF5] min-h-[600px]"
+          style="box-shadow: 12px 12px 0px 0px #000; background-image: radial-gradient(circle, #000 1px, transparent 1px); background-size: 20px 20px; background-opacity: 0.03;">
 
           <!-- Empty State -->
           <div v-if="drawnCards.length === 0 && !isShuffling" class="flex flex-col items-center justify-center h-[300px]">
-            <div class="text-6xl mb-6 animate-float">🔮</div>
-            <p class="text-black/50 text-xl">点击"抽牌"开始占卜</p>
-            <p class="text-black/30 text-sm mt-3">先洗牌，再抽牌</p>
+            <div class="text-6xl mb-6 animate-bounce-subtle">🔮</div>
+            <p class="text-black/50 text-xl font-black">点击"抽牌"开始占卜</p>
+            <p class="text-black/30 text-sm mt-3 font-black">先洗牌，再抽牌</p>
           </div>
 
           <!-- Shuffling Animation -->
@@ -236,7 +236,7 @@ onMounted(() => {
               <div
                 v-for="i in 5"
                 :key="i"
-                class="w-20 h-32 rounded-xl border-4 border-black bg-[#C4B5FD] animate-shuffle"
+                class="w-20 h-32 border-4 border-black bg-[#FFD93D] animate-shuffle"
                 :style="{ '--i': i }"
               >
                 <img
@@ -266,31 +266,15 @@ onMounted(() => {
             <!-- Reading Result -->
             <Transition name="fade">
               <div v-if="showResult && currentReading" class="mt-18 max-w-2xl text-center">
-                <div class="p-8 rounded-3xl border-4 border-[#FF6B6B] bg-[#C4B5FD]/80"
-                  style="box-shadow: 6px 6px 0 #FFE600, 12px 12px 0 #FF3AF2;">
-                  <h3 class="font-heading text-2xl font-bold text-[#FF6B6B] uppercase mb-6">🔮 奶蛙解读</h3>
-
-                  <!-- Keywords -->
-                  <div class="flex flex-wrap justify-center gap-4.5 mb-9">
-                    <span
-                      v-for="(kw, i) in currentReading.keywords"
-                      :key="i"
-                      class="px-4 py-3 rounded-full border-2 font-heading font-bold text-sm"
-                      :style="{
-                        borderColor: ['#FFE600', '#FF3AF2', '#00F5D4'][i % 3],
-                        color: ['#FFE600', '#FF3AF2', '#00F5D4'][i % 3]
-                      }"
-                    >
-                      {{ kw }}
-                    </span>
-                  </div>
+                <div class="border-8 border-black bg-[#FFD93D] p-8" style="box-shadow: 12px 12px 0px 0px #000;">
+                  <h3 class="font-heading text-2xl font-black uppercase mb-6">🔮 奶蛙解读</h3>
 
                   <!-- Interpretation -->
-                  <p class="text-black/80 text-lg leading-relaxed">
+                  <p class="text-lg leading-relaxed font-black">
                     {{ currentReading.interpretation }}
                   </p>
 
-                  <div class="mt-9 text-4xl animate-wiggle">🐸✨</div>
+                  <div class="mt-8 text-4xl animate-bounce-subtle">🐸✨</div>
                 </div>
               </div>
             </Transition>

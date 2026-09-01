@@ -78,7 +78,7 @@ function skip() {
         <div class="text-5xl mb-4 animate-bounce-subtle">✨👑✨</div>
 
         <!-- 主标题 -->
-        <h1 class="legendary-title text-6xl md:text-8xl lg:text-9xl font-bold uppercase tracking-wider">
+        <h1 class="legendary-title text-6xl md:text-8xl lg:text-9xl font-black uppercase tracking-wider">
           金色传说
         </h1>
 

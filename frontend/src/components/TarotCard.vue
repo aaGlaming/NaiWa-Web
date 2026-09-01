@@ -54,7 +54,7 @@ const cardBackUrl = computed(() => {
           alt="牌背"
           class="w-full h-full object-cover "
         />
-        <div v-else class="w-full h-full  bg-gradient-to-br from-max-muted to-max-background border-4 border-[#FF6B6B] flex items-center justify-center">
+        <div v-else class="w-full h-full bg-[#FFD93D] border-4 border-black flex items-center justify-center" style="box-shadow: 8px 8px 0px 0px #000;">
           <span class="text-4xl">🔮</span>
         </div>
       </div>
