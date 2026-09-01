@@ -45,8 +45,14 @@ export const useImageStore = defineStore('images', () => {
       const response = await axios.get('/api/images')
       images.value = response.data.images
     } catch (e) {
-      error.value = e.message || 'Failed to load images'
-      console.error('Error fetching images:', e)
+      // 回退到本地 JSON 文件（GitHub Pages 部署时使用）
+      try {
+        const localResponse = await axios.get('/images.json')
+        images.value = localResponse.data.images
+      } catch (e2) {
+        error.value = e.message || 'Failed to load images'
+        console.error('Error fetching images:', e2)
+      }
     } finally {
       loading.value = false
     }
