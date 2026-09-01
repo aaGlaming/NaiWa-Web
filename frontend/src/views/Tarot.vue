@@ -122,7 +122,7 @@ onMounted(() => {
     <!-- Hero Section -->
     <section class="relative min-h-[35vh] flex items-center justify-center px-6 py-30 overflow-hidden">
       <div class="absolute inset-0 flex items-center justify-center pointer-events-none" aria-hidden="true">
-        <span class="text-[10rem] md:text-[18rem] font-heading font-black text-max-quinary/10 uppercase select-none leading-none">
+        <span class="text-[10rem] md:text-[18rem] font-heading font-bold text-max-quinary/10 uppercase select-none leading-none">
           TAROT
         </span>
       </div>
@@ -133,7 +133,7 @@ onMounted(() => {
 
       <div class="relative z-20 text-center max-w-4xl mx-auto">
         <div class="text-8xl md:text-9xl mb-9 animate-wiggle">🔮</div>
-        <h1 class="font-heading text-5xl md:text-7xl lg:text-8xl font-black uppercase leading-none mb-9 text-shadow-mega text-max-quinary">
+        <h1 class="font-heading text-5xl md:text-7xl lg:text-8xl font-bold uppercase leading-none mb-9 text-shadow-mega text-max-quinary">
           奶蛙塔罗牌
         </h1>
         <p class="text-xl md:text-2xl text-white/80 max-w-3xl mx-auto">
@@ -268,7 +268,7 @@ onMounted(() => {
               <div v-if="showResult && currentReading" class="mt-18 max-w-2xl text-center">
                 <div class="p-8 rounded-3xl border-4 border-max-accent bg-max-muted/80"
                   style="box-shadow: 6px 6px 0 #FFE600, 12px 12px 0 #FF3AF2;">
-                  <h3 class="font-heading text-2xl font-black text-max-accent uppercase mb-6">🔮 奶蛙解读</h3>
+                  <h3 class="font-heading text-2xl font-bold text-max-accent uppercase mb-6">🔮 奶蛙解读</h3>
 
                   <!-- Keywords -->
                   <div class="flex flex-wrap justify-center gap-4.5 mb-9">

@@ -46,7 +46,7 @@ function toggleMenu() {
         <!-- Logo -->
         <RouterLink to="/" class="flex items-center gap-4.5 group">
           <span class="text-4xl animate-wiggle">🐸</span>
-          <span class="font-heading text-2xl font-black uppercase text-max-accent text-shadow-double group-hover:text-max-secondary transition-colors duration-300">
+          <span class="font-heading text-2xl font-bold uppercase text-max-accent text-shadow-double group-hover:text-max-secondary transition-colors duration-300">
             奶蛙世界
           </span>
         </RouterLink>
@@ -125,7 +125,7 @@ function toggleMenu() {
           <div>
             <div class="flex items-center gap-4.5 mb-4">
               <span class="text-5xl animate-wiggle">🐸</span>
-              <h3 class="font-heading text-3xl font-black text-max-accent text-shadow-double">奶蛙世界</h3>
+              <h3 class="font-heading text-3xl font-bold text-max-accent text-shadow-double">奶蛙世界</h3>
             </div>
             <p class="text-white/70 text-lg">
               探索奶蛙的奇妙世界，感受互联网文化的独特魅力。

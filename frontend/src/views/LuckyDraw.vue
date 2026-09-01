@@ -213,7 +213,7 @@ onUnmounted(() => {
     <!-- Hero Section -->
     <section class="relative min-h-[35vh] flex items-center justify-center px-6 py-30 overflow-hidden">
       <div class="absolute inset-0 flex items-center justify-center pointer-events-none" aria-hidden="true">
-        <span class="text-[10rem] md:text-[18rem] font-heading font-black text-max-secondary/10 uppercase select-none leading-none">
+        <span class="text-[10rem] md:text-[18rem] font-heading font-bold text-max-secondary/10 uppercase select-none leading-none">
           LUCKY
         </span>
       </div>
@@ -224,7 +224,7 @@ onUnmounted(() => {
 
       <div class="relative z-20 text-center max-w-4xl mx-auto">
         <div class="text-8xl md:text-9xl mb-9 animate-wiggle">🎰</div>
-        <h1 class="font-heading text-5xl md:text-7xl lg:text-8xl font-black uppercase leading-none mb-9 text-shadow-mega text-max-secondary">
+        <h1 class="font-heading text-5xl md:text-7xl lg:text-8xl font-bold uppercase leading-none mb-9 text-shadow-mega text-max-secondary">
           奶蛙抽卡机
         </h1>
         <p class="text-xl md:text-2xl text-white/80 max-w-3xl mx-auto">
@@ -300,7 +300,7 @@ onUnmounted(() => {
             <!-- Rarity Info -->
             <div class="p-6 rounded-3xl border-4 border-max-accent bg-max-muted/80"
               style="box-shadow: 6px 6px 0 #FFE600, 12px 12px 0 #FF3AF2;">
-              <h3 class="font-heading text-xl font-black text-max-accent uppercase mb-6">📊 稀有度概率</h3>
+              <h3 class="font-heading text-xl font-bold text-max-accent uppercase mb-6">📊 稀有度概率</h3>
               <div class="space-y-4.5">
                 <div v-for="(config, rarity) in rarityConfig" :key="rarity" class="flex items-center justify-between">
                   <span class="font-bold" :style="{ color: config.color }">
@@ -314,7 +314,7 @@ onUnmounted(() => {
             <!-- Draw Stats -->
             <div class="p-6 rounded-3xl border-4 border-max-tertiary bg-max-muted/80"
               style="box-shadow: 6px 6px 0 #00F5D4, 12px 12px 0 #FFE600;">
-              <h3 class="font-heading text-xl font-black text-max-tertiary uppercase mb-6">📈 我的统计</h3>
+              <h3 class="font-heading text-xl font-bold text-max-tertiary uppercase mb-6">📈 我的统计</h3>
               <div class="space-y-3">
                 <div class="flex items-center justify-between text-white/70">
                   <span>总抽卡次数</span>

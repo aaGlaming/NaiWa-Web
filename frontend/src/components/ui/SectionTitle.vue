@@ -28,7 +28,7 @@ const alignClass = computed(() => ({
     <div class="flex items-center justify-center gap-4.5 mb-6" :class="align === 'center' ? 'justify-center' : align === 'right' ? 'justify-end' : ''">
       <span v-if="emoji" class="text-4xl md:text-5xl animate-wiggle">{{ emoji }}</span>
       <h2
-        class="font-heading text-4xl md:text-5xl lg:text-7xl font-black uppercase leading-none"
+        class="font-heading text-4xl md:text-5xl lg:text-7xl font-bold uppercase leading-none"
         :class="[shadowClass, gradient ? 'gradient-text' : '']"
         :style="gradient ? {} : { color: color }"
       >

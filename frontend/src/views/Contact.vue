@@ -63,7 +63,7 @@ const faqItems = [
     <!-- Hero Section -->
     <section class="relative min-h-[50vh] flex items-center justify-center px-6 py-36 overflow-hidden">
       <div class="absolute inset-0 flex items-center justify-center pointer-events-none" aria-hidden="true">
-        <span class="text-[10rem] md:text-[18rem] font-heading font-black text-max-quaternary/10 uppercase select-none leading-none">
+        <span class="text-[10rem] md:text-[18rem] font-heading font-bold text-max-quaternary/10 uppercase select-none leading-none">
           CONTACT
         </span>
       </div>
@@ -75,7 +75,7 @@ const faqItems = [
 
       <div class="relative z-20 text-center max-w-4xl mx-auto">
         <div class="text-8xl md:text-9xl mb-9 animate-wiggle">💌</div>
-        <h1 class="font-heading text-5xl md:text-7xl lg:text-8xl font-black uppercase leading-none mb-9 text-shadow-mega text-max-quaternary">
+        <h1 class="font-heading text-5xl md:text-7xl lg:text-8xl font-bold uppercase leading-none mb-9 text-shadow-mega text-max-quaternary">
           联系我们
         </h1>
         <p class="text-xl md:text-2xl text-white/80 max-w-3xl mx-auto">
@@ -99,7 +99,7 @@ const faqItems = [
             }"
           >
             <div class="text-4xl mb-4.5 animate-bounce-subtle">{{ method.emoji }}</div>
-            <h3 class="font-heading text-lg font-black uppercase mb-1.5" :style="{ color: ACCENT_COLORS[method.colorIndex] }">
+            <h3 class="font-heading text-lg font-bold uppercase mb-1.5" :style="{ color: ACCENT_COLORS[method.colorIndex] }">
               {{ method.title }}
             </h3>
             <p class="text-white/70">{{ method.value }}</p>
@@ -123,7 +123,7 @@ const faqItems = [
         <MaximalCard v-if="submitted" :colorIndex="2" pattern="dots">
           <div class="text-center py-18">
             <div class="text-7xl mb-9 animate-bounce-subtle">🎉</div>
-            <h3 class="font-heading text-3xl font-black text-max-tertiary uppercase mb-6 text-shadow-double">
+            <h3 class="font-heading text-3xl font-bold text-max-tertiary uppercase mb-6 text-shadow-double">
               发送成功！
             </h3>
             <p class="text-white/80 text-lg mb-9">感谢你的留言，我们会尽快回复你！</p>
@@ -232,7 +232,7 @@ const faqItems = [
             :colorIndex="index % 5"
             :rotate="index % 2 === 1"
           >
-            <h3 class="font-heading text-lg font-black uppercase mb-4.5" :style="{ color: ACCENT_COLORS[index % 5] }">
+            <h3 class="font-heading text-lg font-bold uppercase mb-4.5" :style="{ color: ACCENT_COLORS[index % 5] }">
               {{ item.question }}
             </h3>
             <p class="text-white/80 text-base leading-relaxed">{{ item.answer }}</p>
@@ -248,14 +248,14 @@ const faqItems = [
           style="box-shadow: 8px 8px 0 #FF6B35, 16px 16px 0 #7B2FFF, 24px 24px 0 #FFE600;"
         >
           <div class="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden" aria-hidden="true">
-            <span class="text-[8rem] md:text-[12rem] font-heading font-black text-max-quaternary/5 uppercase select-none leading-none">
+            <span class="text-[8rem] md:text-[12rem] font-heading font-bold text-max-quaternary/5 uppercase select-none leading-none">
               HI
             </span>
           </div>
 
           <div class="relative z-10">
             <div class="text-5xl mb-6 animate-wiggle">👋</div>
-            <h2 class="font-heading text-2xl md:text-4xl font-black uppercase text-max-quaternary text-shadow-double mb-6">
+            <h2 class="font-heading text-2xl md:text-4xl font-bold uppercase text-max-quaternary text-shadow-double mb-6">
               期待你的来信！
             </h2>
             <p class="text-white/70 text-lg mb-9">

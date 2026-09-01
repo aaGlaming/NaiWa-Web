@@ -66,7 +66,7 @@ onMounted(() => {
     <section class="relative min-h-screen flex items-center justify-center px-6 py-36 overflow-hidden">
       <!-- Background Text -->
       <div class="absolute inset-0 flex items-center justify-center pointer-events-none" aria-hidden="true">
-        <span class="text-[15rem] md:text-[25rem] font-heading font-black text-max-accent/10 uppercase select-none leading-none">
+        <span class="text-[15rem] md:text-[25rem] font-heading font-bold text-max-accent/10 uppercase select-none leading-none">
           FROG
         </span>
       </div>
@@ -89,7 +89,7 @@ onMounted(() => {
         <div class="text-8xl md:text-9xl mb-9 animate-bounce-subtle">🐸</div>
 
         <!-- Main Title -->
-        <h1 class="font-heading text-5xl md:text-7xl lg:text-9xl font-black uppercase leading-none mb-9 text-shadow-mega">
+        <h1 class="font-heading text-5xl md:text-7xl lg:text-9xl font-bold uppercase leading-none mb-9 text-shadow-mega">
           <span class="text-max-accent">奶蛙</span>
           <br />
           <span class="gradient-text">世界</span>
@@ -147,7 +147,7 @@ onMounted(() => {
             }"
           >
             <div class="text-3xl md:text-4xl mb-3">{{ stat.emoji }}</div>
-            <div class="font-heading text-3xl md:text-4xl font-black text-shadow-double" :style="{ color: ACCENT_COLORS[index] }">
+            <div class="font-heading text-3xl md:text-4xl font-bold text-shadow-double" :style="{ color: ACCENT_COLORS[index] }">
               {{ stat.value }}
             </div>
             <div class="text-white/60 text-sm mt-1.5 uppercase tracking-wider">{{ stat.label }}</div>
@@ -178,7 +178,7 @@ onMounted(() => {
             :pattern="feature.pattern"
           >
             <div class="text-5xl mb-6 animate-wiggle">{{ feature.emoji }}</div>
-            <h3 class="font-heading text-2xl md:text-3xl font-black uppercase mb-6" :style="{ color: ACCENT_COLORS[feature.colorIndex] }">
+            <h3 class="font-heading text-2xl md:text-3xl font-bold uppercase mb-6" :style="{ color: ACCENT_COLORS[feature.colorIndex] }">
               {{ feature.title }}
             </h3>
             <p class="text-white/80 text-lg leading-relaxed">
@@ -228,7 +228,7 @@ onMounted(() => {
                 :class="index % 2 === 0 ? 'md:pr-16 md:text-right' : 'md:pl-16'"
               >
                 <div
-                  class="inline-block px-4 py-3 rounded-2xl border-4 mb-3 font-heading font-black text-xl"
+                  class="inline-block px-4 py-3 rounded-2xl border-4 mb-3 font-heading font-bold text-xl"
                   :style="{
                     borderColor: ACCENT_COLORS[index],
                     color: ACCENT_COLORS[index],
@@ -253,14 +253,14 @@ onMounted(() => {
         >
           <!-- Background Text -->
           <div class="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden" aria-hidden="true">
-            <span class="text-[10rem] md:text-[15rem] font-heading font-black text-max-accent/5 uppercase select-none leading-none">
+            <span class="text-[10rem] md:text-[15rem] font-heading font-bold text-max-accent/5 uppercase select-none leading-none">
               WOW
             </span>
           </div>
 
           <div class="relative z-10">
             <div class="text-6xl mb-9 animate-wiggle">🐸✨</div>
-            <h2 class="font-heading text-3xl md:text-5xl font-black uppercase text-max-accent text-shadow-triple mb-9">
+            <h2 class="font-heading text-3xl md:text-5xl font-bold uppercase text-max-accent text-shadow-triple mb-9">
               准备好被奶蛙治愈了吗？
             </h2>
             <p class="text-white/70 text-lg md:text-xl mb-12 max-w-2xl mx-auto">

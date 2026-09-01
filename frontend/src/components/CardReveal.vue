@@ -179,7 +179,7 @@ onUnmounted(() => {
 
           <!-- 标题 -->
           <div class="text-center mb-6">
-            <h2 class="font-heading text-3xl md:text-4xl font-black uppercase text-max-accent text-shadow-double mb-2">
+            <h2 class="font-heading text-3xl md:text-4xl font-bold uppercase text-max-accent text-shadow-double mb-2">
               恭喜获得！
             </h2>
             <p class="text-white/70">你抽到了这5张奶蛙卡牌</p>

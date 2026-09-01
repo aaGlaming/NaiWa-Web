@@ -41,7 +41,7 @@ onMounted(() => {
   <div class="p-6 rounded-3xl border-4 border-max-secondary bg-max-muted/80"
     style="box-shadow: 6px 6px 0 #FF3AF2, 12px 12px 0 #00F5D4;">
     <div class="flex items-center justify-between mb-4">
-      <h3 class="font-heading text-xl font-black text-max-secondary uppercase">📋 抽卡记录</h3>
+      <h3 class="font-heading text-xl font-bold text-max-secondary uppercase">📋 抽卡记录</h3>
       <button
         v-if="history.length > 0"
         @click="clearHistory"

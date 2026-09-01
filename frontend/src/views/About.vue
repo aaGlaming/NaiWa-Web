@@ -57,7 +57,7 @@ const funFacts = [
     <section class="relative min-h-[70vh] flex items-center justify-center px-6 py-36 overflow-hidden">
       <!-- Background -->
       <div class="absolute inset-0 flex items-center justify-center pointer-events-none" aria-hidden="true">
-        <span class="text-[12rem] md:text-[20rem] font-heading font-black text-max-secondary/10 uppercase select-none leading-none">
+        <span class="text-[12rem] md:text-[20rem] font-heading font-bold text-max-secondary/10 uppercase select-none leading-none">
           ABOUT
         </span>
       </div>
@@ -69,7 +69,7 @@ const funFacts = [
 
       <div class="relative z-20 text-center max-w-4xl mx-auto">
         <div class="text-8xl md:text-9xl mb-9 animate-wiggle">🐸</div>
-        <h1 class="font-heading text-5xl md:text-7xl lg:text-8xl font-black uppercase leading-none mb-9 text-shadow-mega text-max-secondary">
+        <h1 class="font-heading text-5xl md:text-7xl lg:text-8xl font-bold uppercase leading-none mb-9 text-shadow-mega text-max-secondary">
           关于奶蛙
         </h1>
         <p class="text-xl md:text-2xl text-white/80 max-w-3xl mx-auto leading-relaxed">
@@ -94,7 +94,7 @@ const funFacts = [
           <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <div>
               <div class="text-6xl mb-6 animate-float">🏝️</div>
-              <h3 class="font-heading text-2xl font-black text-max-accent uppercase mb-6">台湾PTT论坛</h3>
+              <h3 class="font-heading text-2xl font-bold text-max-accent uppercase mb-6">台湾PTT论坛</h3>
               <p class="text-white/80 text-lg leading-relaxed mb-6">
                 2015年，一个名为"奶蛙"的形象在台湾最大的网络论坛PTT上首次出现。它的形象来源于GitHub上的一个开源桌宠项目，经过网友们的二次创作和传播，迅速走红。
               </p>
@@ -107,7 +107,7 @@ const funFacts = [
             >
               <div class="text-center">
                 <div class="text-7xl mb-6">🐸</div>
-                <div class="font-heading text-4xl font-black text-max-secondary text-shadow-double mb-3">2015</div>
+                <div class="font-heading text-4xl font-bold text-max-secondary text-shadow-double mb-3">2015</div>
                 <div class="text-white/60 text-lg">奶蛙诞生</div>
               </div>
             </div>
@@ -137,7 +137,7 @@ const funFacts = [
             :pattern="['dots', 'stripes', 'checker', 'mesh'][index]"
           >
             <div class="text-5xl mb-6 animate-wiggle">{{ char.emoji }}</div>
-            <h3 class="font-heading text-2xl font-black uppercase mb-4.5" :style="{ color: ACCENT_COLORS[char.colorIndex] }">
+            <h3 class="font-heading text-2xl font-bold uppercase mb-4.5" :style="{ color: ACCENT_COLORS[char.colorIndex] }">
               {{ char.title }}
             </h3>
             <p class="text-white/80 text-lg leading-relaxed">{{ char.description }}</p>
@@ -168,7 +168,7 @@ const funFacts = [
             }"
           >
             <div class="text-4xl mb-4.5 animate-bounce-subtle">{{ scenario.emoji }}</div>
-            <h3 class="font-heading text-xl font-black uppercase mb-3" :style="{ color: ACCENT_COLORS[index] }">
+            <h3 class="font-heading text-xl font-bold uppercase mb-3" :style="{ color: ACCENT_COLORS[index] }">
               {{ scenario.title }}
             </h3>
             <p class="text-white/70 text-base">{{ scenario.description }}</p>
@@ -221,17 +221,17 @@ const funFacts = [
           <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
             <div class="text-center">
               <div class="text-5xl mb-4.5 animate-float">🧘</div>
-              <h4 class="font-heading text-xl font-black text-max-quinary uppercase mb-3">佛系文化</h4>
+              <h4 class="font-heading text-xl font-bold text-max-quinary uppercase mb-3">佛系文化</h4>
               <p class="text-white/70">奶蛙的慵懒姿态完美诠释了"佛系"精神，成为年轻人表达生活态度的载体。</p>
             </div>
             <div class="text-center">
               <div class="text-5xl mb-4.5 animate-wiggle">😴</div>
-              <h4 class="font-heading text-xl font-black text-max-accent uppercase mb-3">躺平符号</h4>
+              <h4 class="font-heading text-xl font-bold text-max-accent uppercase mb-3">躺平符号</h4>
               <p class="text-white/70">在"躺平"文化兴起的背景下，奶蛙成为了最直观的视觉符号。</p>
             </div>
             <div class="text-center">
               <div class="text-5xl mb-4.5 animate-bounce-subtle">🎨</div>
-              <h4 class="font-heading text-xl font-black text-max-secondary uppercase mb-3">创意激发</h4>
+              <h4 class="font-heading text-xl font-bold text-max-secondary uppercase mb-3">创意激发</h4>
               <p class="text-white/70">简单的形象激发了无数网友的创作灵感，产生了丰富的二创作品。</p>
             </div>
           </div>
@@ -243,7 +243,7 @@ const funFacts = [
     <section class="relative py-36 px-6">
       <div class="max-w-4xl mx-auto text-center">
         <div class="text-6xl mb-9 animate-wiggle">🐸💖</div>
-        <h2 class="font-heading text-3xl md:text-5xl font-black uppercase text-max-accent text-shadow-triple mb-9">
+        <h2 class="font-heading text-3xl md:text-5xl font-bold uppercase text-max-accent text-shadow-triple mb-9">
           爱上奶蛙了吗？
         </h2>
         <p class="text-white/70 text-lg md:text-xl mb-12 max-w-2xl mx-auto">

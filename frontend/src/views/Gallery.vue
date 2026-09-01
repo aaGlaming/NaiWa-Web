@@ -104,7 +104,7 @@ onMounted(() => {
     <!-- Hero Section -->
     <section class="relative min-h-[50vh] flex items-center justify-center px-6 py-36 overflow-hidden">
       <div class="absolute inset-0 flex items-center justify-center pointer-events-none" aria-hidden="true">
-        <span class="text-[10rem] md:text-[18rem] font-heading font-black text-max-tertiary/10 uppercase select-none leading-none">
+        <span class="text-[10rem] md:text-[18rem] font-heading font-bold text-max-tertiary/10 uppercase select-none leading-none">
           GALLERY
         </span>
       </div>
@@ -116,7 +116,7 @@ onMounted(() => {
 
       <div class="relative z-20 text-center max-w-4xl mx-auto">
         <div class="text-8xl md:text-9xl mb-9 animate-wiggle">🖼️</div>
-        <h1 class="font-heading text-5xl md:text-7xl lg:text-8xl font-black uppercase leading-none mb-9 text-shadow-mega text-max-tertiary">
+        <h1 class="font-heading text-5xl md:text-7xl lg:text-8xl font-bold uppercase leading-none mb-9 text-shadow-mega text-max-tertiary">
           图片库
         </h1>
         <p class="text-xl md:text-2xl text-white/80 max-w-3xl mx-auto">
@@ -130,19 +130,19 @@ onMounted(() => {
     <section class="relative py-9 px-6 border-y-4 border-dashed border-max-accent">
       <div class="max-w-6xl mx-auto flex flex-wrap items-center justify-center gap-9 md:gap-18">
         <div class="text-center">
-          <div class="font-heading text-2xl font-black text-max-accent">{{ store.stats.total }}</div>
+          <div class="font-heading text-2xl font-bold text-max-accent">{{ store.stats.total }}</div>
           <div class="text-white/60 text-sm">总计</div>
         </div>
         <div class="text-center">
-          <div class="font-heading text-2xl font-black text-max-secondary">{{ store.stats.emoji }}</div>
+          <div class="font-heading text-2xl font-bold text-max-secondary">{{ store.stats.emoji }}</div>
           <div class="text-white/60 text-sm">表情包</div>
         </div>
         <div class="text-center">
-          <div class="font-heading text-2xl font-black text-max-tertiary">{{ store.stats.sticker }}</div>
+          <div class="font-heading text-2xl font-bold text-max-tertiary">{{ store.stats.sticker }}</div>
           <div class="text-white/60 text-sm">贴图</div>
         </div>
         <div class="text-center">
-          <div class="font-heading text-2xl font-black text-max-quaternary">{{ store.stats.animation }}</div>
+          <div class="font-heading text-2xl font-bold text-max-quaternary">{{ store.stats.animation }}</div>
           <div class="text-white/60 text-sm">动画</div>
         </div>
       </div>
@@ -317,7 +317,7 @@ onMounted(() => {
 
           <!-- Info -->
           <div class="text-center">
-            <h3 class="font-heading text-xl font-black text-max-accent uppercase tracking-wider mb-3">
+            <h3 class="font-heading text-xl font-bold text-max-accent uppercase tracking-wider mb-3">
               {{ previewImage.filename }}
             </h3>
             <div class="inline-block px-4 py-1.5 rounded-full border-2 text-sm font-heading font-bold"

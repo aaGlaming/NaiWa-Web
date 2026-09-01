@@ -40,7 +40,7 @@ const sizeClasses = {
 const colors = computed(() => colorMap[props.color] || colorMap.accent)
 
 const classes = computed(() => {
-  const base = 'relative inline-flex items-center justify-center gap-2 font-heading font-black uppercase tracking-widest rounded-full border-4 transition-all duration-300 cursor-pointer select-none'
+  const base = 'relative inline-flex items-center justify-center gap-2 font-heading font-bold uppercase tracking-widest rounded-full border-4 transition-all duration-300 cursor-pointer select-none'
   const size = sizeClasses[props.size]
 
   if (props.variant === 'primary') {

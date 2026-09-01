@@ -255,7 +255,7 @@ onMounted(() => {
     <!-- Hero Section -->
     <section class="relative min-h-[35vh] flex items-center justify-center px-6 py-30 overflow-hidden">
       <div class="absolute inset-0 flex items-center justify-center pointer-events-none" aria-hidden="true">
-        <span class="text-[10rem] md:text-[18rem] font-heading font-black text-max-quaternary/10 uppercase select-none leading-none">
+        <span class="text-[10rem] md:text-[18rem] font-heading font-bold text-max-quaternary/10 uppercase select-none leading-none">
           WALLPAPER
         </span>
       </div>
@@ -265,7 +265,7 @@ onMounted(() => {
 
       <div class="relative z-20 text-center max-w-4xl mx-auto">
         <div class="text-8xl md:text-9xl mb-9 animate-wiggle">🖼️</div>
-        <h1 class="font-heading text-5xl md:text-7xl lg:text-8xl font-black uppercase leading-none mb-9 text-shadow-mega text-max-quaternary">
+        <h1 class="font-heading text-5xl md:text-7xl lg:text-8xl font-bold uppercase leading-none mb-9 text-shadow-mega text-max-quaternary">
           壁纸生成器
         </h1>
         <p class="text-xl md:text-2xl text-white/80 max-w-3xl mx-auto">
@@ -284,7 +284,7 @@ onMounted(() => {
             <!-- Size Preset -->
             <div class="p-6 rounded-3xl border-4 border-max-accent bg-max-muted/80"
               style="box-shadow: 6px 6px 0 #FFE600, 12px 12px 0 #FF3AF2;">
-              <h3 class="font-heading text-xl font-black text-max-accent uppercase mb-6">📐 尺寸选择</h3>
+              <h3 class="font-heading text-xl font-bold text-max-accent uppercase mb-6">📐 尺寸选择</h3>
               <div class="grid grid-cols-2 gap-3">
                 <button
                   v-for="preset in sizePresets"
@@ -308,7 +308,7 @@ onMounted(() => {
             <!-- Background Color -->
             <div class="p-6 rounded-3xl border-4 border-max-secondary bg-max-muted/80"
               style="box-shadow: 6px 6px 0 #FF3AF2, 12px 12px 0 #00F5D4;">
-              <h3 class="font-heading text-xl font-black text-max-secondary uppercase mb-6">🎨 背景颜色</h3>
+              <h3 class="font-heading text-xl font-bold text-max-secondary uppercase mb-6">🎨 背景颜色</h3>
               <div class="space-y-3">
                 <button
                   v-for="color in bgColorOptions"
@@ -360,7 +360,7 @@ onMounted(() => {
           <div class="lg:col-span-2 space-y-9">
             <!-- Image Selection Header -->
             <div class="flex items-center justify-between">
-              <h3 class="font-heading text-2xl font-black text-max-accent uppercase">
+              <h3 class="font-heading text-2xl font-bold text-max-accent uppercase">
                 🖼️ 选择图片 ({{ selectedImages.length }}/12)
               </h3>
               <button
@@ -409,7 +409,7 @@ onMounted(() => {
             <!-- Canvas Preview -->
             <div class="p-4 rounded-3xl border-4 border-max-quaternary bg-max-muted/50"
               style="box-shadow: 6px 6px 0 #FF6B35, 12px 12px 0 #7B2FFF;">
-              <h3 class="font-heading text-xl font-black text-max-quaternary uppercase mb-6">📱 壁纸预览</h3>
+              <h3 class="font-heading text-xl font-bold text-max-quaternary uppercase mb-6">📱 壁纸预览</h3>
               <div class="relative bg-black rounded-2xl overflow-hidden" style="aspect-ratio: 16/9;">
                 <canvas
                   ref="canvasRef"
