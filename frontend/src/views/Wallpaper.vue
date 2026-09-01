@@ -40,7 +40,7 @@ async function loadImages() {
   try {
     const response = await fetch(baseUrl + 'images.json')
     const data = await response.json()
-    allImages.value = data.images.slice(0, 100)
+    allImages.value = data.images // 显示所有图片
   } catch (e) {
     console.error('Failed to load images:', e)
   }

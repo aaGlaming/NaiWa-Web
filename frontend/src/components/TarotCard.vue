@@ -16,9 +16,13 @@ const emit = defineEmits(['reveal', 'click'])
 const baseUrl = import.meta.env.BASE_URL || '/'
 const isRevealed = ref(props.revealed)
 
-watch(() => props.revealed, (val) => {
-  isRevealed.value = val
-})
+// 循环翻转
+function handleClick() {
+  if (props.card) {
+    isRevealed.value = !isRevealed.value
+    emit('click')
+  }
+}
 
 const cardImageUrl = computed(() => {
   if (!props.card) return ''
@@ -29,12 +33,6 @@ const cardBackUrl = computed(() => {
   if (!props.cardBack) return ''
   return `${baseUrl}images/${props.cardBack}`
 })
-
-function handleClick() {
-  if (!isRevealed.value && props.card) {
-    emit('click')
-  }
-}
 </script>
 
 <template>

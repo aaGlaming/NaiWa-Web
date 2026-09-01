@@ -1,5 +1,5 @@
 <script setup>
-import { ref, onMounted, computed } from 'vue'
+import { ref, onMounted, onUnmounted, computed } from 'vue'
 import DrawCard from '@/components/DrawCard.vue'
 import LegendaryEffect from '@/components/LegendaryEffect.vue'
 import DrawHistory from '@/components/DrawHistory.vue'
@@ -17,6 +17,7 @@ const showLegendary = ref(false)
 const legendaryImage = ref(null)
 const pityCount = ref(0)
 const stats = ref({ N: 0, R: 0, SR: 0, SSR: 0 })
+const drawMode = ref('single') // 'single' or 'ten'
 
 // 稀有度配置
 const rarityConfig = {
@@ -39,7 +40,6 @@ async function loadImages() {
 
 // 抽取稀有度（带保底）
 function rollRarity() {
-  // 保底机制：10次未出SR以上，第11次必出SR+
   if (pityCount.value >= 10) {
     pityCount.value = 0
     return Math.random() < 0.2 ? 'SSR' : 'SR'
@@ -70,31 +70,45 @@ function getRandomImage() {
   return allImages.value[index]
 }
 
-// 抽卡
+// 抽卡（单抽或十连）
 async function drawCards() {
   if (isDrawing.value || allImages.value.length === 0) return
 
   isDrawing.value = true
   drawnCards.value = []
 
-  // 等待动画
   await new Promise(r => setTimeout(r, 100))
 
-  // 抽取1张
-  const image = getRandomImage()
-  const rarity = rollRarity()
+  const count = drawMode.value === 'single' ? 1 : 10
+  const cards = []
+  let hasSSR = false
 
-  const card = {
-    image,
-    rarity,
-    revealed: false
+  for (let i = 0; i < count; i++) {
+    const image = getRandomImage()
+    const rarity = rollRarity()
+
+    if (rarity === 'SSR') {
+      hasSSR = true
+      legendaryImage.value = image
+    }
+
+    cards.push({
+      image,
+      rarity,
+      revealed: false
+    })
   }
 
-  drawnCards.value = [card]
+  drawnCards.value = cards
 
-  // 如果是传说，播放特效
-  if (rarity === 'SSR') {
-    legendaryImage.value = image
+  // 十连抽保底：至少一张SR以上
+  if (count === 10 && !cards.some(c => c.rarity === 'SR' || c.rarity === 'SSR')) {
+    const randomIndex = Math.floor(Math.random() * 10)
+    drawnCards.value[randomIndex].rarity = 'SR'
+  }
+
+  // 如果有传说，播放特效
+  if (hasSSR && legendaryImage.value) {
     setTimeout(() => {
       showLegendary.value = true
     }, 800)
@@ -103,37 +117,47 @@ async function drawCards() {
   isDrawing.value = false
 }
 
-// 翻转卡牌
+// 翻转单张卡牌
 function revealCard(index) {
-  if (drawnCards.value[index]) {
+  if (drawnCards.value[index] && !drawnCards.value[index].revealed) {
     drawnCards.value[index].revealed = true
     const rarity = drawnCards.value[index].rarity
     stats.value[rarity]++
-
-    // 保存记录
     saveHistory(drawnCards.value[index])
+  }
+}
+
+// 翻转所有卡牌
+function revealAll() {
+  drawnCards.value.forEach((card, index) => {
+    if (!card.revealed) {
+      setTimeout(() => {
+        card.revealed = true
+        stats.value[card.rarity]++
+        saveHistory(card)
+      }, index * 100)
+    }
+  })
+}
+
+// Enter键处理
+function handleKeydown(e) {
+  if (e.key === 'Enter' && drawnCards.value.length > 0 && !isDrawing.value) {
+    const hasUnrevealed = drawnCards.value.some(c => !c.revealed)
+    if (hasUnrevealed) {
+      revealAll()
+    }
   }
 }
 
 // 传说动画完成
 function onLegendaryComplete() {
   showLegendary.value = false
-  // 自动翻转卡牌
-  if (drawnCards.value[0]) {
-    drawnCards.value[0].revealed = true
-    stats.value.SSR++
-    saveHistory(drawnCards.value[0])
-  }
 }
 
 // 跳过传说动画
 function skipLegendary() {
   showLegendary.value = false
-  if (drawnCards.value[0]) {
-    drawnCards.value[0].revealed = true
-    stats.value.SSR++
-    saveHistory(drawnCards.value[0])
-  }
 }
 
 // 下载图片
@@ -155,7 +179,6 @@ function saveHistory(card) {
       rarity: card.rarity,
       timestamp: Date.now()
     })
-    // 只保留最近50条
     if (history.length > 50) {
       history.splice(0, history.length - 50)
     }
@@ -165,14 +188,16 @@ function saveHistory(card) {
   }
 }
 
-// 统计数据
-const totalDraws = computed(() => stats.value.N + stats.value.R + stats.value.SR + stats.value.SSR)
+// 计算属性
+const hasUnrevealed = computed(() => drawnCards.value.some(c => !c.revealed))
 
 onMounted(() => {
   loadImages()
-  // 加载保底计数
-  const savedPity = localStorage.getItem('naiwa_pity_count')
-  if (savedPity) pityCount.value = parseInt(savedPity) || 0
+  window.addEventListener('keydown', handleKeydown)
+})
+
+onUnmounted(() => {
+  window.removeEventListener('keydown', handleKeydown)
 })
 </script>
 
@@ -186,7 +211,7 @@ onMounted(() => {
     />
 
     <!-- Hero Section -->
-    <section class="relative min-h-[40vh] flex items-center justify-center px-6 py-24 overflow-hidden">
+    <section class="relative min-h-[35vh] flex items-center justify-center px-6 py-20 overflow-hidden">
       <div class="absolute inset-0 flex items-center justify-center pointer-events-none" aria-hidden="true">
         <span class="text-[10rem] md:text-[18rem] font-heading font-black text-max-secondary/10 uppercase select-none leading-none">
           LUCKY
@@ -203,7 +228,7 @@ onMounted(() => {
           奶蛙抽卡机
         </h1>
         <p class="text-xl md:text-2xl text-white/80 max-w-3xl mx-auto">
-          每次抽取一张奶蛙卡牌<br class="hidden md:block" />
+          每次抽取一张或十张奶蛙卡牌<br class="hidden md:block" />
           集齐所有稀有卡牌！
         </p>
       </div>
@@ -214,24 +239,63 @@ onMounted(() => {
       <div class="max-w-6xl mx-auto">
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
 
-          <!-- Left Panel: Stats & Draw Button -->
+          <!-- Left Panel: Stats & Controls -->
           <div class="lg:col-span-1 space-y-6">
-            <!-- Draw Button -->
-            <div class="text-center">
-              <MaximalButton
-                color="secondary"
-                size="lg"
-                icon="🎰"
-                :loading="isDrawing"
-                :disabled="isDrawing"
-                @click="drawCards"
+            <!-- Draw Mode -->
+            <div class="flex items-center gap-2 p-2 rounded-2xl border-4 border-max-secondary bg-max-muted/50">
+              <button
+                @click="drawMode = 'single'"
+                class="flex-1 px-4 py-3 rounded-xl font-heading font-bold text-sm transition-all duration-300"
+                :class="[
+                  drawMode === 'single'
+                    ? 'bg-max-secondary text-max-background'
+                    : 'text-white/70 hover:text-white'
+                ]"
               >
-                {{ isDrawing ? '抽取中...' : '开始抽卡' }}
-              </MaximalButton>
-              <p class="text-white/40 text-sm mt-2">
-                保底进度: {{ pityCount }}/10
-              </p>
+                🎴 单抽
+              </button>
+              <button
+                @click="drawMode = 'ten'"
+                class="flex-1 px-4 py-3 rounded-xl font-heading font-bold text-sm transition-all duration-300"
+                :class="[
+                  drawMode === 'ten'
+                    ? 'bg-max-secondary text-max-background'
+                    : 'text-white/70 hover:text-white'
+                ]"
+              >
+                🎰 十连抽
+              </button>
             </div>
+
+            <!-- Draw Button -->
+            <MaximalButton
+              color="secondary"
+              size="lg"
+              icon="🎰"
+              :loading="isDrawing"
+              :disabled="isDrawing"
+              @click="drawCards"
+              class="w-full"
+            >
+              {{ isDrawing ? '抽取中...' : drawMode === 'single' ? '开始抽卡' : '十连抽！' }}
+            </MaximalButton>
+
+            <!-- Reveal All Button -->
+            <MaximalButton
+              v-if="hasUnrevealed"
+              color="accent"
+              size="md"
+              icon="👁️"
+              @click="revealAll"
+              class="w-full"
+            >
+              一键查看全部
+            </MaximalButton>
+
+            <!-- Hint -->
+            <p v-if="drawnCards.length > 0 && hasUnrevealed" class="text-white/40 text-sm text-center">
+              💡 按 Enter 一键查看 | 点击卡牌逐张翻转
+            </p>
 
             <!-- Rarity Info -->
             <div class="p-6 rounded-3xl border-4 border-max-accent bg-max-muted/80"
@@ -254,7 +318,7 @@ onMounted(() => {
               <div class="space-y-2">
                 <div class="flex items-center justify-between text-white/70">
                   <span>总抽卡次数</span>
-                  <span class="font-bold text-max-accent">{{ totalDraws }}</span>
+                  <span class="font-bold text-max-accent">{{ stats.N + stats.R + stats.SR + stats.SSR }}</span>
                 </div>
                 <div class="flex items-center justify-between">
                   <span :style="{ color: '#4CAF50' }">普通</span>
@@ -288,11 +352,11 @@ onMounted(() => {
               <div v-if="drawnCards.length === 0" class="text-center">
                 <div class="text-8xl mb-4 animate-float">🐸</div>
                 <p class="text-white/50 text-xl">点击"开始抽卡"试试运气吧！</p>
-                <p class="text-white/30 text-sm mt-2">每次抽取一张，集齐稀有卡牌</p>
+                <p class="text-white/30 text-sm mt-2">支持单抽和十连抽</p>
               </div>
 
               <!-- Card Display -->
-              <div v-else class="flex items-center justify-center">
+              <div v-else class="flex flex-wrap items-center justify-center gap-4 md:gap-6">
                 <DrawCard
                   v-for="(card, index) in drawnCards"
                   :key="index"
@@ -305,13 +369,6 @@ onMounted(() => {
                   @download="downloadImage(card.image)"
                 />
               </div>
-            </div>
-
-            <!-- Tips -->
-            <div class="mt-6 p-4 rounded-2xl border-2 border-dashed border-max-accent/30 bg-max-muted/30">
-              <p class="text-white/50 text-sm text-center">
-                💡 提示：点击卡牌翻转查看奶蛙图片，每张卡牌右下角可单独下载
-              </p>
             </div>
           </div>
         </div>

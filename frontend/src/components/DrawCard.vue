@@ -6,7 +6,8 @@ const props = defineProps({
   rarity: { type: String, default: 'N' },
   revealed: { type: Boolean, default: false },
   index: { type: Number, default: 0 },
-  falling: { type: Boolean, default: false }
+  falling: { type: Boolean, default: false },
+  compact: { type: Boolean, default: false }
 })
 
 const emit = defineEmits(['reveal', 'download'])
@@ -44,8 +45,8 @@ function handleDownload(e) {
 <template>
   <div
     class="card-container"
-    :class="{ 'falling': falling }"
-    :style="{ '--delay': index * 0.15 + 's' }"
+    :class="{ 'falling': falling, 'compact': compact }"
+    :style="{ '--delay': index * 0.1 + 's' }"
     @click="handleClick"
   >
     <div
@@ -235,5 +236,33 @@ function handleDownload(e) {
     width: 140px;
     height: 200px;
   }
+}
+
+/* Compact mode for ten-draw */
+.card-container.compact {
+  width: 140px;
+  height: 200px;
+}
+
+.card-container.compact .rarity-badge {
+  font-size: 18px;
+}
+
+.card-container.compact .rarity-label {
+  font-size: 10px;
+}
+
+.card-container.compact .card-footer {
+  padding: 4px 8px;
+}
+
+.card-container.compact .rarity-tag {
+  font-size: 10px;
+}
+
+.card-container.compact .download-btn {
+  width: 22px;
+  height: 22px;
+  font-size: 10px;
 }
 </style>

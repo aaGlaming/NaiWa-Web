@@ -104,6 +104,12 @@ function onCardReveal(index) {
   }
 }
 
+// 卡牌点击（循环翻转）
+function onCardClick(index) {
+  drawnCards.value[index].revealed = !drawnCards.value[index].revealed
+  onCardReveal(index)
+}
+
 onMounted(() => {
   shuffleDeck()
 })
@@ -250,7 +256,7 @@ onMounted(() => {
                   :reversed="card.reversed"
                   :index="index"
                   :position="card.position"
-                  @click="drawnCards[index].revealed = true; onCardReveal(index)"
+                  @click="onCardClick(index)"
                 />
               </div>
             </div>
