@@ -50,7 +50,7 @@ function handleCategoryChange(category) {
 }
 
 async function downloadImage(image) {
-  const imageUrl = `/images/${image.filename}`
+  const imageUrl = `${import.meta.env.BASE_URL}images/${image.filename}`
   const fileName = image.filename
 
   if ('showSaveFilePicker' in window) {
@@ -308,7 +308,7 @@ onMounted(() => {
           <!-- Image -->
           <div class="flex items-center justify-center min-h-[400px] bg-max-background rounded-2xl mb-6 overflow-hidden">
             <img
-              :src="`/images/${previewImage.filename}`"
+              :src="`${import.meta.env.BASE_URL}images/${previewImage.filename}`"
               :alt="previewImage.filename"
               class="max-w-full max-h-[60vh] object-contain"
             />

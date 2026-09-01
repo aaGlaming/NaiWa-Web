@@ -29,7 +29,7 @@ const categoryBadge = computed(() => {
 
 async function handleDownload(e) {
   e.stopPropagation()
-  const imageUrl = `/images/${props.image.filename}`
+  const imageUrl = `${import.meta.env.BASE_URL}images/${props.image.filename}`
   const fileName = props.image.filename
 
   // 尝试使用 File System Access API (Chrome/Edge 支持)

@@ -41,13 +41,17 @@ export const useImageStore = defineStore('images', () => {
   async function fetchImages() {
     loading.value = true
     error.value = null
+
+    // 动态获取基础路径（兼容本地开发和 GitHub Pages）
+    const base = import.meta.env.BASE_URL || '/'
+
     try {
-      const response = await axios.get('/api/images')
+      const response = await axios.get(base + 'api/images')
       images.value = response.data.images
     } catch (e) {
       // 回退到本地 JSON 文件（GitHub Pages 部署时使用）
       try {
-        const localResponse = await axios.get('/images.json')
+        const localResponse = await axios.get(base + 'images.json')
         images.value = localResponse.data.images
       } catch (e2) {
         error.value = e.message || 'Failed to load images'
