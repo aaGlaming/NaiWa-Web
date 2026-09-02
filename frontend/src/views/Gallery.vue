@@ -4,9 +4,13 @@ import { useImageStore } from '@/stores/images'
 import SectionTitle from '@/components/ui/SectionTitle.vue'
 import ImageCard from '@/components/ui/ImageCard.vue'
 import MaximalButton from '@/components/ui/MaximalButton.vue'
-import FloatingShape from '@/components/ui/FloatingShape.vue'
+import FavoriteButton from '@/components/FavoriteButton.vue'
+import { useUserStore } from '@/stores/user'
+import { usePageMeta } from '@/composables/usePageMeta'
 
+usePageMeta()
 const store = useImageStore()
+const user = useUserStore()
 const baseUrl = import.meta.env.BASE_URL || '/'
 const previewImage = ref(null)
 const currentPage = ref(1)
@@ -33,6 +37,7 @@ function downloadImage(image) {
   document.body.appendChild(link)
   link.click()
   document.body.removeChild(link)
+  user.track('download')
 }
 
 onMounted(() => { store.fetchImages() })
@@ -116,7 +121,10 @@ onMounted(() => { store.fetchImages() })
           </div>
           <div class="text-center">
             <h3 class="font-heading text-xl font-black uppercase mb-3">{{ previewImage.filename }}</h3>
-            <MaximalButton color="accent" size="md" icon="⬇️" @click="downloadImage(previewImage)">下载图片</MaximalButton>
+            <div class="flex items-center justify-center gap-3 flex-wrap">
+              <FavoriteButton :filename="previewImage.filename" size="lg" />
+              <MaximalButton color="accent" size="md" icon="⬇️" @click="downloadImage(previewImage)">下载图片</MaximalButton>
+            </div>
           </div>
         </div>
       </div>

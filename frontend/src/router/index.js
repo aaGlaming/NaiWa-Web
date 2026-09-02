@@ -32,9 +32,39 @@ const routes = [
     component: () => import('@/views/Tarot.vue')
   },
   {
+    path: '/meme',
+    name: 'MemeMaker',
+    component: () => import('@/views/MemeMaker.vue')
+  },
+  {
+    path: '/collection',
+    name: 'Collection',
+    component: () => import('@/views/Collection.vue')
+  },
+  {
+    path: '/quiz',
+    name: 'Quiz',
+    component: () => import('@/views/Quiz.vue')
+  },
+  {
+    path: '/pet',
+    name: 'Pet',
+    component: () => import('@/views/Pet.vue')
+  },
+  {
     path: '/contact',
     name: 'Contact',
     component: () => import('@/views/Contact.vue')
+  },
+  {
+    path: '/changelog',
+    name: 'Changelog',
+    component: () => import('@/views/Changelog.vue')
+  },
+  {
+    path: '/:pathMatch(.*)*',
+    name: 'NotFound',
+    component: () => import('@/views/NotFound.vue')
   }
 ]
 

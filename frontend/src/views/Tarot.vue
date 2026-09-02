@@ -4,8 +4,11 @@ import TarotCard from '@/components/TarotCard.vue'
 import MaximalButton from '@/components/ui/MaximalButton.vue'
 import FloatingShape from '@/components/ui/FloatingShape.vue'
 import tarotData from '@/data/tarot.json'
+import { useUserStore } from '@/stores/user'
+import { usePageMeta } from '@/composables/usePageMeta'
 
-const baseUrl = import.meta.env.BASE_URL || '/'
+usePageMeta()
+const user = useUserStore()
 
 // 状态
 const deck = ref([])
@@ -61,6 +64,7 @@ function drawCards() {
 
   // 生成解读
   currentReading.value = generateReading(newDrawn)
+  user.track('tarot')
 }
 
 // 生成解读

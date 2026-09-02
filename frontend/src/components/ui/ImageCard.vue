@@ -1,6 +1,7 @@
 <script setup>
 import { computed, ref } from 'vue'
 import { getAccentColor, formatFilename } from '@/utils'
+import FavoriteButton from '@/components/FavoriteButton.vue'
 
 const props = defineProps({
   image: { type: Object, required: true },
@@ -99,7 +100,9 @@ function fallbackDownload(url, filename) {
     </div>
 
     <!-- Download Button -->
-    <button
+    <div class="absolute top-2 left-2 z-10 flex gap-1">
+      <FavoriteButton :filename="image.filename" size="sm" />
+      <button
       @click="handleDownload"
       class="absolute top-2 left-2 z-10 w-8 h-8 rounded-full border-2 bg-[#FFFDF5]/80 backdrop-blur-sm flex items-center justify-center text-sm transition-all duration-300 hover:scale-110 hover:bg-[#FF6B6B] hover:text-max-background hover:border-[#FF6B6B]"
       :style="{ borderColor: borderColor }"
@@ -107,6 +110,7 @@ function fallbackDownload(url, filename) {
     >
       ⬇
     </button>
+    </div>
 
     <!-- Image -->
     <div class="relative overflow-hidden  mb-4 aspect-square bg-[#FFFDF5] flex items-center justify-center">

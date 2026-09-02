@@ -1,0 +1,32 @@
+export const ACHIEVEMENTS = [
+  { id: 'first_favorite', title: '初次收藏', desc: '收藏第一张奶蛙图', icon: '💖', color: '#FF6B6B' },
+  { id: 'collector_10', title: '收藏达人', desc: '收藏 10 张奶蛙图', icon: '📚', color: '#FFD93D' },
+  { id: 'first_draw', title: '初出茅庐', desc: '完成第一次抽卡', icon: '🎰', color: '#C4B5FD' },
+  { id: 'draw_10', title: '抽卡狂人', desc: '累计抽卡 10 次', icon: '🔥', color: '#FF6B6B' },
+  { id: 'ssr_get', title: '传说降临', desc: '抽到一张 SSR', icon: '👑', color: '#FFD93D' },
+  { id: 'wallpaper_1', title: '壁纸大师', desc: '生成第一张壁纸', icon: '🖼️', color: '#C4B5FD' },
+  { id: 'tarot_1', title: '命运占卜', desc: '完成第一次塔罗占卜', icon: '🔮', color: '#FF6B6B' },
+  { id: 'quiz_1', title: '自我认知', desc: '完成奶蛙心情测试', icon: '🧠', color: '#FFD93D' },
+  { id: 'meme_1', title: '梗图制造机', desc: '制作第一张梗图', icon: '😂', color: '#C4B5FD' },
+  { id: 'dex_20', title: '图鉴收集者', desc: '图鉴解锁 20 张', icon: '🐸', color: '#FF6B6B' }
+]
+
+export function checkAchievement(id, state) {
+  const s = state.stats || {}
+  const fav = state.favorites?.length || 0
+  const dex = state.collection?.length || 0
+
+  switch (id) {
+    case 'first_favorite': return fav >= 1
+    case 'collector_10': return fav >= 10
+    case 'first_draw': return s.draws >= 1
+    case 'draw_10': return s.draws >= 10
+    case 'ssr_get': return s.ssrCount >= 1
+    case 'wallpaper_1': return s.wallpapers >= 1
+    case 'tarot_1': return s.tarot >= 1
+    case 'quiz_1': return s.quiz >= 1
+    case 'meme_1': return s.memes >= 1
+    case 'dex_20': return dex >= 20
+    default: return false
+  }
+}

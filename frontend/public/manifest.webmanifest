@@ -1,0 +1,18 @@
+{
+  "name": "奶蛙世界 - Milk Frog World",
+  "short_name": "奶蛙世界",
+  "description": "探索奶蛙的奇妙世界，佛系躺平，治愈你的每一天",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#FFFDF5",
+  "theme_color": "#FFD93D",
+  "lang": "zh-CN",
+  "icons": [
+    {
+      "src": "./favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}

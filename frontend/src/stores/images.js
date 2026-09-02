@@ -1,6 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
-import axios from 'axios'
+import { loadImagesCatalog } from '@/utils/fetchJson'
 
 export const useImageStore = defineStore('images', () => {
   const images = ref([])
@@ -8,6 +8,7 @@ export const useImageStore = defineStore('images', () => {
   const error = ref(null)
   const currentCategory = ref('all')
   const searchQuery = ref('')
+  const loaded = ref(false)
 
   const categories = [
     { id: 'all', label: '全部', icon: '🌟' },
@@ -38,25 +39,21 @@ export const useImageStore = defineStore('images', () => {
     animation: images.value.filter(i => i.category === 'animation').length
   }))
 
-  async function fetchImages() {
+  async function fetchImages(force = false) {
+    if (loaded.value && !force) return
     loading.value = true
     error.value = null
-
-    // 动态获取基础路径（兼容本地开发和 GitHub Pages）
-    const base = import.meta.env.BASE_URL || '/'
+    const base = import.meta.env.BASE_URL || './'
 
     try {
-      const response = await axios.get(base + 'api/images')
-      images.value = response.data.images
-    } catch (e) {
-      // 回退到本地 JSON 文件（GitHub Pages 部署时使用）
-      try {
-        const localResponse = await axios.get(base + 'images.json')
-        images.value = localResponse.data.images
-      } catch (e2) {
-        error.value = e.message || 'Failed to load images'
-        console.error('Error fetching images:', e2)
+      images.value = await loadImagesCatalog(base)
+      loaded.value = true
+      if (!images.value.length) {
+        error.value = '图片列表为空'
       }
+    } catch (e) {
+      error.value = e.message || '加载失败'
+      console.error('Error fetching images:', e)
     } finally {
       loading.value = false
     }
@@ -70,10 +67,15 @@ export const useImageStore = defineStore('images', () => {
     searchQuery.value = query
   }
 
+  function getByFilename(filename) {
+    return images.value.find(i => i.filename === filename)
+  }
+
   return {
     images,
     loading,
     error,
+    loaded,
     currentCategory,
     searchQuery,
     categories,
@@ -81,6 +83,7 @@ export const useImageStore = defineStore('images', () => {
     stats,
     fetchImages,
     setCategory,
-    setSearch
+    setSearch,
+    getByFilename
   }
 })

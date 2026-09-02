@@ -4,10 +4,20 @@ import { useRouter } from 'vue-router'
 import MaximalButton from '@/components/ui/MaximalButton.vue'
 import SectionTitle from '@/components/ui/SectionTitle.vue'
 import FloatingShape from '@/components/ui/FloatingShape.vue'
+import DailyFrog from '@/components/DailyFrog.vue'
 
 const router = useRouter()
 const heroVisible = ref(false)
 const statsVisible = ref(false)
+
+const quickLinks = [
+  { path: '/lucky', label: '今日抽卡', icon: '🎰', color: 'accent' },
+  { path: '/meme', label: '制作梗图', icon: '😂', color: 'secondary' },
+  { path: '/wallpaper', label: '生成壁纸', icon: '🎨', color: 'tertiary' },
+  { path: '/quiz', label: '心情测试', icon: '🧠', color: 'accent' },
+  { path: '/tarot', label: '塔罗占卜', icon: '🔮', color: 'secondary' },
+  { path: '/collection', label: '我的图鉴', icon: '📚', color: 'tertiary' }
+]
 
 const stats = [
   { value: '447+', label: '表情包素材', emoji: '😄', color: '#FF6B6B' },
@@ -62,6 +72,27 @@ onMounted(() => {
         <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
           <MaximalButton color="accent" size="lg" icon="🐸" @click="router.push('/about')">了解奶蛙</MaximalButton>
           <MaximalButton color="secondary" size="lg" icon="🖼️" @click="router.push('/gallery')">浏览图片库</MaximalButton>
+          <MaximalButton color="tertiary" size="lg" icon="🎰" @click="router.push('/lucky')">立即抽卡</MaximalButton>
+        </div>
+      </div>
+    </section>
+
+    <DailyFrog />
+
+    <!-- Quick Links -->
+    <section class="relative py-24 px-6 bg-white border-y-8 border-black">
+      <div class="max-w-5xl mx-auto">
+        <SectionTitle title="玩法入口" subtitle="更多奶蛙互动等你探索" :colorIndex="3" emoji="🎮" />
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+          <button
+            v-for="link in quickLinks"
+            :key="link.path"
+            class="border-4 border-black p-6 text-left bg-[#FFD93D] shadow-neo-sm hover:shadow-neo hover:-translate-y-1 transition-all duration-100"
+            @click="router.push(link.path)"
+          >
+            <span class="text-3xl block mb-2">{{ link.icon }}</span>
+            <span class="font-heading font-black uppercase">{{ link.label }}</span>
+          </button>
         </div>
       </div>
     </section>
@@ -132,7 +163,7 @@ onMounted(() => {
             <div class="text-6xl mb-6 animate-bounce-subtle">🐸✨</div>
             <h2 class="font-heading text-3xl md:text-5xl font-black uppercase text-white mb-6 tracking-tight">准备好被奶蛙治愈了吗？</h2>
             <p class="text-white/80 text-lg md:text-xl mb-10 max-w-2xl mx-auto font-bold">从今天开始，让奶蛙成为你的精神伙伴。</p>
-            <MaximalButton color="secondary" size="lg" icon="🖼️" @click="router.push('/gallery')">立即探索图片库</MaximalButton>
+            <MaximalButton color="secondary" size="lg" icon="🎰" @click="router.push('/lucky')">去抽卡</MaximalButton>
           </div>
         </div>
       </div>

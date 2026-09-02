@@ -6,8 +6,13 @@ import DrawHistory from '@/components/DrawHistory.vue'
 import MaximalButton from '@/components/ui/MaximalButton.vue'
 import FloatingShape from '@/components/ui/FloatingShape.vue'
 import { ACCENT_COLORS } from '@/utils'
+import { useUserStore } from '@/stores/user'
+import { loadImagesCatalog } from '@/utils/fetchJson'
+import { usePageMeta } from '@/composables/usePageMeta'
 
-const baseUrl = import.meta.env.BASE_URL || '/'
+usePageMeta()
+const user = useUserStore()
+const baseUrl = import.meta.env.BASE_URL || './'
 
 // 状态
 const allImages = ref([])
@@ -30,9 +35,7 @@ const rarityConfig = {
 // 加载图片
 async function loadImages() {
   try {
-    const response = await fetch(baseUrl + 'images.json')
-    const data = await response.json()
-    allImages.value = data.images
+    allImages.value = await loadImagesCatalog(baseUrl)
   } catch (e) {
     console.error('Failed to load images:', e)
   }
@@ -114,6 +117,7 @@ async function drawCards() {
     }, 800)
   }
 
+  user.track('draw', { count, ssr: cards.filter(c => c.rarity === 'SSR').length })
   isDrawing.value = false
 }
 
@@ -173,6 +177,7 @@ function downloadImage(image) {
 // 保存抽卡记录
 function saveHistory(card) {
   try {
+    user.addToCollection(card.image.filename)
     const history = JSON.parse(localStorage.getItem('naiwa_draw_history') || '[]')
     history.push({
       image: card.image.filename,

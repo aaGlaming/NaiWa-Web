@@ -3,8 +3,13 @@ import { ref, onMounted, nextTick } from 'vue'
 import MaximalButton from '@/components/ui/MaximalButton.vue'
 import FloatingShape from '@/components/ui/FloatingShape.vue'
 import { ACCENT_COLORS } from '@/utils'
+import { loadImagesCatalog } from '@/utils/fetchJson'
+import { useUserStore } from '@/stores/user'
+import { usePageMeta } from '@/composables/usePageMeta'
 
-const baseUrl = import.meta.env.BASE_URL || '/'
+usePageMeta()
+const user = useUserStore()
+const baseUrl = import.meta.env.BASE_URL || './'
 
 // 壁纸配置
 const wallpaperWidth = ref(1920)
@@ -38,9 +43,7 @@ const sizePresets = [
 // 加载图片列表
 async function loadImages() {
   try {
-    const response = await fetch(baseUrl + 'images.json')
-    const data = await response.json()
-    allImages.value = data.images // 显示所有图片
+    allImages.value = await loadImagesCatalog(baseUrl)
   } catch (e) {
     console.error('Failed to load images:', e)
   }
@@ -238,6 +241,7 @@ function downloadWallpaper() {
   link.download = `奶蛙壁纸_${wallpaperWidth.value}x${wallpaperHeight.value}.png`
   link.href = canvas.toDataURL('image/png')
   link.click()
+  user.track('wallpaper')
 }
 
 // 预览

@@ -5,7 +5,10 @@ import MaximalCard from '@/components/ui/MaximalCard.vue'
 import MaximalButton from '@/components/ui/MaximalButton.vue'
 import FloatingShape from '@/components/ui/FloatingShape.vue'
 import { ACCENT_COLORS } from '@/utils'
-import axios from 'axios'
+import { usePageMeta } from '@/composables/usePageMeta'
+import { loadJson, saveJson } from '@/utils/storage'
+
+usePageMeta()
 
 const form = ref({
   name: '',
@@ -21,15 +24,36 @@ const error = ref(null)
 async function handleSubmit() {
   submitting.value = true
   error.value = null
+
+  const payload = { ...form.value, time: new Date().toISOString() }
+
   try {
-    await axios.post('/api/contact', form.value)
-    submitted.value = true
-    form.value = { name: '', email: '', subject: '', message: '' }
-  } catch (e) {
-    error.value = e.response?.data?.detail || '提交失败，请稍后重试'
-  } finally {
-    submitting.value = false
-  }
+    const res = await fetch('/api/contact', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(form.value)
+    })
+    if (res.ok) {
+      submitted.value = true
+      form.value = { name: '', email: '', subject: '', message: '' }
+      return
+    }
+  } catch (_) { /* fallback below */ }
+
+  // 无后端时：存本地 + mailto 回退
+  const inbox = loadJson('naiwa_contact_messages', [])
+  inbox.push(payload)
+  saveJson('naiwa_contact_messages', inbox)
+
+  const subject = encodeURIComponent(`[奶蛙世界] ${form.value.subject}`)
+  const body = encodeURIComponent(
+    `姓名：${form.value.name}\n邮箱：${form.value.email}\n\n${form.value.message}`
+  )
+  window.location.href = `mailto:a36194113019@gmail.com?subject=${subject}&body=${body}`
+
+  submitted.value = true
+  form.value = { name: '', email: '', subject: '', message: '' }
+  submitting.value = false
 }
 
 const contactMethods = [
