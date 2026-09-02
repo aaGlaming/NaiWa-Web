@@ -5,10 +5,13 @@ import CardReveal from '@/components/CardReveal.vue'
 import DesktopPet from '@/components/DesktopPet.vue'
 import AchievementToast from '@/components/AchievementToast.vue'
 import { usePageMeta } from '@/composables/usePageMeta'
+import { hasSeen, markSeen } from '@/utils/storage'
 
 const route = useRoute()
 const isMenuOpen = ref(false)
-const showCardReveal = ref(true)
+const mobileMoreOpen = ref(false)
+const showCardReveal = ref(!hasSeen('naiwa_card_reveal_seen'))
+const showPet = ref(!showCardReveal.value)
 
 usePageMeta()
 
@@ -17,21 +20,28 @@ const navItems = [
   { path: '/gallery', label: '图片库', icon: '🖼️' },
   { path: '/lucky', label: '抽卡', icon: '🎰' },
   { path: '/meme', label: '梗图', icon: '😂' },
-  { path: '/collection', label: '图鉴', icon: '📚' },
-  { path: '/quiz', label: '测试', icon: '🧠' },
-  { path: '/about', label: '关于', icon: '🐸' },
-  { path: '/contact', label: '联系', icon: '💌' }
+  { path: '/collection', label: '图鉴', icon: '📚' }
 ]
 
 const moreItems = [
+  { path: '/quiz', label: '测试', icon: '🧠' },
+  { path: '/about', label: '关于', icon: '🐸' },
   { path: '/wallpaper', label: '壁纸', icon: '🎨' },
   { path: '/tarot', label: '塔罗', icon: '🔮' },
   { path: '/pet', label: '桌宠', icon: '🐸' },
+  { path: '/contact', label: '联系', icon: '💌' },
   { path: '/changelog', label: '日志', icon: '📋' }
 ]
 
 function toggleMenu() {
   isMenuOpen.value = !isMenuOpen.value
+  if (!isMenuOpen.value) mobileMoreOpen.value = false
+}
+
+function onCardRevealClose() {
+  showCardReveal.value = false
+  markSeen('naiwa_card_reveal_seen')
+  showPet.value = true
 }
 </script>
 
@@ -102,7 +112,7 @@ function toggleMenu() {
       >
         <div class="px-6 py-4 flex flex-col gap-3">
           <RouterLink
-            v-for="item in [...navItems, ...moreItems]"
+            v-for="item in navItems"
             :key="item.path"
             :to="item.path"
             @click="isMenuOpen = false"
@@ -115,15 +125,34 @@ function toggleMenu() {
           >
             {{ item.icon }} {{ item.label }}
           </RouterLink>
+          <button
+            type="button"
+            class="px-5 py-4 font-heading font-bold uppercase tracking-wide text-sm border-4 border-black text-center bg-[#C4B5FD] shadow-neo-sm"
+            @click="mobileMoreOpen = !mobileMoreOpen"
+            aria-expanded="mobileMoreOpen"
+          >
+            ➕ 更多 {{ mobileMoreOpen ? '▲' : '▼' }}
+          </button>
+          <RouterLink
+            v-for="item in moreItems"
+            v-show="mobileMoreOpen"
+            :key="item.path"
+            :to="item.path"
+            @click="isMenuOpen = false"
+            class="px-5 py-3 font-heading font-bold uppercase tracking-wide text-sm border-4 border-black text-center bg-white shadow-neo-sm"
+            :class="route.path === item.path ? 'bg-[#FF6B6B] text-white' : ''"
+          >
+            {{ item.icon }} {{ item.label }}
+          </RouterLink>
         </div>
       </div>
     </header>
 
     <!-- Card Reveal Popup -->
-    <CardReveal v-if="showCardReveal" @close="showCardReveal = false" />
+    <CardReveal v-if="showCardReveal" @close="onCardRevealClose" />
 
     <AchievementToast />
-    <DesktopPet />
+    <DesktopPet v-if="showPet" />
 
     <!-- Main Content -->
     <main class="relative z-10 pt-28">

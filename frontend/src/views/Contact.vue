@@ -20,40 +20,50 @@ const form = ref({
 const submitted = ref(false)
 const submitting = ref(false)
 const error = ref(null)
+const submitHint = ref('')
 
 async function handleSubmit() {
   submitting.value = true
   error.value = null
+  submitHint.value = ''
 
   const payload = { ...form.value, time: new Date().toISOString() }
+  let sent = false
 
-  try {
-    const res = await fetch('/api/contact', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(form.value)
-    })
-    if (res.ok) {
-      submitted.value = true
-      form.value = { name: '', email: '', subject: '', message: '' }
-      return
-    }
-  } catch (_) { /* fallback below */ }
+  if (import.meta.env.DEV) {
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form.value)
+      })
+      if (res.ok) sent = true
+    } catch (_) { /* fallback below */ }
+  }
 
-  // 无后端时：存本地 + mailto 回退
-  const inbox = loadJson('naiwa_contact_messages', [])
-  inbox.push(payload)
-  saveJson('naiwa_contact_messages', inbox)
-
-  const subject = encodeURIComponent(`[奶蛙世界] ${form.value.subject}`)
-  const body = encodeURIComponent(
-    `姓名：${form.value.name}\n邮箱：${form.value.email}\n\n${form.value.message}`
-  )
-  window.location.href = `mailto:a36194113019@gmail.com?subject=${subject}&body=${body}`
+  if (!sent) {
+    const inbox = loadJson('naiwa_contact_messages', [])
+    inbox.push(payload)
+    saveJson('naiwa_contact_messages', inbox)
+    submitHint.value = '留言已保存。如需联系，请发送邮件至 a36194113019@gmail.com，或复制下方内容。'
+  }
 
   submitted.value = true
   form.value = { name: '', email: '', subject: '', message: '' }
   submitting.value = false
+}
+
+async function copyLastMessage() {
+  const inbox = loadJson('naiwa_contact_messages', [])
+  const last = inbox[inbox.length - 1]
+  if (!last) return
+  const text = `姓名：${last.name}\n邮箱：${last.email}\n主题：${last.subject}\n\n${last.message}`
+  try {
+    await navigator.clipboard.writeText(text)
+    submitHint.value = '内容已复制到剪贴板！'
+  } catch {
+    submitHint.value = '复制失败，请手动发送邮件。'
+  }
 }
 
 const contactMethods = [
@@ -150,10 +160,12 @@ const faqItems = [
             <h3 class="font-heading text-3xl font-bold text-[#C4B5FD] uppercase mb-6 text-shadow-double">
               发送成功！
             </h3>
-            <p class="text-black/80 text-lg mb-9">感谢你的留言，我们会尽快回复你！</p>
-            <MaximalButton color="tertiary" size="md" @click="submitted = false">
-              发送更多消息
-            </MaximalButton>
+            <p class="text-black/80 text-lg mb-4">感谢你的留言，我们会尽快回复你！</p>
+            <p v-if="submitHint" class="text-black/70 text-base mb-6 font-bold">{{ submitHint }}</p>
+            <div class="flex flex-wrap gap-3 justify-center">
+              <MaximalButton color="tertiary" size="md" @click="copyLastMessage">复制留言</MaximalButton>
+              <MaximalButton color="secondary" size="md" @click="submitted = false">发送更多消息</MaximalButton>
+            </div>
           </div>
         </MaximalCard>
 

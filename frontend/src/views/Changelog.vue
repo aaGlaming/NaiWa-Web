@@ -8,6 +8,14 @@ usePageMeta()
 const router = useRouter()
 
 const logs = [
+  { date: '2026-09-02', title: 'v2.1 优化', items: [
+    '性能：移除未使用的 Element Plus，主包体积大幅缩小',
+    '体验：开屏弹窗仅首次显示，桌宠默认隐藏',
+    '功能：图库批量打包下载、梗图全库搜索、分享按钮',
+    '修复：联系表单不再强制跳转 mailto，图库加载更稳定',
+    'SEO：补充 robots.txt、sitemap.xml、og:image',
+    'PWA：Service Worker 按构建版本更新缓存'
+  ]},
   { date: '2026-09-02', title: 'v2.0 大更新', items: [
     '新增：梗图制作器、心情测试、图鉴收藏、成就系统',
     '新增：奶蛙桌宠（可拖拽浮动组件）',

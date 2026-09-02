@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://aaglaming.github.io/NaiWa-Web/sitemap.xml

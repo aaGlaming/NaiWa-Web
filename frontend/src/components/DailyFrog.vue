@@ -1,14 +1,16 @@
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { useImageStore } from '@/stores/images'
 import { getDailyQuote, getDailyImageIndex } from '@/data/quotes'
 import FavoriteButton from '@/components/FavoriteButton.vue'
 import MaximalButton from '@/components/ui/MaximalButton.vue'
 import { useRouter } from 'vue-router'
+import { shareContent } from '@/utils/share'
 
 const store = useImageStore()
 const router = useRouter()
 const baseUrl = import.meta.env.BASE_URL || './'
+const shareTip = ref('')
 
 const quote = getDailyQuote()
 
@@ -17,6 +19,16 @@ const dailyImage = computed(() => {
   const idx = getDailyImageIndex(store.images.length)
   return store.images[idx]
 })
+
+async function shareDaily() {
+  if (!dailyImage.value) return
+  const result = await shareContent({
+    title: '今日奶蛙',
+    text: `「${quote}」—— 今日奶蛙`,
+    url: `${location.origin}${location.pathname}#/`
+  })
+  shareTip.value = result === 'copied' ? '已复制分享内容' : result === 'shared' ? '分享成功' : ''
+}
 
 onMounted(() => store.fetchImages())
 </script>
@@ -37,6 +49,8 @@ onMounted(() => store.fetchImages())
             :src="`${baseUrl}images/${dailyImage.filename}`"
             :alt="dailyImage.filename"
             class="max-w-full max-h-full object-contain"
+            loading="lazy"
+            decoding="async"
           />
           <div class="absolute top-2 right-2">
             <FavoriteButton :filename="dailyImage.filename" size="sm" />
@@ -48,7 +62,9 @@ onMounted(() => store.fetchImages())
           <div class="flex flex-wrap gap-3 justify-center md:justify-start">
             <MaximalButton color="accent" size="md" icon="🖼️" @click="router.push('/gallery')">浏览图库</MaximalButton>
             <MaximalButton color="secondary" size="md" icon="😂" @click="router.push('/meme')">制作梗图</MaximalButton>
+            <MaximalButton color="tertiary" size="md" icon="🔗" @click="shareDaily">分享今日</MaximalButton>
           </div>
+          <p v-if="shareTip" class="text-sm font-bold mt-3 text-black/60">{{ shareTip }}</p>
         </div>
       </div>
       <div v-else class="text-center py-8 font-bold">加载今日奶蛙中…</div>

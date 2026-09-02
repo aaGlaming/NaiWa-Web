@@ -40,7 +40,7 @@ export const useImageStore = defineStore('images', () => {
   }))
 
   async function fetchImages(force = false) {
-    if (loaded.value && !force) return
+    if (loaded.value && images.value.length && !force) return
     loading.value = true
     error.value = null
     const base = import.meta.env.BASE_URL || './'
@@ -52,6 +52,7 @@ export const useImageStore = defineStore('images', () => {
         error.value = '图片列表为空'
       }
     } catch (e) {
+      loaded.value = false
       error.value = e.message || '加载失败'
       console.error('Error fetching images:', e)
     } finally {

@@ -10,3 +10,11 @@ export function loadJson(key, fallback) {
 export function saveJson(key, value) {
   localStorage.setItem(key, JSON.stringify(value))
 }
+
+export function hasSeen(key) {
+  return localStorage.getItem(key) === '1'
+}
+
+export function markSeen(key) {
+  localStorage.setItem(key, '1')
+}

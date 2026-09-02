@@ -107,6 +107,7 @@ function fallbackDownload(url, filename) {
       class="absolute top-2 left-2 z-10 w-8 h-8 rounded-full border-2 bg-[#FFFDF5]/80 backdrop-blur-sm flex items-center justify-center text-sm transition-all duration-300 hover:scale-110 hover:bg-[#FF6B6B] hover:text-max-background hover:border-[#FF6B6B]"
       :style="{ borderColor: borderColor }"
       title="下载图片"
+      aria-label="下载图片"
     >
       ⬇
     </button>
@@ -119,6 +120,7 @@ function fallbackDownload(url, filename) {
         :alt="displayName"
         class="w-full h-full object-contain transition-transform duration-300 group-hover:scale-110"
         loading="lazy"
+        decoding="async"
       />
       <!-- Animated Badge -->
       <div v-if="isAnimated" class="absolute bottom-2 left-2 px-2 py-1 bg-[#FFFDF5]/80 rounded-lg text-xs text-[#FF6B6B] border border-[#FF6B6B]">

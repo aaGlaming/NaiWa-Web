@@ -1,8 +1,9 @@
 <script setup>
 import { ref, onMounted, onUnmounted, computed } from 'vue'
+import { loadImagesCatalog } from '@/utils/fetchJson'
 
 const emit = defineEmits(['close'])
-const baseUrl = import.meta.env.BASE_URL || '/'
+const baseUrl = import.meta.env.BASE_URL || './'
 const visible = ref(true)
 const images = ref([])
 const revealed = ref([false, false, false, false, false])
@@ -14,9 +15,8 @@ const cardBgText = ['#FFF', '#000', '#000', '#FFF', '#FFF']
 
 async function loadRandomImages() {
   try {
-    const response = await fetch(baseUrl + 'images.json')
-    const data = await response.json()
-    const shuffled = [...data.images].sort(() => Math.random() - 0.5)
+    const list = await loadImagesCatalog(baseUrl)
+    const shuffled = [...list].sort(() => Math.random() - 0.5)
     images.value = shuffled.slice(0, 5)
   } catch (e) {
     console.error('Failed to load images:', e)
