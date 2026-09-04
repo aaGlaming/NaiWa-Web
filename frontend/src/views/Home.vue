@@ -14,8 +14,10 @@ const contents = [
   { n: '04', path: '/wallpaper', label: 'Wallpaper', desc: '排版成可带走的平面' },
   { n: '05', path: '/tarot', label: 'Tarot', desc: '单牌或三牌阵' },
   { n: '06', path: '/quiz', label: 'Quiz', desc: '测一测今日的躺法' },
-  { n: '07', path: '/collection', label: 'Collection', desc: '收藏、图鉴与成就' },
-  { n: '08', path: '/about', label: 'Essay', desc: '从 2015 年的那只肚子说起' }
+  { n: '07', path: '/play', label: 'Match', desc: '对对碰：翻开同一只肚子' },
+  { n: '08', path: '/spread', label: 'Spread', desc: '一次只看一张，像翻内页' },
+  { n: '09', path: '/collection', label: 'Collection', desc: '收藏、图鉴与成就' },
+  { n: '10', path: '/about', label: 'Essay', desc: '从 2015 年的那只肚子说起' }
 ]
 
 const stats = [

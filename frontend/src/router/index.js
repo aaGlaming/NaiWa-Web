@@ -47,6 +47,16 @@ const routes = [
     component: () => import('@/views/Quiz.vue')
   },
   {
+    path: '/play',
+    name: 'MemoryGame',
+    component: () => import('@/views/MemoryGame.vue')
+  },
+  {
+    path: '/spread',
+    name: 'Spread',
+    component: () => import('@/views/Spread.vue')
+  },
+  {
     path: '/pet',
     name: 'Pet',
     component: () => import('@/views/Pet.vue')

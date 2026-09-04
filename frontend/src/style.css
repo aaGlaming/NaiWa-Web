@@ -116,6 +116,11 @@ h1, h2, h3, h4, h5, h6 {
   transform: translateX(4px);
 }
 
+.ed-link:disabled {
+  opacity: 0.4;
+  pointer-events: none;
+}
+
 .ed-input {
   width: 100%;
   background: transparent;

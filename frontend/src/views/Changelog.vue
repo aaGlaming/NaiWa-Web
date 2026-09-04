@@ -8,6 +8,16 @@ const router = useRouter()
 
 const logs = [
   {
+    vol: '04',
+    date: '04.09.2026',
+    title: 'Play / Check-in / Spread',
+    items: [
+      '新增：躺平对对碰（/play），配对写入图鉴，记录最佳用时',
+      '新增：每日签到与连续天数，叠在首页今日奶蛙',
+      '新增：单图漫游（/spread），键盘左右翻页'
+    ]
+  },
+  {
     vol: '03',
     date: '04.09.2026',
     title: 'Editorial 改版',

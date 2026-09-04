@@ -8,7 +8,10 @@ export const ACHIEVEMENTS = [
   { id: 'tarot_1', title: '命运占卜', desc: '完成第一次塔罗占卜', icon: '🔮', color: '#A94B3C' },
   { id: 'quiz_1', title: '自我认知', desc: '完成奶蛙心情测试', icon: '🧠', color: '#292825' },
   { id: 'meme_1', title: '梗图制造机', desc: '制作第一张梗图', icon: '😂', color: '#8B877D' },
-  { id: 'dex_20', title: '图鉴收集者', desc: '图鉴解锁 20 张', icon: '🐸', color: '#A94B3C' }
+  { id: 'dex_20', title: '图鉴收集者', desc: '图鉴解锁 20 张', icon: '🐸', color: '#A94B3C' },
+  { id: 'match_1', title: '对上了', desc: '完成第一局对对碰', icon: '🎴', color: '#A94B3C' },
+  { id: 'checkin_1', title: '今日已躺', desc: '完成第一次签到', icon: '📅', color: '#292825' },
+  { id: 'streak_7', title: '一周佛系', desc: '连续签到 7 天', icon: '🧘', color: '#683E3D' }
 ]
 
 export function checkAchievement(id, state) {
@@ -27,6 +30,9 @@ export function checkAchievement(id, state) {
     case 'quiz_1': return s.quiz >= 1
     case 'meme_1': return s.memes >= 1
     case 'dex_20': return dex >= 20
+    case 'match_1': return (s.matches || 0) >= 1
+    case 'checkin_1': return (s.streak || 0) >= 1 || !!s.lastCheckin
+    case 'streak_7': return (s.streak || 0) >= 7
     default: return false
   }
 }

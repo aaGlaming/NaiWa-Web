@@ -5,19 +5,44 @@ import { ACHIEVEMENTS, checkAchievement } from '@/data/achievements'
 
 const STORAGE_KEY = 'naiwa_user_v1'
 
+const DEFAULT_STATS = {
+  draws: 0,
+  ssrCount: 0,
+  wallpapers: 0,
+  tarot: 0,
+  quiz: 0,
+  memes: 0,
+  downloads: 0,
+  matches: 0,
+  streak: 0,
+  lastCheckin: ''
+}
+
+function todayKey() {
+  const d = new Date()
+  const y = d.getFullYear()
+  const m = String(d.getMonth() + 1).padStart(2, '0')
+  const day = String(d.getDate()).padStart(2, '0')
+  return `${y}-${m}-${day}`
+}
+
+function yesterdayKey() {
+  const d = new Date()
+  d.setDate(d.getDate() - 1)
+  const y = d.getFullYear()
+  const m = String(d.getMonth() + 1).padStart(2, '0')
+  const day = String(d.getDate()).padStart(2, '0')
+  return `${y}-${m}-${day}`
+}
+
+export { todayKey }
+
 export const useUserStore = defineStore('user', () => {
-  const favorites = ref(loadJson(STORAGE_KEY, {}).favorites || [])
-  const collection = ref(loadJson(STORAGE_KEY, {}).collection || [])
-  const unlocked = ref(loadJson(STORAGE_KEY, {}).unlocked || [])
-  const stats = ref(loadJson(STORAGE_KEY, {}).stats || {
-    draws: 0,
-    ssrCount: 0,
-    wallpapers: 0,
-    tarot: 0,
-    quiz: 0,
-    memes: 0,
-    downloads: 0
-  })
+  const saved = loadJson(STORAGE_KEY, {})
+  const favorites = ref(saved.favorites || [])
+  const collection = ref(saved.collection || [])
+  const unlocked = ref(saved.unlocked || [])
+  const stats = ref({ ...DEFAULT_STATS, ...(saved.stats || {}) })
   const pendingToast = ref(null)
 
   function persist() {
@@ -68,6 +93,8 @@ export const useUserStore = defineStore('user', () => {
     }
   }
 
+  const checkedInToday = computed(() => stats.value.lastCheckin === todayKey())
+
   function track(event, payload = {}) {
     switch (event) {
       case 'draw':
@@ -89,6 +116,20 @@ export const useUserStore = defineStore('user', () => {
       case 'download':
         stats.value.downloads += 1
         break
+      case 'match':
+        stats.value.matches = (stats.value.matches || 0) + 1
+        break
+      case 'checkin': {
+        const today = todayKey()
+        if (stats.value.lastCheckin === today) return
+        if (stats.value.lastCheckin === yesterdayKey()) {
+          stats.value.streak = (stats.value.streak || 0) + 1
+        } else {
+          stats.value.streak = 1
+        }
+        stats.value.lastCheckin = today
+        break
+      }
       default:
         break
     }
@@ -110,6 +151,7 @@ export const useUserStore = defineStore('user', () => {
     stats,
     pendingToast,
     achievementProgress,
+    checkedInToday,
     toggleFavorite,
     isFavorite,
     addToCollection,

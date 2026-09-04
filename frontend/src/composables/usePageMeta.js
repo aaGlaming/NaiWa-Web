@@ -12,6 +12,8 @@ const PAGE_META = {
   Collection: { title: '我的图鉴', description: '收藏夹、抽卡图鉴与成就徽章。' },
   Quiz: { title: '奶蛙心情测试', description: '测测你今天是什么状态的奶蛙。' },
   Pet: { title: '奶蛙桌宠', description: '一只可以拖拽的佛系小奶蛙。' },
+  MemoryGame: { title: '对对碰', description: '翻开两张相同的奶蛙，完成一局躺平记忆游戏。' },
+  Spread: { title: '漫游', description: '一次只看一张奶蛙，用方向键翻页。' },
   Contact: { title: '联系我们', description: '有问题或建议？欢迎联系奶蛙世界。' },
   Changelog: { title: '更新日志', description: '奶蛙世界功能更新记录。' },
   NotFound: { title: '页面走丢了', description: '这只奶蛙找不到路了…' }

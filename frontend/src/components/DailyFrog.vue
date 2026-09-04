@@ -1,11 +1,13 @@
 <script setup>
 import { computed, onMounted } from 'vue'
 import { useImageStore } from '@/stores/images'
+import { useUserStore } from '@/stores/user'
 import { getDailyQuote, getDailyImageIndex } from '@/data/quotes'
 import FavoriteButton from '@/components/FavoriteButton.vue'
 import { RouterLink } from 'vue-router'
 
 const store = useImageStore()
+const user = useUserStore()
 const baseUrl = import.meta.env.BASE_URL || './'
 const quote = getDailyQuote()
 
@@ -14,6 +16,10 @@ const dailyImage = computed(() => {
   const idx = getDailyImageIndex(store.images.length)
   return store.images[idx]
 })
+
+function checkIn() {
+  user.track('checkin')
+}
 
 onMounted(() => store.fetchImages())
 </script>
@@ -28,6 +34,17 @@ onMounted(() => store.fetchImages())
           “{{ quote }}”
         </blockquote>
         <p class="ed-meta mt-6">Words of the day</p>
+        <div class="mt-8 flex flex-wrap items-center gap-6">
+          <button
+            type="button"
+            class="ed-link"
+            :disabled="user.checkedInToday"
+            @click="checkIn"
+          >
+            {{ user.checkedInToday ? '今日已签' : '今日签到' }}
+          </button>
+          <span class="ed-meta">Streak {{ user.stats.streak || 0 }}</span>
+        </div>
       </div>
       <div v-if="dailyImage" class="md:col-span-5 md:col-start-8">
         <div class="ed-img aspect-[4/5] relative">

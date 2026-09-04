@@ -1,5 +1,6 @@
 <script setup>
 import { ref, onMounted, computed } from 'vue'
+import { useRouter } from 'vue-router'
 import { useImageStore } from '@/stores/images'
 import ImageCard from '@/components/ui/ImageCard.vue'
 import MaximalButton from '@/components/ui/MaximalButton.vue'
@@ -10,6 +11,7 @@ import { shareContent } from '@/utils/share'
 import { downloadImagesAsZip } from '@/utils/batchDownload'
 
 usePageMeta()
+const router = useRouter()
 const store = useImageStore()
 const user = useUserStore()
 const baseUrl = import.meta.env.BASE_URL || './'
@@ -165,6 +167,10 @@ onMounted(() => { store.fetchImages(true) })
             <FavoriteButton :filename="previewImage.filename" size="lg" />
             <MaximalButton @click="downloadImage(previewImage)">下载</MaximalButton>
             <MaximalButton variant="ghost" @click="shareImage(previewImage)">分享</MaximalButton>
+            <MaximalButton
+              variant="ghost"
+              @click="router.push({ path: '/spread', query: { f: previewImage.filename } })"
+            >进入漫游</MaximalButton>
           </div>
         </div>
       </div>

@@ -45,7 +45,9 @@ const indexSections = [
       { path: '/meme', label: '梗图' },
       { path: '/wallpaper', label: '壁纸' },
       { path: '/tarot', label: '塔罗' },
-      { path: '/quiz', label: '心情测试' }
+      { path: '/quiz', label: '心情测试' },
+      { path: '/play', label: '对对碰' },
+      { path: '/spread', label: '漫游' }
     ]
   },
   {
