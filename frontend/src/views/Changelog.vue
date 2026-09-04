@@ -1,6 +1,5 @@
 <script setup>
 import { usePageMeta } from '@/composables/usePageMeta'
-import SectionTitle from '@/components/ui/SectionTitle.vue'
 import MaximalButton from '@/components/ui/MaximalButton.vue'
 import { useRouter } from 'vue-router'
 
@@ -8,53 +7,61 @@ usePageMeta()
 const router = useRouter()
 
 const logs = [
-  { date: '2026-09-02', title: 'v2.1 优化', items: [
-    '性能：移除未使用的 Element Plus，主包体积大幅缩小',
-    '体验：开屏弹窗仅首次显示，桌宠默认隐藏',
-    '功能：图库批量打包下载、梗图全库搜索、分享按钮',
-    '修复：联系表单不再强制跳转 mailto，图库加载更稳定',
-    'SEO：补充 robots.txt、sitemap.xml、og:image',
-    'PWA：Service Worker 按构建版本更新缓存'
-  ]},
-  { date: '2026-09-02', title: 'v2.0 大更新', items: [
-    '新增：梗图制作器、心情测试、图鉴收藏、成就系统',
-    '新增：奶蛙桌宠（可拖拽浮动组件）',
-    '新增：每日一图 + 佛系语录',
-    '修复：图片库在 GitHub Pages 上的加载问题',
-    '优化：联系表单 mailto 回退、PWA 支持、SEO 页面标题'
-  ]},
-  { date: '2026-03-01', title: 'v1.0 上线', items: [
-    '首页、关于、图片库、抽卡、壁纸、塔罗、联系页',
-    'Neo-Brutalism 设计风格',
-    '447+ 张奶蛙表情包素材',
-    'Enter 键彩蛋与开屏动画'
-  ]}
+  {
+    vol: '03',
+    date: '04.09.2026',
+    title: 'Editorial 改版',
+    items: [
+      '视觉从 Neo-Brutalism 转为编辑设计：纸色、墨色、朱砂 accent',
+      '导航改为杂志目录，页脚改为末页致谢',
+      '保留 v2.1：打包下载、分享、开屏仅首次、去掉 Element Plus'
+    ]
+  },
+  {
+    vol: '02',
+    date: '02.09.2026',
+    title: 'v2.0',
+    items: [
+      '新增：梗图制作器、心情测试、图鉴收藏、成就系统',
+      '新增：奶蛙桌宠、每日一图与佛系语录',
+      '修复：图片库在 GitHub Pages 上的加载问题',
+      '优化：联系表单 mailto 回退、PWA、SEO'
+    ]
+  },
+  {
+    vol: '01',
+    date: '01.03.2026',
+    title: 'v1.0',
+    items: [
+      '首页、关于、图片库、抽卡、壁纸、塔罗、联系页',
+      '447+ 张奶蛙表情包素材',
+      '开屏抽卡与 Enter 揭示'
+    ]
+  }
 ]
 </script>
 
 <template>
   <div>
-    <section class="relative min-h-[40vh] flex items-center justify-center px-6 py-24">
-      <div class="text-center">
-        <div class="text-8xl mb-6">📋</div>
-        <h1 class="font-heading text-5xl md:text-7xl font-black uppercase">更新日志</h1>
-      </div>
+    <section class="ed-page pt-16 md:pt-24 pb-8">
+      <p class="ed-meta mb-4">Vol. / Date / Notes</p>
+      <h1 class="ed-display">Log.</h1>
     </section>
 
-    <section class="py-12 px-6 max-w-3xl mx-auto space-y-10">
-      <div v-for="log in logs" :key="log.date" class="border-4 border-black bg-white p-8 shadow-neo">
-        <div class="flex flex-wrap items-center gap-3 mb-4">
-          <span class="px-3 py-1 bg-[#FF6B6B] text-white border-4 border-black font-black text-sm">{{ log.date }}</span>
-          <h2 class="font-heading font-black text-2xl uppercase">{{ log.title }}</h2>
-        </div>
-        <ul class="space-y-2">
-          <li v-for="(item, i) in log.items" :key="i" class="font-bold flex gap-2">
-            <span class="text-[#FFD93D]">▸</span>{{ item }}
-          </li>
+    <section class="ed-page pb-24">
+      <article v-for="log in logs" :key="log.vol" class="py-10 border-t border-ink/15">
+        <p class="ed-meta mb-3">
+          <span class="ed-num">Vol. {{ log.vol }}</span>
+          <span class="mx-3">·</span>
+          {{ log.date }}
+        </p>
+        <h2 class="font-display text-3xl md:text-4xl mb-6">{{ log.title }}</h2>
+        <ul class="space-y-2 text-charcoal">
+          <li v-for="(item, i) in log.items" :key="i">{{ item }}</li>
         </ul>
-      </div>
-      <div class="text-center">
-        <MaximalButton color="accent" icon="🏠" @click="router.push('/')">返回首页</MaximalButton>
+      </article>
+      <div class="pt-10">
+        <MaximalButton variant="ghost" @click="router.push('/')">返回封面</MaximalButton>
       </div>
     </section>
   </div>

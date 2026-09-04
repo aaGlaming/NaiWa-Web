@@ -14,23 +14,18 @@ watch(() => user.pendingToast, (val) => {
     <Transition name="toast">
       <div
         v-if="user.pendingToast"
-        class="fixed top-24 right-6 z-[200] max-w-sm border-4 border-black bg-[#FFD93D] p-5 shadow-neo"
+        class="fixed top-20 right-6 z-[200] max-w-sm bg-paper border border-ink/20 p-5 cursor-pointer"
         @click="user.clearToast()"
       >
-        <div class="flex items-start gap-3">
-          <span class="text-3xl">{{ user.pendingToast.icon }}</span>
-          <div>
-            <p class="font-heading font-black uppercase text-sm text-[#FF6B6B]">成就解锁！</p>
-            <p class="font-heading font-black text-lg">{{ user.pendingToast.title }}</p>
-            <p class="text-sm font-bold text-black/70">{{ user.pendingToast.desc }}</p>
-          </div>
-        </div>
+        <p class="ed-meta text-accent mb-1">Achievement</p>
+        <p class="font-display text-2xl leading-tight">{{ user.pendingToast.title }}</p>
+        <p class="text-sm text-warm-gray mt-2">{{ user.pendingToast.desc }}</p>
       </div>
     </Transition>
   </Teleport>
 </template>
 
 <style scoped>
-.toast-enter-active, .toast-leave-active { transition: all 0.3s ease; }
-.toast-enter-from, .toast-leave-to { opacity: 0; transform: translateX(100%); }
+.toast-enter-active, .toast-leave-active { transition: opacity 0.3s ease, transform 0.3s ease; }
+.toast-enter-from, .toast-leave-to { opacity: 0; transform: translateY(-8px); }
 </style>

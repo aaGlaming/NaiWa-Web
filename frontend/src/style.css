@@ -1,43 +1,23 @@
-@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700;900&display=block');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=Instrument+Serif:ital@0;1&display=swap');
 @import "tailwindcss";
 
 /* ============================================
-   Neo-Brutalism Design System
+   Editorial Design System — Paper + Ink + Vermilion
    ============================================ */
 
 @theme {
-  --color-neo-background: #FFFDF5;
-  --color-neo-foreground: #000000;
-  --color-neo-accent: #FF6B6B;
-  --color-neo-secondary: #FFD93D;
-  --color-neo-muted: #C4B5FD;
-  --color-neo-white: #FFFFFF;
+  --color-paper: #F3F0E8;
+  --color-warm-white: #F8F6F0;
+  --color-ink: #181816;
+  --color-charcoal: #292825;
+  --color-warm-gray: #8B877D;
+  --color-accent: #A94B3C;
 
-  --font-heading: 'Space Grotesk', sans-serif;
-  --font-body: 'Space Grotesk', sans-serif;
-
-  --animate-float: float 6s ease-in-out infinite;
-  --animate-spin-slow: spin-slow 10s linear infinite;
-  --animate-bounce-subtle: bounce-subtle 2s ease-in-out infinite;
+  --font-display: 'Instrument Serif', Georgia, serif;
+  --font-heading: 'Instrument Serif', Georgia, serif;
+  --font-body: 'IBM Plex Sans', Helvetica, sans-serif;
 }
 
-/* Keyframe Animations */
-@keyframes float {
-  0%, 100% { transform: translateY(0) rotate(0deg); }
-  50% { transform: translateY(-20px) rotate(3deg); }
-}
-
-@keyframes spin-slow {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
-}
-
-@keyframes bounce-subtle {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
-}
-
-/* Global Styles */
 * {
   margin: 0;
   padding: 0;
@@ -50,83 +30,188 @@ html {
 
 body {
   font-family: var(--font-body);
-  background-color: #FFFDF5;
-  color: #000000;
-  line-height: 1.6;
+  background-color: #F3F0E8;
+  color: #181816;
+  line-height: 1.65;
   overflow-x: hidden;
+  font-weight: 400;
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: var(--font-heading);
-  font-weight: 900;
-  text-transform: uppercase;
+  font-family: var(--font-display);
+  font-weight: 400;
   letter-spacing: -0.02em;
+  line-height: 0.95;
 }
 
-/* Neo-Brutalism Utility Classes */
-.shadow-neo-sm {
-  box-shadow: 4px 4px 0px 0px #000;
+/* Layout */
+.ed-page {
+  width: min(1280px, calc(100% - 2.5rem));
+  margin-inline: auto;
 }
 
-.shadow-neo {
-  box-shadow: 8px 8px 0px 0px #000;
+.ed-rule {
+  border: 0;
+  border-top: 1px solid #181816;
+  opacity: 0.18;
 }
 
-.shadow-neo-lg {
-  box-shadow: 12px 12px 0px 0px #000;
+.ed-rule-strong {
+  border: 0;
+  border-top: 1px solid #181816;
 }
 
-.shadow-neo-xl {
-  box-shadow: 16px 16px 0px 0px #000;
+.ed-meta {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: #8B877D;
 }
 
-/* Text Stroke for Display Typography */
-.text-stroke {
-  -webkit-text-stroke: 2px #000;
-  color: transparent;
+.ed-num {
+  font-family: var(--font-display);
+  font-style: italic;
+  color: #A94B3C;
 }
 
-.text-stroke-thin {
-  -webkit-text-stroke: 1px #000;
-  color: transparent;
+.ed-display {
+  font-family: var(--font-display);
+  font-size: clamp(64px, 10vw, 140px);
+  line-height: 0.88;
+  letter-spacing: -0.03em;
+  color: #181816;
 }
 
-/* Pattern Backgrounds */
-.pattern-dots {
-  background-image: radial-gradient(circle, #000 1.5px, transparent 1.5px);
-  background-size: 20px 20px;
+.ed-link {
+  font-family: var(--font-body);
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #181816;
+  text-decoration: none;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: color 200ms ease;
 }
 
-.pattern-grid {
-  background-size: 40px 40px;
-  background-image: linear-gradient(to right, rgba(0, 0, 0, 0.1) 1px, transparent 1px),
-                    linear-gradient(to bottom, rgba(0, 0, 0, 0.1) 1px, transparent 1px);
+.ed-link:hover {
+  color: #A94B3C;
 }
 
-.pattern-halftone {
-  background-image: radial-gradient(circle, #000 2px, transparent 2.5px);
-  background-size: 30px 30px;
+.ed-link::after {
+  content: '→';
+  font-style: normal;
+  transition: transform 200ms ease;
 }
 
-/* Scrollbar Styling */
+.ed-link:hover::after {
+  transform: translateX(4px);
+}
+
+.ed-input {
+  width: 100%;
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid rgba(24, 24, 22, 0.25);
+  padding: 0.85rem 0;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: #181816;
+  outline: none;
+  border-radius: 0;
+  transition: border-color 200ms ease;
+}
+
+.ed-input:focus {
+  border-bottom-color: #A94B3C;
+}
+
+.ed-input::placeholder {
+  color: #8B877D;
+}
+
+textarea.ed-input {
+  resize: vertical;
+  min-height: 8rem;
+}
+
+/* Image hover */
+.ed-img {
+  overflow: hidden;
+  background: #E8E4D8;
+}
+
+.ed-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 350ms ease;
+}
+
+.ed-img:hover img {
+  transform: scale(1.02);
+}
+
+/* List row */
+.ed-row {
+  display: grid;
+  grid-template-columns: 3rem 1fr auto;
+  gap: 1.25rem;
+  align-items: baseline;
+  padding: 1.25rem 0;
+  border-bottom: 1px solid rgba(24, 24, 22, 0.12);
+  text-align: left;
+  width: 100%;
+  background: none;
+  border-left: 0;
+  border-right: 0;
+  border-top: 0;
+  cursor: pointer;
+  color: inherit;
+  font: inherit;
+}
+
+.ed-row:hover .ed-row-title {
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.ed-row-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 2.4vw, 1.85rem);
+  line-height: 1.15;
+}
+
+/* Scrollbar */
 ::-webkit-scrollbar {
-  width: 12px;
+  width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #FFFDF5;
+  background: #F3F0E8;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #000;
-  border: 3px solid #FFFDF5;
+  background: #181816;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #FF6B6B;
+  background: #A94B3C;
 }
 
-/* Reduced Motion */
+:focus-visible {
+  outline: 1px solid #A94B3C;
+  outline-offset: 3px;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
     animation-duration: 0.01ms !important;

@@ -1,12 +1,9 @@
 <script setup>
-import { ref, computed, onMounted, watch } from 'vue'
+import { ref, onMounted, watch } from 'vue'
 import { useImageStore } from '@/stores/images'
 import { useUserStore } from '@/stores/user'
 import { usePageMeta } from '@/composables/usePageMeta'
-import SectionTitle from '@/components/ui/SectionTitle.vue'
 import MaximalButton from '@/components/ui/MaximalButton.vue'
-import FloatingShape from '@/components/ui/FloatingShape.vue'
-import { shareContent } from '@/utils/share'
 
 usePageMeta()
 
@@ -18,24 +15,9 @@ const selected = ref(null)
 const topText = ref('无所谓')
 const bottomText = ref('躺平万岁')
 const fontSize = ref(48)
-const textColor = ref('#FFFFFF')
-const strokeColor = ref('#000000')
+const textColor = ref('#F8F6F0')
+const strokeColor = ref('#181816')
 const canvasRef = ref(null)
-const search = ref('')
-const category = ref('all')
-const shareTip = ref('')
-
-const pickerImages = computed(() => {
-  let list = store.images
-  if (category.value !== 'all') {
-    list = list.filter(i => i.category === category.value)
-  }
-  if (search.value.trim()) {
-    const q = search.value.toLowerCase()
-    list = list.filter(i => i.filename.toLowerCase().includes(q))
-  }
-  return list
-})
 
 function selectImage(img) {
   selected.value = img
@@ -88,90 +70,56 @@ function downloadMeme() {
   user.track('meme')
 }
 
-async function shareMeme() {
-  if (!canvasRef.value) return
-  const result = await shareContent({
-    title: '奶蛙梗图',
-    text: `${topText.value} / ${bottomText.value}`,
-    url: `${location.origin}${location.pathname}#/meme`
-  })
-  shareTip.value = result === 'copied' ? '链接已复制' : result === 'shared' ? '分享成功' : ''
-}
-
 onMounted(() => store.fetchImages())
 </script>
 
 <template>
   <div>
-    <section class="relative min-h-[40vh] flex items-center justify-center px-6 py-24 overflow-hidden">
-      <FloatingShape :colorIndex="0" size="lg" shape="square" animation="float" top="15%" left="8%" />
-      <FloatingShape :colorIndex="2" size="md" shape="circle" animation="bounce" top="20%" right="10%" />
-      <div class="relative z-10 text-center">
-        <div class="text-8xl mb-6 animate-bounce-subtle" aria-hidden="true">😂</div>
-        <h1 class="font-heading text-5xl md:text-7xl font-black uppercase text-[#FF6B6B]">梗图制作器</h1>
-        <p class="mt-4 font-bold text-lg">选图 → 加字 → 导出，奶蛙帮你表达一切</p>
-      </div>
+    <section class="ed-page pt-16 md:pt-24 pb-10">
+      <p class="ed-meta mb-4">Studio — Typesetting</p>
+      <h1 class="ed-display">梗图.</h1>
     </section>
 
-    <section class="py-12 px-6 max-w-7xl mx-auto">
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
-        <div class="border-4 border-black bg-white p-6 shadow-neo">
-          <SectionTitle title="编辑区" subtitle="上下文字经典梗图布局" :colorIndex="1" emoji="✏️" />
-          <div class="space-y-4 mb-6">
-            <input v-model="topText" placeholder="顶部文字" aria-label="顶部文字" class="w-full px-4 py-3 border-4 border-black font-bold" />
-            <input v-model="bottomText" placeholder="底部文字" aria-label="底部文字" class="w-full px-4 py-3 border-4 border-black font-bold" />
-            <label class="block font-bold text-sm">字号 {{ fontSize }}</label>
-            <input v-model.number="fontSize" type="range" min="24" max="96" class="w-full" aria-label="字号" />
-            <div class="flex gap-4">
-              <label class="font-bold text-sm">文字色 <input v-model="textColor" type="color" class="ml-2" aria-label="文字颜色" /></label>
-              <label class="font-bold text-sm">描边色 <input v-model="strokeColor" type="color" class="ml-2" aria-label="描边颜色" /></label>
+    <section class="ed-page pb-24">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+        <div class="lg:col-span-6">
+          <p class="ed-meta mb-6"><span class="ed-num">01</span> Edit</p>
+          <div class="space-y-6 mb-8">
+            <input v-model="topText" placeholder="顶部文字" class="ed-input" />
+            <input v-model="bottomText" placeholder="底部文字" class="ed-input" />
+            <label class="block ed-meta">字号 {{ fontSize }}
+              <input v-model.number="fontSize" type="range" min="24" max="96" class="w-full mt-2 accent-accent" />
+            </label>
+            <div class="flex gap-8">
+              <label class="ed-meta">文字 <input v-model="textColor" type="color" class="ml-2 align-middle" /></label>
+              <label class="ed-meta">描边 <input v-model="strokeColor" type="color" class="ml-2 align-middle" /></label>
             </div>
           </div>
-          <div class="border-4 border-black bg-black min-h-[280px] flex items-center justify-center overflow-hidden">
+          <div class="bg-ink min-h-[280px] flex items-center justify-center overflow-hidden">
             <canvas v-show="selected" ref="canvasRef" class="max-w-full max-h-[400px]" />
-            <p v-if="!selected" class="text-white font-bold p-8">← 先从右侧选一张图</p>
+            <p v-if="!selected" class="ed-meta text-paper p-8">先从右侧选一张图</p>
           </div>
-          <div class="mt-6 flex flex-wrap gap-3 justify-center">
-            <MaximalButton color="accent" size="lg" icon="⬇️" :disabled="!selected" @click="downloadMeme">下载梗图</MaximalButton>
-            <MaximalButton color="secondary" size="md" icon="🔗" :disabled="!selected" @click="shareMeme">分享</MaximalButton>
+          <div class="mt-8">
+            <MaximalButton :disabled="!selected" @click="downloadMeme">下载梗图</MaximalButton>
           </div>
-          <p v-if="shareTip" class="text-center text-sm font-bold mt-3 text-black/60">{{ shareTip }}</p>
         </div>
 
-        <div>
-          <SectionTitle title="选图" subtitle="支持搜索和分类" :colorIndex="2" emoji="🖼️" />
-          <div class="flex flex-wrap gap-2 mb-4">
+        <div class="lg:col-span-6">
+          <p class="ed-meta mb-6"><span class="ed-num">02</span> Select</p>
+          <p v-if="store.loading" class="ed-meta">加载中…</p>
+          <div v-else class="grid grid-cols-3 sm:grid-cols-4 gap-2 max-h-[640px] overflow-y-auto">
             <button
-              v-for="cat in store.categories"
-              :key="cat.id"
-              type="button"
-              class="px-3 py-1 border-4 border-black font-bold text-sm shadow-neo-sm"
-              :class="category === cat.id ? 'bg-[#FF6B6B] text-white' : 'bg-white'"
-              @click="category = cat.id"
-            >{{ cat.icon }} {{ cat.label }}</button>
-          </div>
-          <input
-            v-model="search"
-            type="search"
-            placeholder="🔍 搜索图片..."
-            aria-label="搜索梗图素材"
-            class="w-full px-4 py-3 border-4 border-black font-bold mb-4"
-          />
-          <div v-if="store.loading" class="text-center py-12 font-bold">加载中…</div>
-          <div v-else-if="!pickerImages.length" class="text-center py-12 font-bold text-black/50">没有匹配的图片</div>
-          <div v-else class="grid grid-cols-3 sm:grid-cols-4 gap-3 max-h-[600px] overflow-y-auto pr-2">
-            <button
-              v-for="img in pickerImages"
+              v-for="img in store.images.slice(0, 60)"
               :key="img.filename"
               type="button"
-              class="aspect-square border-4 border-black p-1 bg-white transition-all hover:-translate-y-1"
-              :class="selected?.filename === img.filename ? 'ring-4 ring-[#FF6B6B] bg-[#FFD93D]' : ''"
+              class="aspect-square bg-warm-white p-1 border transition-colors duration-200"
+              :class="selected?.filename === img.filename ? 'border-accent' : 'border-transparent hover:border-ink/30'"
               @click="selectImage(img)"
             >
-              <img :src="`${baseUrl}images/${img.filename}`" :alt="img.filename" class="w-full h-full object-contain" loading="lazy" decoding="async" />
+              <img :src="`${baseUrl}images/${img.filename}`" :alt="img.filename" class="w-full h-full object-contain" loading="lazy" />
             </button>
           </div>
-          <p class="text-sm font-bold text-black/50 mt-3">共 {{ pickerImages.length }} 张可选</p>
+          <p class="ed-meta mt-3">显示前 60 张</p>
         </div>
       </div>
     </section>

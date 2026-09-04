@@ -5,18 +5,16 @@ const baseUrl = import.meta.env.BASE_URL || '/'
 const history = ref([])
 
 const rarityConfig = {
-  N: { label: '普通', color: '#4CAF50' },
-  R: { label: '稀有', color: '#2196F3' },
-  SR: { label: '史诗', color: '#9C27B0' },
-  SSR: { label: '传说', color: '#FFD700' }
+  N: { label: 'Ordinary' },
+  R: { label: 'Noted' },
+  SR: { label: 'Selected' },
+  SSR: { label: 'Cover' }
 }
 
 function loadHistory() {
   try {
     const saved = localStorage.getItem('naiwa_draw_history')
-    if (saved) {
-      history.value = JSON.parse(saved)
-    }
+    if (saved) history.value = JSON.parse(saved)
   } catch (e) {
     console.error('Failed to load history:', e)
   }
@@ -29,58 +27,44 @@ function clearHistory() {
 
 function formatTime(timestamp) {
   const date = new Date(timestamp)
-  return `${date.getMonth() + 1}/${date.getDate()} ${date.getHours()}:${String(date.getMinutes()).padStart(2, '0')}`
+  return `${String(date.getDate()).padStart(2, '0')}.${String(date.getMonth() + 1).padStart(2, '0')}`
 }
 
-onMounted(() => {
-  loadHistory()
-})
+onMounted(() => loadHistory())
 </script>
 
 <template>
-  <div class="p-6  border-4 border-black bg-[#C4B5FD]/80"
-    style="box-shadow: 6px 6px 0 #FF3AF2, 12px 12px 0 #00F5D4;">
+  <div class="border-t border-ink/15 pt-6">
     <div class="flex items-center justify-between mb-4">
-      <h3 class="font-heading text-xl font-bold text-[#FFD93D] uppercase">📋 抽卡记录</h3>
+      <h3 class="ed-meta">Record</h3>
       <button
         v-if="history.length > 0"
+        type="button"
+        class="ed-meta hover:text-accent"
         @click="clearHistory"
-        class="text-sm text-black/50 hover:text-[#FFD93D] transition-colors"
       >
-        清空记录
+        Clear
       </button>
     </div>
 
-    <div v-if="history.length === 0" class="text-center py-8 text-black/40">
-      <p class="text-4xl mb-2">🎰</p>
-      <p>还没有抽卡记录</p>
-    </div>
+    <p v-if="history.length === 0" class="ed-meta py-8">尚无记录</p>
 
-    <div v-else class="space-y-2 max-h-64 overflow-y-auto">
+    <div v-else class="space-y-0 max-h-64 overflow-y-auto">
       <div
         v-for="(record, index) in history.slice().reverse()"
         :key="index"
-        class="flex items-center gap-3 p-3 rounded-xl bg-[#FFFDF5]/50 border border-black"
+        class="flex items-center gap-3 py-3 border-b border-ink/10"
       >
         <img
           :src="`${baseUrl}images/${record.image}`"
           :alt="record.image"
-          class="w-10 h-10 rounded-lg object-cover"
+          class="w-10 h-12 object-cover bg-warm-white"
         />
         <div class="flex-1 min-w-0">
-          <p class="text-black/80 text-sm truncate">{{ record.image }}</p>
-          <p class="text-black/40 text-xs">{{ formatTime(record.timestamp) }}</p>
+          <p class="text-sm truncate">{{ record.image }}</p>
+          <p class="ed-meta">{{ formatTime(record.timestamp) }}</p>
         </div>
-        <span
-          class="px-2 py-1 rounded-full text-xs font-bold"
-          :style="{
-            color: rarityConfig[record.rarity].color,
-            backgroundColor: rarityConfig[record.rarity].color + '20',
-            border: `1px solid ${rarityConfig[record.rarity].color}40`
-          }"
-        >
-          {{ rarityConfig[record.rarity].label }}
-        </span>
+        <span class="ed-meta text-accent">{{ rarityConfig[record.rarity]?.label }}</span>
       </div>
     </div>
   </div>

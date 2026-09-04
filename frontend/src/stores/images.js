@@ -11,10 +11,10 @@ export const useImageStore = defineStore('images', () => {
   const loaded = ref(false)
 
   const categories = [
-    { id: 'all', label: '全部', icon: '🌟' },
-    { id: 'emoji', label: '表情包', icon: '😄' },
-    { id: 'sticker', label: '贴图', icon: '🏷️' },
-    { id: 'animation', label: '动画', icon: '🎬' }
+    { id: 'all', label: '全部' },
+    { id: 'emoji', label: '表情' },
+    { id: 'sticker', label: '贴图' },
+    { id: 'animation', label: '动画' }
   ]
 
   const filteredImages = computed(() => {

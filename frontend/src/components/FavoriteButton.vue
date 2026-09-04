@@ -9,23 +9,23 @@ const props = defineProps({
 const user = useUserStore()
 
 const sizeClass = {
-  sm: 'w-8 h-8 text-sm',
-  md: 'w-10 h-10 text-base',
-  lg: 'w-12 h-12 text-xl'
+  sm: 'text-[10px] px-2 py-1',
+  md: 'text-[11px] px-2.5 py-1.5',
+  lg: 'text-xs px-3 py-2'
 }
 </script>
 
 <template>
   <button
     type="button"
-    class="border-4 border-black font-black transition-all duration-100 shadow-neo-sm hover:translate-x-[1px] hover:translate-y-[1px] hover:shadow-none"
+    class="ed-meta border border-ink/20 bg-paper/90 hover:border-accent hover:text-accent transition-colors duration-200"
     :class="[
       sizeClass[size],
-      user.isFavorite(filename) ? 'bg-[#FF6B6B] text-white' : 'bg-white text-black'
+      user.isFavorite(filename) ? 'text-accent border-accent' : 'text-ink'
     ]"
     :title="user.isFavorite(filename) ? '取消收藏' : '收藏'"
     @click.stop="user.toggleFavorite(filename)"
   >
-    {{ user.isFavorite(filename) ? '💖' : '🤍' }}
+    {{ user.isFavorite(filename) ? 'Saved' : 'Save' }}
   </button>
 </template>

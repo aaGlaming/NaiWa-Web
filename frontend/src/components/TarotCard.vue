@@ -54,23 +54,22 @@ const cardBackUrl = computed(() => {
           alt="牌背"
           class="w-full h-full object-cover "
         />
-        <div v-else class="w-full h-full bg-[#FFD93D] border-4 border-black flex items-center justify-center" style="box-shadow: 8px 8px 0px 0px #000;">
-          <span class="text-4xl">🔮</span>
+        <div v-else class="w-full h-full bg-warm-white border border-ink/20 flex items-center justify-center">
+          <span class="ed-num text-2xl">T</span>
         </div>
       </div>
 
       <!-- 卡牌正面 -->
       <div class="tarot-card-face tarot-card-front">
-        <div class="w-full h-full  overflow-hidden border-4 border-black bg-[#FFFDF5] relative">
+        <div class="w-full h-full overflow-hidden border border-ink/20 bg-paper relative">
           <img
             v-if="cardImageUrl"
             :src="cardImageUrl"
             :alt="card?.name || ''"
             class="w-full h-full object-cover"
           />
-          <!-- 牌名 -->
-          <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 to-transparent p-3">
-            <p class="text-white font-heading font-bold text-sm text-center">{{ card?.name }}</p>
+          <div class="absolute bottom-0 left-0 right-0 bg-ink/80 p-3">
+            <p class="text-paper font-display text-sm text-center">{{ card?.name }}</p>
           </div>
         </div>
       </div>
@@ -78,7 +77,7 @@ const cardBackUrl = computed(() => {
 
     <!-- 位置标签 -->
     <div v-if="position && isRevealed" class="text-center mt-2">
-      <span class="text-[#FF6B6B] font-heading font-bold text-sm uppercase tracking-wider">
+      <span class="ed-meta text-accent">
         {{ position }}
       </span>
     </div>
@@ -134,7 +133,7 @@ const cardBackUrl = computed(() => {
   width: 100%;
   height: 100%;
   backface-visibility: hidden;
-  border-radius: 16px;
+  border-radius: 2px;
   overflow: hidden;
 }
 

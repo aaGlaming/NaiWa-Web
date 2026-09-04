@@ -8,13 +8,13 @@ const router = useRouter()
 </script>
 
 <template>
-  <div class="min-h-[70vh] flex items-center justify-center px-6 py-24">
-    <div class="text-center max-w-lg border-8 border-black bg-[#FFD93D] p-12 shadow-neo">
-      <div class="text-9xl mb-6 animate-bounce-subtle">🐸❓</div>
-      <h1 class="font-heading text-6xl font-black uppercase mb-4">404</h1>
-      <p class="font-bold text-xl mb-2">这只奶蛙找不到路了…</p>
-      <p class="font-bold text-black/60 mb-8">页面可能不存在，或者奶蛙躺平睡过头了</p>
-      <MaximalButton color="accent" size="lg" icon="🏠" @click="router.push('/')">回首页躺平</MaximalButton>
+  <div class="ed-page min-h-[70vh] flex items-end pb-24 pt-20">
+    <div class="max-w-xl">
+      <p class="ed-meta mb-6">Page not bound</p>
+      <h1 class="ed-display mb-6">404</h1>
+      <p class="font-display text-2xl mb-4">这页没有装订进本期。</p>
+      <p class="text-warm-gray mb-10">也许路径写错，也许奶蛙在空白处睡着了。</p>
+      <MaximalButton @click="router.push('/')">Return →</MaximalButton>
     </div>
   </div>
 </template>

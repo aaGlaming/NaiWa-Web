@@ -4,8 +4,6 @@ import DrawCard from '@/components/DrawCard.vue'
 import LegendaryEffect from '@/components/LegendaryEffect.vue'
 import DrawHistory from '@/components/DrawHistory.vue'
 import MaximalButton from '@/components/ui/MaximalButton.vue'
-import FloatingShape from '@/components/ui/FloatingShape.vue'
-import { ACCENT_COLORS } from '@/utils'
 import { useUserStore } from '@/stores/user'
 import { loadImagesCatalog } from '@/utils/fetchJson'
 import { usePageMeta } from '@/composables/usePageMeta'
@@ -26,10 +24,10 @@ const drawMode = ref('single') // 'single' or 'ten'
 
 // 稀有度配置
 const rarityConfig = {
-  N: { label: '普通', color: '#4CAF50', weight: 60 },
-  R: { label: '稀有', color: '#2196F3', weight: 25 },
-  SR: { label: '史诗', color: '#9C27B0', weight: 12 },
-  SSR: { label: '传说', color: '#FFD700', weight: 3 }
+  N: { label: 'Ordinary', color: '#8B877D', weight: 60 },
+  R: { label: 'Noted', color: '#292825', weight: 25 },
+  SR: { label: 'Selected', color: '#683E3D', weight: 12 },
+  SSR: { label: 'Cover', color: '#A94B3C', weight: 3 }
 }
 
 // 加载图片
@@ -208,173 +206,95 @@ onUnmounted(() => {
 
 <template>
   <div>
-    <!-- 传说特效 -->
     <LegendaryEffect
       v-if="showLegendary"
       @skip="skipLegendary"
       @complete="onLegendaryComplete"
     />
 
-    <!-- Hero Section -->
-    <section class="relative min-h-[35vh] flex items-center justify-center px-6 py-30 overflow-hidden">
-      <div class="absolute inset-0 flex items-center justify-center pointer-events-none" aria-hidden="true">
-        <span class="text-[10rem] md:text-[18rem] font-heading font-bold text-[#FFD93D]/10 uppercase select-none leading-none">
-          LUCKY
-        </span>
-      </div>
-
-      <FloatingShape :colorIndex="1" size="xl" shape="circle" animation="float" top="10%" left="5%" />
-      <FloatingShape :colorIndex="3" size="lg" shape="diamond" animation="float-reverse" top="20%" right="8%" />
-      <FloatingShape :colorIndex="0" size="md" shape="square" animation="wiggle" bottom="15%" left="10%" />
-
-      <div class="relative z-20 text-center max-w-4xl mx-auto">
-        <div class="text-8xl md:text-9xl mb-9 animate-wiggle">🎰</div>
-        <h1 class="font-heading text-5xl md:text-7xl lg:text-8xl font-bold uppercase leading-none mb-9 text-shadow-mega text-[#FFD93D]">
-          奶蛙抽卡机
-        </h1>
-        <p class="text-xl md:text-2xl text-black/80 max-w-3xl mx-auto">
-          每次抽取一张或十张奶蛙卡牌<br class="hidden md:block" />
-          集齐所有稀有卡牌！
-        </p>
-      </div>
+    <section class="ed-page pt-16 md:pt-24 pb-10">
+      <p class="ed-meta mb-4">Studio — Insert</p>
+      <h1 class="ed-display">抽卡.</h1>
+      <p class="mt-6 text-charcoal max-w-md">单张或十连。稀有度写在字重里，不写在霓虹里。</p>
     </section>
 
-    <!-- Main Content -->
-    <section class="relative py-36 px-6">
-      <div class="max-w-6xl mx-auto">
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
-
-          <!-- Left Panel: Stats & Controls -->
-          <div class="lg:col-span-1 space-y-9">
-            <!-- Draw Mode -->
-            <div class="flex items-center gap-3 p-2 rounded-2xl border-4 border-black bg-[#C4B5FD]/50">
-              <button
-                @click="drawMode = 'single'"
-                class="flex-1 px-4 py-4.5 rounded-xl font-heading font-bold text-sm transition-all duration-300"
-                :class="[
-                  drawMode === 'single'
-                    ? 'bg-[#FFD93D] text-max-background'
-                    : 'text-black/70 hover:text-white'
-                ]"
-              >
-                🎴 单抽
-              </button>
-              <button
-                @click="drawMode = 'ten'"
-                class="flex-1 px-4 py-4.5 rounded-xl font-heading font-bold text-sm transition-all duration-300"
-                :class="[
-                  drawMode === 'ten'
-                    ? 'bg-[#FFD93D] text-max-background'
-                    : 'text-black/70 hover:text-white'
-                ]"
-              >
-                🎰 十连抽
-              </button>
-            </div>
-
-            <!-- Draw Button -->
-            <MaximalButton
-              color="secondary"
-              size="lg"
-              icon="🎰"
-              :loading="isDrawing"
-              :disabled="isDrawing"
-              @click="drawCards"
-              class="w-full"
-            >
-              {{ isDrawing ? '抽取中...' : drawMode === 'single' ? '开始抽卡' : '十连抽！' }}
-            </MaximalButton>
-
-            <!-- Reveal All Button -->
-            <MaximalButton
-              v-if="hasUnrevealed"
-              color="accent"
-              size="md"
-              icon="👁️"
-              @click="revealAll"
-              class="w-full"
-            >
-              一键查看全部
-            </MaximalButton>
-
-            <!-- Hint -->
-            <p v-if="drawnCards.length > 0 && hasUnrevealed" class="text-black/40 text-sm text-center">
-              💡 按 Enter 一键查看 | 点击卡牌逐张翻转
-            </p>
-
-            <!-- Rarity Info -->
-            <div class="p-6 rounded-3xl border-4 border-[#FF6B6B] bg-[#C4B5FD]/80"
-              style="box-shadow: 6px 6px 0 #FFE600, 12px 12px 0 #FF3AF2;">
-              <h3 class="font-heading text-xl font-bold text-[#FF6B6B] uppercase mb-6">📊 稀有度概率</h3>
-              <div class="space-y-4.5">
-                <div v-for="(config, rarity) in rarityConfig" :key="rarity" class="flex items-center justify-between">
-                  <span class="font-bold" :style="{ color: config.color }">
-                    {{ config.label }} ({{ rarity }})
-                  </span>
-                  <span class="text-black/60">{{ config.weight }}%</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Draw Stats -->
-            <div class="p-6 rounded-3xl border-4 border-black bg-[#C4B5FD]/80"
-              style="box-shadow: 6px 6px 0 #00F5D4, 12px 12px 0 #FFE600;">
-              <h3 class="font-heading text-xl font-bold text-[#C4B5FD] uppercase mb-6">📈 我的统计</h3>
-              <div class="space-y-3">
-                <div class="flex items-center justify-between text-black/70">
-                  <span>总抽卡次数</span>
-                  <span class="font-bold text-[#FF6B6B]">{{ stats.N + stats.R + stats.SR + stats.SSR }}</span>
-                </div>
-                <div class="flex items-center justify-between">
-                  <span :style="{ color: '#4CAF50' }">普通</span>
-                  <span class="font-bold" :style="{ color: '#4CAF50' }">{{ stats.N }}</span>
-                </div>
-                <div class="flex items-center justify-between">
-                  <span :style="{ color: '#2196F3' }">稀有</span>
-                  <span class="font-bold" :style="{ color: '#2196F3' }">{{ stats.R }}</span>
-                </div>
-                <div class="flex items-center justify-between">
-                  <span :style="{ color: '#9C27B0' }">史诗</span>
-                  <span class="font-bold" :style="{ color: '#9C27B0' }">{{ stats.SR }}</span>
-                </div>
-                <div class="flex items-center justify-between">
-                  <span :style="{ color: '#FFD700' }">传说</span>
-                  <span class="font-bold" :style="{ color: '#FFD700' }">{{ stats.SSR }}</span>
-                </div>
-              </div>
-            </div>
-
-            <!-- Draw History -->
-            <DrawHistory />
+    <section class="ed-page pb-24">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+        <div class="lg:col-span-4 space-y-8">
+          <div class="flex gap-8 border-b border-ink/15">
+            <button
+              type="button"
+              class="ed-meta pb-3 border-b-2 -mb-px"
+              :class="drawMode === 'single' ? 'text-accent border-accent' : 'border-transparent'"
+              @click="drawMode = 'single'"
+            >单抽</button>
+            <button
+              type="button"
+              class="ed-meta pb-3 border-b-2 -mb-px"
+              :class="drawMode === 'ten' ? 'text-accent border-accent' : 'border-transparent'"
+              @click="drawMode = 'ten'"
+            >十连</button>
           </div>
 
-          <!-- Right Panel: Card Display -->
-          <div class="lg:col-span-2">
-            <div class="p-8 rounded-3xl border-4 border-black bg-[#C4B5FD]/50 min-h-[400px] flex items-center justify-center"
-              style="box-shadow: 6px 6px 0 #FF6B35, 12px 12px 0 #7B2FFF;">
+          <MaximalButton
+            :loading="isDrawing"
+            :disabled="isDrawing"
+            class="w-full"
+            @click="drawCards"
+          >
+            {{ isDrawing ? '抽取中…' : drawMode === 'single' ? '抽一张' : '抽十张' }}
+          </MaximalButton>
 
-              <!-- Empty State -->
-              <div v-if="drawnCards.length === 0" class="text-center">
-                <div class="text-8xl mb-6 animate-float">🐸</div>
-                <p class="text-black/50 text-xl">点击"开始抽卡"试试运气吧！</p>
-                <p class="text-black/30 text-sm mt-3">支持单抽和十连抽</p>
-              </div>
+          <MaximalButton
+            v-if="hasUnrevealed"
+            variant="ghost"
+            class="w-full"
+            @click="revealAll"
+          >
+            全部翻开
+          </MaximalButton>
 
-              <!-- Card Display -->
-              <div v-else class="flex flex-wrap items-center justify-center gap-6 md:gap-9">
-                <DrawCard
-                  v-for="(card, index) in drawnCards"
-                  :key="index"
-                  :image="card.image"
-                  :rarity="card.rarity"
-                  :revealed="card.revealed"
-                  :index="index"
-                  :falling="true"
-                  @reveal="revealCard(index)"
-                  @download="downloadImage(card.image)"
-                />
-              </div>
+          <p v-if="drawnCards.length > 0 && hasUnrevealed" class="ed-meta">
+            Enter 一键翻开 · 点击逐张
+          </p>
+
+          <div class="border-t border-ink/15 pt-6">
+            <h3 class="ed-meta mb-4">Odds</h3>
+            <div v-for="(config, rarity) in rarityConfig" :key="rarity" class="flex justify-between py-2 text-sm">
+              <span :style="{ color: config.color }">{{ config.label }} · {{ rarity }}</span>
+              <span class="text-warm-gray">{{ config.weight }}%</span>
             </div>
+          </div>
+
+          <div class="border-t border-ink/15 pt-6">
+            <h3 class="ed-meta mb-4">Tally</h3>
+            <div class="flex justify-between py-1 text-sm"><span>合计</span><span>{{ stats.N + stats.R + stats.SR + stats.SSR }}</span></div>
+            <div v-for="(config, rarity) in rarityConfig" :key="rarity" class="flex justify-between py-1 text-sm">
+              <span>{{ config.label }}</span>
+              <span>{{ stats[rarity] }}</span>
+            </div>
+          </div>
+
+          <DrawHistory />
+        </div>
+
+        <div class="lg:col-span-8 min-h-[400px] border-t border-ink/15 pt-8 flex items-center justify-center">
+          <div v-if="drawnCards.length === 0" class="text-center">
+            <p class="font-display text-3xl mb-2">尚未开印。</p>
+            <p class="ed-meta">选择单抽或十连</p>
+          </div>
+          <div v-else class="flex flex-wrap items-center justify-center gap-5">
+            <DrawCard
+              v-for="(card, index) in drawnCards"
+              :key="index"
+              :image="card.image"
+              :rarity="card.rarity"
+              :revealed="card.revealed"
+              :index="index"
+              :falling="true"
+              @reveal="revealCard(index)"
+              @download="downloadImage(card.image)"
+            />
           </div>
         </div>
       </div>

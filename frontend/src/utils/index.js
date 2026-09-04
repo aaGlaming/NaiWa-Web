@@ -1,26 +1,20 @@
 /**
- * Neo-Brutalism color system
+ * Editorial color system — Paper / Ink / Vermilion
  */
 export const ACCENT_COLORS = [
-  '#FF6B6B',  // Hot Red
-  '#FFD93D',  // Vivid Yellow
-  '#C4B5FD',  // Soft Violet
-  '#000000',  // Black
-  '#FFFFFF'   // White
+  '#A94B3C',
+  '#292825',
+  '#8B877D',
+  '#181816',
+  '#F8F6F0'
 ]
 
-export const ACCENT_COLOR_NAMES = ['accent', 'secondary', 'muted', 'black', 'white']
+export const ACCENT_COLOR_NAMES = ['accent', 'charcoal', 'gray', 'ink', 'paper']
 
-/**
- * Get accent color by index (with modulo rotation)
- */
 export function getAccentColor(index) {
   return ACCENT_COLORS[index % ACCENT_COLORS.length]
 }
 
-/**
- * Format image filename for display
- */
 export function formatFilename(filename) {
   return filename
     .replace(/\.[^/.]+$/, '')
@@ -28,9 +22,6 @@ export function formatFilename(filename) {
     .replace(/-/g, ' ')
 }
 
-/**
- * Get image category from filename
- */
 export function getImageCategory(filename) {
   const lower = filename.toLowerCase()
   if (lower.includes('idle') || lower.includes('waiting') || lower.includes('waving') ||

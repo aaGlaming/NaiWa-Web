@@ -1,8 +1,6 @@
 <script setup>
-import { ref, onMounted, nextTick } from 'vue'
+import { ref, onMounted, nextTick, watch } from 'vue'
 import MaximalButton from '@/components/ui/MaximalButton.vue'
-import FloatingShape from '@/components/ui/FloatingShape.vue'
-import { ACCENT_COLORS } from '@/utils'
 import { loadImagesCatalog } from '@/utils/fetchJson'
 import { useUserStore } from '@/stores/user'
 import { usePageMeta } from '@/composables/usePageMeta'
@@ -14,13 +12,13 @@ const baseUrl = import.meta.env.BASE_URL || './'
 // 壁纸配置
 const wallpaperWidth = ref(1920)
 const wallpaperHeight = ref(1080)
-const bgColor = ref('#0D0D1A')
+const bgColor = ref('#181816')
 const bgColorOptions = [
-  { name: '深空黑', value: '#0D0D1A' },
-  { name: '深紫', value: '#2D1B4E' },
-  { name: '渐变紫', value: 'gradient-purple' },
-  { name: '渐变蓝', value: 'gradient-blue' },
-  { name: '渐变粉', value: 'gradient-pink' }
+  { name: 'Ink', value: '#181816' },
+  { name: 'Paper', value: '#F3F0E8' },
+  { name: 'Charcoal', value: '#292825' },
+  { name: 'Terracotta', value: '#A6624D' },
+  { name: 'Olive', value: '#69705A' }
 ]
 
 // 图片数据
@@ -97,29 +95,21 @@ async function generateWallpaper() {
   canvas.width = wallpaperWidth.value
   canvas.height = wallpaperHeight.value
 
-  // 绘制背景
-  if (bgColor.value === 'gradient-purple') {
-    const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height)
-    gradient.addColorStop(0, '#0D0D1A')
-    gradient.addColorStop(1, '#2D1B4E')
-    ctx.fillStyle = gradient
-  } else if (bgColor.value === 'gradient-blue') {
-    const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height)
-    gradient.addColorStop(0, '#0D0D1A')
-    gradient.addColorStop(1, '#1a1a3a')
-    ctx.fillStyle = gradient
-  } else if (bgColor.value === 'gradient-pink') {
-    const gradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height)
-    gradient.addColorStop(0, '#2D1B4E')
-    gradient.addColorStop(1, '#4a1a5e')
-    ctx.fillStyle = gradient
-  } else {
-    ctx.fillStyle = bgColor.value
-  }
+  ctx.fillStyle = bgColor.value
   ctx.fillRect(0, 0, canvas.width, canvas.height)
 
-  // 绘制装饰背景
-  drawBackgroundDecor(ctx, canvas.width, canvas.height)
+  // 轻网格
+  ctx.save()
+  ctx.strokeStyle = bgColor.value === '#F3F0E8' ? 'rgba(24,24,22,0.08)' : 'rgba(243,240,232,0.08)'
+  ctx.lineWidth = 1
+  const step = Math.min(canvas.width, canvas.height) * 0.04
+  for (let x = 0; x < canvas.width; x += step) {
+    ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, canvas.height); ctx.stroke()
+  }
+  for (let y = 0; y < canvas.height; y += step) {
+    ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(canvas.width, y); ctx.stroke()
+  }
+  ctx.restore()
 
   // 计算图片布局
   const images = selectedImages.value
@@ -156,17 +146,17 @@ async function generateWallpaper() {
 
         // 绘制圆角背景
         ctx.save()
-        roundRect(ctx, x, y, cellWidth, cellHeight, 20)
-        ctx.fillStyle = 'rgba(45, 27, 78, 0.8)'
+        roundRect(ctx, x, y, cellWidth, cellHeight, 2)
+        ctx.fillStyle = bgColor.value === '#F3F0E8' ? '#F8F6F0' : 'rgba(248,246,240,0.08)'
         ctx.fill()
-        ctx.strokeStyle = ACCENT_COLORS[index % 5]
-        ctx.lineWidth = 4
+        ctx.strokeStyle = bgColor.value === '#F3F0E8' ? '#181816' : '#F3F0E8'
+        ctx.lineWidth = 1
         ctx.stroke()
         ctx.restore()
 
         // 绘制图片
         ctx.save()
-        roundRect(ctx, drawX, drawY, drawWidth, drawHeight, 12)
+        roundRect(ctx, drawX, drawY, drawWidth, drawHeight, 0)
         ctx.clip()
         ctx.drawImage(imgEl, drawX, drawY, drawWidth, drawHeight)
         ctx.restore()
@@ -182,38 +172,10 @@ async function generateWallpaper() {
 
   // 绘制水印
   ctx.save()
-  ctx.font = `bold ${Math.max(20, canvas.width * 0.012)}px Outfit, sans-serif`
-  ctx.fillStyle = 'rgba(255, 230, 0, 0.3)'
+  ctx.font = `${Math.max(16, canvas.width * 0.01)}px "IBM Plex Sans", sans-serif`
+  ctx.fillStyle = bgColor.value === '#F3F0E8' ? 'rgba(24,24,22,0.35)' : 'rgba(243,240,232,0.4)'
   ctx.textAlign = 'right'
-  ctx.fillText('🐸 奶蛙世界', canvas.width - 30, canvas.height - 30)
-  ctx.restore()
-}
-
-// 绘制装饰背景
-function drawBackgroundDecor(ctx, width, height) {
-  ctx.save()
-  ctx.fillStyle = 'rgba(255, 58, 242, 0.08)'
-  for (let x = 0; x < width; x += 40) {
-    for (let y = 0; y < height; y += 40) {
-      ctx.beginPath()
-      ctx.arc(x, y, 2, 0, Math.PI * 2)
-      ctx.fill()
-    }
-  }
-  ctx.restore()
-
-  ctx.save()
-  const gradient1 = ctx.createRadialGradient(width * 0.2, height * 0.3, 0, width * 0.2, height * 0.3, width * 0.2)
-  gradient1.addColorStop(0, 'rgba(255, 230, 0, 0.08)')
-  gradient1.addColorStop(1, 'transparent')
-  ctx.fillStyle = gradient1
-  ctx.fillRect(0, 0, width, height)
-
-  const gradient2 = ctx.createRadialGradient(width * 0.8, height * 0.7, 0, width * 0.8, height * 0.7, width * 0.2)
-  gradient2.addColorStop(0, 'rgba(0, 245, 212, 0.08)')
-  gradient2.addColorStop(1, 'transparent')
-  ctx.fillStyle = gradient2
-  ctx.fillRect(0, 0, width, height)
+  ctx.fillText('NAIWA', canvas.width - 30, canvas.height - 30)
   ctx.restore()
 }
 
@@ -252,236 +214,81 @@ function openPreview() {
 onMounted(() => {
   loadImages()
 })
+
+watch([selectedImages, wallpaperWidth, wallpaperHeight, bgColor], () => {
+  if (selectedImages.value.length) generateWallpaper()
+}, { deep: true })
 </script>
 
 <template>
   <div>
-    <!-- Hero Section -->
-    <section class="relative min-h-[35vh] flex items-center justify-center px-6 py-30 overflow-hidden">
-      <div class="absolute inset-0 flex items-center justify-center pointer-events-none" aria-hidden="true">
-        <span class="text-[10rem] md:text-[18rem] font-heading font-bold text-[#FF6B6B]/10 uppercase select-none leading-none">
-          WALLPAPER
-        </span>
-      </div>
-
-      <FloatingShape :colorIndex="3" size="xl" shape="circle" animation="float" top="10%" left="5%" />
-      <FloatingShape :colorIndex="0" size="lg" shape="diamond" animation="float-reverse" top="20%" right="8%" />
-
-      <div class="relative z-20 text-center max-w-4xl mx-auto">
-        <div class="text-8xl md:text-9xl mb-9 animate-wiggle">🖼️</div>
-        <h1 class="font-heading text-5xl md:text-7xl lg:text-8xl font-bold uppercase leading-none mb-9 text-shadow-mega text-[#FF6B6B]">
-          壁纸生成器
-        </h1>
-        <p class="text-xl md:text-2xl text-black/80 max-w-3xl mx-auto">
-          选择你喜欢的奶蛙图片，一键生成专属壁纸
-        </p>
-      </div>
+    <section class="ed-page pt-16 md:pt-24 pb-10">
+      <p class="ed-meta mb-4">Studio — Print</p>
+      <h1 class="ed-display">壁纸.</h1>
     </section>
 
-    <!-- Main Content -->
-    <section class="relative py-36 px-6">
-      <div class="max-w-7xl mx-auto">
-        <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
-
-          <!-- Left Panel: Settings -->
-          <div class="lg:col-span-1 space-y-9">
-            <!-- Size Preset -->
-            <div class="p-6 rounded-3xl border-4 border-[#FF6B6B] bg-[#C4B5FD]/80"
-              style="box-shadow: 6px 6px 0 #FFE600, 12px 12px 0 #FF3AF2;">
-              <h3 class="font-heading text-xl font-bold text-[#FF6B6B] uppercase mb-6">📐 尺寸选择</h3>
-              <div class="grid grid-cols-2 gap-3">
-                <button
-                  v-for="preset in sizePresets"
-                  :key="preset.name"
-                  @click="setSize(preset)"
-                  class="px-3 py-3 rounded-xl border-2 text-sm font-bold transition-all duration-300"
-                  :class="[
-                    wallpaperWidth === preset.width && wallpaperHeight === preset.height
-                      ? 'bg-[#FF6B6B] text-max-background border-[#FF6B6B]'
-                      : 'border-black text-black/70 hover:border-[#FF6B6B]'
-                  ]"
-                >
-                  {{ preset.name }}
-                </button>
-              </div>
-              <div class="mt-6 text-black/60 text-sm">
-                当前: <span class="text-[#FF6B6B] font-bold">{{ wallpaperWidth }} × {{ wallpaperHeight }}</span>
-              </div>
-            </div>
-
-            <!-- Background Color -->
-            <div class="p-6 rounded-3xl border-4 border-black bg-[#C4B5FD]/80"
-              style="box-shadow: 6px 6px 0 #FF3AF2, 12px 12px 0 #00F5D4;">
-              <h3 class="font-heading text-xl font-bold text-[#FFD93D] uppercase mb-6">🎨 背景颜色</h3>
-              <div class="space-y-3">
-                <button
-                  v-for="color in bgColorOptions"
-                  :key="color.name"
-                  @click="bgColor = color.value"
-                  class="w-full px-4 py-4.5 rounded-xl border-2 text-left transition-all duration-300 flex items-center gap-4.5"
-                  :class="[
-                    bgColor === color.value
-                      ? 'border-black bg-[#FFD93D]/20'
-                      : 'border-black hover:border-black'
-                  ]"
-                >
-                  <div
-                    class="w-8 h-8 rounded-lg border-2 border-white/20"
-                    :style="{ background: color.value === 'gradient-purple' ? 'linear-gradient(135deg, #0D0D1A, #2D1B4E)' : color.value === 'gradient-blue' ? 'linear-gradient(135deg, #0D0D1A, #1a1a3a)' : color.value === 'gradient-pink' ? 'linear-gradient(135deg, #2D1B4E, #4a1a5e)' : color.value }"
-                  ></div>
-                  <span class="text-black/80">{{ color.name }}</span>
-                </button>
-              </div>
-            </div>
-
-            <!-- Action Buttons -->
-            <div class="space-y-4.5">
-              <MaximalButton
-                color="accent"
-                size="lg"
-                icon="🎲"
-                :loading="isGenerating"
-                @click="autoGenerate"
-                class="w-full"
-              >
-                一键生成
-              </MaximalButton>
-
-              <MaximalButton
-                v-if="selectedImages.length > 0"
-                color="tertiary"
-                size="md"
-                icon="⬇️"
-                @click="downloadWallpaper"
-                class="w-full"
-              >
-                下载壁纸
-              </MaximalButton>
-            </div>
-          </div>
-
-          <!-- Right Panel: Image Selection + Preview -->
-          <div class="lg:col-span-2 space-y-9">
-            <!-- Image Selection Header -->
-            <div class="flex items-center justify-between">
-              <h3 class="font-heading text-2xl font-bold text-[#FF6B6B] uppercase">
-                🖼️ 选择图片 ({{ selectedImages.length }}/12)
-              </h3>
+    <section class="ed-page pb-24">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+        <div class="lg:col-span-4 space-y-10">
+          <div>
+            <h3 class="ed-meta mb-4">Size</h3>
+            <div class="space-y-2">
               <button
-                v-if="selectedImages.length > 0"
-                @click="selectedImages = []"
-                class="text-[#FFD93D] hover:text-white transition-colors text-sm"
-              >
-                清空选择
-              </button>
+                v-for="preset in sizePresets"
+                :key="preset.name"
+                type="button"
+                class="block w-full text-left py-2 ed-meta border-b"
+                :class="wallpaperWidth === preset.width && wallpaperHeight === preset.height ? 'text-accent border-accent' : 'border-ink/10'"
+                @click="setSize(preset)"
+              >{{ preset.name }}</button>
             </div>
+            <p class="ed-meta mt-3">{{ wallpaperWidth }} × {{ wallpaperHeight }}</p>
+          </div>
 
-            <!-- Image Grid -->
-            <div class="grid grid-cols-4 sm:grid-cols-5 md:grid-cols-6 gap-3 max-h-[400px] overflow-y-auto p-4 rounded-3xl border-4 border-black bg-[#C4B5FD]/50">
-              <div
-                v-for="(image, index) in allImages"
-                :key="image.filename"
-                @click="toggleImage(image)"
-                class="relative aspect-square rounded-xl border-2 overflow-hidden cursor-pointer transition-all duration-200"
-                :class="[
-                  isSelected(image)
-                    ? 'border-[#FF6B6B] scale-105 shadow-lg ring-2 ring-max-accent'
-                    : 'border-transparent hover:border-black hover:scale-105'
-                ]"
-              >
-                <img
-                  :src="`${baseUrl}images/${image.filename}`"
-                  :alt="image.filename"
-                  class="w-full h-full object-cover"
-                  loading="lazy"
-                />
-                <div
-                  v-if="isSelected(image)"
-                  class="absolute top-1 right-1 w-6 h-6 rounded-full bg-[#FF6B6B] flex items-center justify-center text-max-background text-xs font-bold"
-                >
-                  ✓
-                </div>
-                <div
-                  v-if="isSelected(image)"
-                  class="absolute bottom-1 left-1 px-2 py-1 rounded-full bg-[#FFFDF5]/80 text-[#FF6B6B] text-xs font-bold"
-                >
-                  #{{ selectedImages.indexOf(image) + 1 }}
-                </div>
-              </div>
-            </div>
+          <div>
+            <h3 class="ed-meta mb-4">Ground</h3>
+            <button
+              v-for="color in bgColorOptions"
+              :key="color.name"
+              type="button"
+              class="flex items-center gap-3 w-full py-2"
+              @click="bgColor = color.value"
+            >
+              <span class="w-5 h-5 border border-ink/20" :style="{ background: color.value }" />
+              <span class="ed-meta" :class="bgColor === color.value ? 'text-accent' : ''">{{ color.name }}</span>
+            </button>
+          </div>
 
-            <!-- Canvas Preview -->
-            <div class="p-4 rounded-3xl border-4 border-black bg-[#C4B5FD]/50"
-              style="box-shadow: 6px 6px 0 #FF6B35, 12px 12px 0 #7B2FFF;">
-              <h3 class="font-heading text-xl font-bold text-[#FF6B6B] uppercase mb-6">📱 壁纸预览</h3>
-              <div class="relative bg-black rounded-2xl overflow-hidden" style="aspect-ratio: 16/9;">
-                <canvas
-                  ref="canvasRef"
-                  class="w-full h-full object-contain"
-                ></canvas>
-                <div v-if="selectedImages.length === 0" class="absolute inset-0 flex items-center justify-center">
-                  <p class="text-black/40 text-lg">请先选择图片或点击"一键生成"</p>
-                </div>
-              </div>
+          <MaximalButton :loading="isGenerating" class="w-full" @click="autoGenerate">自动排版</MaximalButton>
+          <MaximalButton v-if="selectedImages.length > 0" variant="ghost" class="w-full" @click="downloadWallpaper">下载壁纸</MaximalButton>
+        </div>
+
+        <div class="lg:col-span-8 space-y-8">
+          <div class="flex justify-between items-baseline">
+            <p class="ed-meta">Select {{ selectedImages.length }}/12</p>
+            <button v-if="selectedImages.length > 0" type="button" class="ed-meta hover:text-accent" @click="selectedImages = []">Clear</button>
+          </div>
+          <div class="grid grid-cols-4 sm:grid-cols-5 md:grid-cols-6 gap-2 max-h-[400px] overflow-y-auto">
+            <button
+              v-for="image in allImages"
+              :key="image.filename"
+              type="button"
+              class="relative aspect-square bg-warm-white overflow-hidden border"
+              :class="isSelected(image) ? 'border-accent' : 'border-transparent'"
+              @click="toggleImage(image)"
+            >
+              <img :src="`${baseUrl}images/${image.filename}`" :alt="image.filename" class="w-full h-full object-cover" loading="lazy" />
+            </button>
+          </div>
+          <div>
+            <p class="ed-meta mb-3">Preview</p>
+            <div class="relative bg-ink overflow-hidden" style="aspect-ratio: 16/9;">
+              <canvas ref="canvasRef" class="w-full h-full object-contain" />
+              <p v-if="selectedImages.length === 0" class="absolute inset-0 flex items-center justify-center ed-meta text-paper">选择图片或自动排版</p>
             </div>
           </div>
         </div>
       </div>
     </section>
-
-    <!-- Preview Modal -->
-    <Teleport to="body">
-      <Transition name="fade">
-        <div
-          v-if="showPreview"
-          class="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-black/90 backdrop-blur-sm"
-          @click.self="showPreview = false"
-        >
-          <div class="relative max-w-6xl w-full">
-            <button
-              @click="showPreview = false"
-              class="absolute -top-12 right-0 w-10 h-10 rounded-full border-4 border-black bg-[#FFFDF5] text-[#FFD93D] hover:bg-[#FFD93D] hover:text-max-background transition-all duration-300 flex items-center justify-center text-lg font-bold z-10"
-            >
-              ✕
-            </button>
-            <div class="rounded-3xl border-4 border-[#FF6B6B] overflow-hidden"
-              style="box-shadow: 12px 12px 0 #FFE600, 24px 24px 0 #FF3AF2;">
-              <canvas ref="canvasRef" class="w-full"></canvas>
-            </div>
-            <div class="mt-9 text-center">
-              <MaximalButton color="accent" size="lg" icon="⬇️" @click="downloadWallpaper">
-                下载壁纸 ({{ wallpaperWidth }}×{{ wallpaperHeight }})
-              </MaximalButton>
-            </div>
-          </div>
-        </div>
-      </Transition>
-    </Teleport>
   </div>
 </template>
-
-<style scoped>
-.fade-enter-active,
-.fade-leave-active {
-  transition: opacity 0.3s ease;
-}
-
-.fade-enter-from,
-.fade-leave-to {
-  opacity: 0;
-}
-
-::-webkit-scrollbar {
-  width: 8px;
-}
-
-::-webkit-scrollbar-track {
-  background: #2D1B4E;
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb {
-  background: #FFE600;
-  border-radius: 4px;
-}
-</style>

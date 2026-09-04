@@ -23,48 +23,34 @@ const props = defineProps({
 
 const emit = defineEmits(['click'])
 
-const colorMap = {
-  accent:     'bg-[#FF6B6B] text-white',
-  secondary:  'bg-[#FFD93D] text-black',
-  tertiary:   'bg-[#C4B5FD] text-black',
-  quaternary: 'bg-white text-black',
-  quinary:    'bg-[#FF6B6B] text-white'
-}
-
 const sizeClasses = {
-  sm: 'h-10 px-5 text-xs',
-  md: 'h-12 px-8 text-sm',
-  lg: 'h-14 px-10 text-base'
+  sm: 'text-[11px] py-2 px-4',
+  md: 'text-xs py-3 px-6',
+  lg: 'text-sm py-3.5 px-8'
 }
-
-const colorClass = computed(() => colorMap[props.color] || colorMap.accent)
 
 const classes = computed(() => {
-  const base = 'relative inline-flex items-center justify-center gap-2 font-heading font-bold uppercase tracking-wider border-4 border-black transition-all duration-100 cursor-pointer select-none'
+  const base = 'inline-flex items-center justify-center gap-2 font-body tracking-[0.12em] uppercase cursor-pointer select-none transition-colors duration-200 disabled:opacity-40 disabled:pointer-events-none rounded-none'
   const size = sizeClasses[props.size]
 
-  if (props.variant === 'primary') {
-    return `${base} ${size} ${colorClass.value} shadow-neo-sm hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] active:translate-x-[4px] active:translate-y-[4px]`
-  }
-  if (props.variant === 'secondary') {
-    return `${base} ${size} bg-transparent ${colorClass.value.replace('bg-', 'border-4 border-black hover:bg-').split(' ')[0]} border-black hover:shadow-neo-sm hover:translate-x-[2px] hover:translate-y-[2px] active:translate-x-[4px] active:translate-y-[4px]`
+  if (props.variant === 'ghost' || props.variant === 'secondary') {
+    return `${base} ${size} bg-transparent text-ink border-0 hover:text-accent`
   }
   if (props.variant === 'outline') {
-    return `${base} ${size} bg-white text-black shadow-neo-sm hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] active:translate-x-[4px] active:translate-y-[4px]`
+    return `${base} ${size} bg-transparent text-ink border border-ink/20 hover:border-accent hover:text-accent`
   }
-  // ghost
-  return `${base} ${size} bg-transparent border-transparent hover:border-black hover:bg-[#FFD93D] hover:shadow-neo-sm hover:translate-x-[2px] hover:translate-y-[2px]`
+  return `${base} ${size} bg-ink text-paper hover:bg-accent`
 })
 </script>
 
 <template>
   <button
-    :class="[classes, disabled && 'opacity-50 cursor-not-allowed pointer-events-none']"
-    :disabled="disabled"
+    :class="classes"
+    :disabled="disabled || loading"
     @click="emit('click', $event)"
   >
-    <span v-if="loading" class="animate-spin-slow">⏳</span>
-    <span v-else-if="icon">{{ icon }}</span>
+    <span v-if="loading">…</span>
     <slot />
+    <span v-if="!loading && variant !== 'primary'" aria-hidden="true">→</span>
   </button>
 </template>

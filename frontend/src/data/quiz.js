@@ -51,25 +51,25 @@ export const QUIZ_RESULTS = {
     title: '躺平奶蛙',
     emoji: '😴',
     desc: '你是一只标准的躺平奶蛙！慵懒是你的天赋，浮在水面上是你的使命。今天什么都不想做？没关系，奶蛙陪你一起躺。',
-    color: '#C4B5FD'
+    color: '#8B877D'
   },
   chill: {
     title: '佛系奶蛙',
     emoji: '🧘',
     desc: '你是一只佛系奶蛙！遇事不慌，心态超稳。世界纷纷扰扰，你自岿然不动——因为无所谓。',
-    color: '#FFD93D'
+    color: '#F3F0E8'
   },
   energetic: {
     title: '元气奶蛙',
     emoji: '⚡',
     desc: '你是一只罕见的元气奶蛙！虽然奶蛙通常躺平，但你居然还能卷？respect！记得也要适当休息哦。',
-    color: '#FF6B6B'
+    color: '#A94B3C'
   },
   social: {
     title: '社交奶蛙',
     emoji: '🎉',
     desc: '你是一只社交奶蛙！喜欢和朋友分享快乐，表情包是你的语言。把奶蛙的快乐传播给更多人吧！',
-    color: '#FFD93D'
+    color: '#292825'
   }
 }
 

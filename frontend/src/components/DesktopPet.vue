@@ -3,15 +3,19 @@ import { ref, onMounted, onUnmounted } from 'vue'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
-const visible = ref(localStorage.getItem('naiwa_pet_visible') === 'true')
-const x = ref(Math.max(16, window.innerWidth - 100))
-const y = ref(Math.max(100, window.innerHeight - 180))
+const visible = ref(loadVisible())
+const x = ref(typeof window !== 'undefined' ? window.innerWidth - 100 : 0)
+const y = ref(typeof window !== 'undefined' ? window.innerHeight - 160 : 0)
 const dragging = ref(false)
 const moved = ref(false)
 const offset = ref({ x: 0, y: 0 })
 const messages = ['随便吧…', '躺…', '摸鱼中', '无所谓', 'zzz']
 const bubble = ref('')
 let bubbleTimer = null
+
+function loadVisible() {
+  return localStorage.getItem('naiwa_pet_visible') !== 'false'
+}
 
 function toggleVisible() {
   visible.value = !visible.value
@@ -27,9 +31,11 @@ function onPointerDown(e) {
 
 function onPointerMove(e) {
   if (!dragging.value) return
-  moved.value = true
-  x.value = Math.max(0, Math.min(window.innerWidth - 72, e.clientX - offset.value.x))
-  y.value = Math.max(80, Math.min(window.innerHeight - 72, e.clientY - offset.value.y))
+  const nx = Math.max(0, Math.min(window.innerWidth - 72, e.clientX - offset.value.x))
+  const ny = Math.max(80, Math.min(window.innerHeight - 72, e.clientY - offset.value.y))
+  if (Math.abs(nx - x.value) > 2 || Math.abs(ny - y.value) > 2) moved.value = true
+  x.value = nx
+  y.value = ny
 }
 
 function onPointerUp() {
@@ -61,24 +67,24 @@ onUnmounted(() => {
   window.removeEventListener('pointerup', onPointerUp)
   clearTimeout(bubbleTimer)
 })
+
+defineExpose({ toggleVisible })
 </script>
 
 <template>
   <div v-if="visible" class="fixed z-[90] select-none touch-none" :style="{ left: `${x}px`, top: `${y}px` }">
     <div
       v-if="bubble"
-      class="absolute -top-10 left-1/2 -translate-x-1/2 whitespace-nowrap px-3 py-1 bg-white border-4 border-black font-bold text-xs shadow-neo-sm"
+      class="absolute -top-9 left-1/2 -translate-x-1/2 whitespace-nowrap px-2 py-1 bg-paper border border-ink/20 ed-meta text-ink"
     >
       {{ bubble }}
     </div>
     <div
-      class="w-16 h-16 border-4 border-black bg-[#FFD93D] flex items-center justify-center text-3xl cursor-grab active:cursor-grabbing shadow-neo-sm hover:shadow-neo transition-shadow animate-bounce-subtle"
-      role="button"
-      tabindex="0"
-      aria-label="奶蛙桌宠，拖拽移动，双击打开说明"
+      class="w-14 h-14 border border-ink/25 bg-warm-white flex items-center justify-center text-2xl cursor-grab active:cursor-grabbing"
       @pointerdown="onPointerDown"
       @click="onClick"
       @dblclick="openPetPage"
+      title="拖拽移动 · 双击打开桌宠页 · 单击冒泡"
     >
       🐸
     </div>
@@ -86,20 +92,18 @@ onUnmounted(() => {
 
   <button
     v-if="!visible"
-    type="button"
-    class="fixed bottom-6 left-6 z-[90] w-14 h-14 border-4 border-black bg-[#FFD93D] text-2xl shadow-neo-sm hover:shadow-neo transition-all"
-    aria-label="召唤奶蛙桌宠"
+    class="fixed bottom-6 right-6 z-[90] ed-meta px-3 py-2 border border-ink/20 bg-paper"
+    title="召唤奶蛙桌宠"
     @click="toggleVisible"
   >
-    🐸
+    Pet
   </button>
   <button
     v-else
-    type="button"
-    class="fixed bottom-6 left-6 z-[90] w-10 h-10 border-4 border-black bg-white text-sm font-black shadow-neo-sm"
-    aria-label="隐藏桌宠"
+    class="fixed bottom-6 right-6 z-[90] ed-meta px-3 py-2 border border-ink/20 bg-paper"
+    title="隐藏桌宠"
     @click="toggleVisible"
   >
-    ✕
+    Hide
   </button>
 </template>

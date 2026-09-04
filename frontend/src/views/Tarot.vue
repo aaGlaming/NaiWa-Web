@@ -2,13 +2,13 @@
 import { ref, onMounted, computed } from 'vue'
 import TarotCard from '@/components/TarotCard.vue'
 import MaximalButton from '@/components/ui/MaximalButton.vue'
-import FloatingShape from '@/components/ui/FloatingShape.vue'
 import tarotData from '@/data/tarot.json'
 import { useUserStore } from '@/stores/user'
 import { usePageMeta } from '@/composables/usePageMeta'
 
 usePageMeta()
 const user = useUserStore()
+const baseUrl = import.meta.env.BASE_URL || './'
 
 // 状态
 const deck = ref([])
@@ -123,173 +123,71 @@ onMounted(() => {
 
 <template>
   <div>
-    <!-- Hero Section -->
-    <section class="relative min-h-[35vh] flex items-center justify-center px-6 py-30 overflow-hidden">
-      <div class="absolute inset-0 flex items-center justify-center pointer-events-none" aria-hidden="true">
-        <span class="text-[10rem] md:text-[18rem] font-heading font-black text-[#C4B5FD]/10 uppercase select-none leading-none">
-          TAROT
-        </span>
-      </div>
-
-      <FloatingShape :colorIndex="4" size="xl" shape="circle" animation="float" top="10%" left="5%" />
-      <FloatingShape :colorIndex="0" size="lg" shape="diamond" animation="float-reverse" top="20%" right="8%" />
-      <FloatingShape :colorIndex="2" size="md" shape="square" animation="wiggle" bottom="15%" left="10%" />
-
-      <div class="relative z-20 text-center max-w-4xl mx-auto">
-        <div class="text-8xl md:text-9xl mb-9 animate-bounce-subtle">🔮</div>
-        <h1 class="font-heading text-5xl md:text-7xl lg:text-8xl font-black uppercase leading-none mb-9  text-[#C4B5FD]">
-          奶蛙塔罗牌
-        </h1>
-        <p class="text-xl md:text-2xl text-black/80 max-w-3xl mx-auto">
-          让奶蛙为你揭示命运的奥秘<br class="hidden md:block" />
-          每一张牌都是奶蛙的祝福
-        </p>
-      </div>
+    <section class="ed-page pt-16 md:pt-24 pb-10">
+      <p class="ed-meta mb-4">Studio — Reading</p>
+      <h1 class="ed-display">塔罗.</h1>
+      <p class="mt-6 text-charcoal max-w-md">让奶蛙为你抽一张今日的关键词。</p>
     </section>
 
-    <!-- Main Content -->
-    <section class="relative py-24 px-6 pt-36">
-      <div class="max-w-6xl mx-auto">
+    <section class="ed-page pb-24">
+      <div class="flex flex-wrap items-center gap-6 mb-12 border-b border-ink/15 pb-6">
+        <button
+          type="button"
+          class="ed-meta pb-1 border-b"
+          :class="spreadMode === 'single' ? 'text-accent border-accent' : 'border-transparent'"
+          @click="spreadMode = 'single'"
+        >单牌</button>
+        <button
+          type="button"
+          class="ed-meta pb-1 border-b"
+          :class="spreadMode === 'three' ? 'text-accent border-accent' : 'border-transparent'"
+          @click="spreadMode = 'three'"
+        >三牌阵</button>
+        <label class="ed-meta flex items-center gap-2 cursor-pointer">
+          <input type="checkbox" v-model="allowReversed" class="accent-accent" />
+          允许逆位
+        </label>
+        <MaximalButton variant="outline" :loading="isShuffling" @click="shuffleDeck">
+          {{ isShuffling ? '洗牌中…' : '洗牌' }}
+        </MaximalButton>
+        <MaximalButton :disabled="isShuffling || drawnCards.length > 0" @click="drawCards">抽牌</MaximalButton>
+        <MaximalButton v-if="drawnCards.length > 0" variant="ghost" @click="resetReading">重来</MaximalButton>
+      </div>
 
-        <!-- Controls -->
-        <div class="flex flex-wrap items-center justify-center gap-6 mb-36">
-          <!-- Spread Mode -->
-          <div class="flex items-center gap-3 p-2 rounded-2xl border-4 border-black bg-[#C4B5FD]/50">
-            <button
-              @click="spreadMode = 'single'"
-              class="px-4 py-3 rounded-xl font-heading font-black text-sm transition-all duration-300"
-              :class="[
-                spreadMode === 'single'
-                  ? 'bg-[#FFD93D] text-max-background'
-                  : 'text-black/70 hover:text-white'
-              ]"
-            >
-              🎴 单张占卜
-            </button>
-            <button
-              @click="spreadMode = 'three'"
-              class="px-4 py-3 rounded-xl font-heading font-black text-sm transition-all duration-300"
-              :class="[
-                spreadMode === 'three'
-                  ? 'bg-[#FFD93D] text-max-background'
-                  : 'text-black/70 hover:text-white'
-              ]"
-            >
-              🃏 三张牌阵
-            </button>
-          </div>
-
-          <!-- Reversed Toggle -->
-          <label class="flex items-center gap-3 px-4 py-3 rounded-2xl border-4 border-black bg-[#C4B5FD]/50 cursor-pointer">
-            <input
-              type="checkbox"
-              v-model="allowReversed"
-              class="w-5 h-5 accent-max-tertiary"
-            />
-            <span class="text-black/70 text-sm font-heading">允许逆位</span>
-          </label>
-
-          <!-- Shuffle Button -->
-          <MaximalButton
-            color="quinary"
-            size="md"
-            icon="🔀"
-            :loading="isShuffling"
-            @click="shuffleDeck"
-          >
-            {{ isShuffling ? '洗牌中...' : '洗牌' }}
-          </MaximalButton>
-
-          <!-- Draw Button -->
-          <MaximalButton
-            color="accent"
-            size="md"
-            icon="✨"
-            :disabled="isShuffling || drawnCards.length > 0"
-            @click="drawCards"
-          >
-            抽牌
-          </MaximalButton>
-
-          <!-- Reset Button -->
-          <MaximalButton
-            v-if="drawnCards.length > 0"
-            color="secondary"
-            size="md"
-            icon="🔄"
-            @click="resetReading"
-          >
-            重新开始
-          </MaximalButton>
+      <div class="min-h-[420px] border-t border-ink/10 pt-10">
+        <div v-if="drawnCards.length === 0 && !isShuffling" class="py-20">
+          <p class="font-display text-3xl mb-2">先洗牌，再抽牌。</p>
+          <p class="ed-meta">牌阵 · 洗牌 · 抽取 · 翻开</p>
         </div>
 
-        <!-- Reading Area -->
-        <div class="relative p-8 md:p-12 border-8 border-black bg-[#FFFDF5] min-h-[600px]"
-          style="box-shadow: 12px 12px 0px 0px #000; background-image: radial-gradient(circle, #000 1px, transparent 1px); background-size: 20px 20px; background-opacity: 0.03;">
-
-          <!-- Empty State -->
-          <div v-if="drawnCards.length === 0 && !isShuffling" class="flex flex-col items-center justify-center h-[300px]">
-            <div class="text-6xl mb-6 animate-bounce-subtle">🔮</div>
-            <p class="text-black/50 text-xl font-black">点击"抽牌"开始占卜</p>
-            <p class="text-black/30 text-sm mt-3 font-black">先洗牌，再抽牌</p>
-          </div>
-
-          <!-- Shuffling Animation -->
-          <div v-if="isShuffling" class="flex items-center justify-center h-[300px]">
-            <div class="flex gap-6">
-              <div
-                v-for="i in 5"
-                :key="i"
-                class="w-20 h-32 border-4 border-black bg-[#FFD93D] animate-shuffle"
-                :style="{ '--i': i }"
-              >
-                <img
-                  v-if="cardBack"
-                  :src="`${baseUrl}images/${cardBack}`"
-                  class="w-full h-full object-cover rounded-xl"
-                />
-              </div>
-            </div>
-          </div>
-
-          <!-- Drawn Cards -->
-          <div v-if="drawnCards.length > 0 && !isShuffling" class="flex flex-col items-center">
-            <div class="flex flex-wrap items-end justify-center gap-9 md:gap-15">
-              <div v-for="(card, index) in drawnCards" :key="card.id" class="text-center">
-                <TarotCard
-                  :card="card"
-                  :cardBack="cardBack"
-                  :reversed="card.reversed"
-                  :index="index"
-                  :position="card.position"
-                  @click="onCardClick(index)"
-                />
-              </div>
-            </div>
-
-            <!-- Reading Result -->
-            <Transition name="fade">
-              <div v-if="showResult && currentReading" class="mt-18 max-w-2xl text-center">
-                <div class="border-8 border-black bg-[#FFD93D] p-8" style="box-shadow: 12px 12px 0px 0px #000;">
-                  <h3 class="font-heading text-2xl font-black uppercase mb-6">🔮 奶蛙解读</h3>
-
-                  <!-- Interpretation -->
-                  <p class="text-lg leading-relaxed font-black">
-                    {{ currentReading.interpretation }}
-                  </p>
-
-                  <div class="mt-8 text-4xl animate-bounce-subtle">🐸✨</div>
-                </div>
-              </div>
-            </Transition>
+        <div v-if="isShuffling" class="flex items-center justify-center h-[300px] gap-3">
+          <div v-for="i in 5" :key="i" class="w-16 h-28 bg-warm-white border border-ink/15 overflow-hidden">
+            <img v-if="cardBack" :src="`${baseUrl}images/${cardBack}`" class="w-full h-full object-cover" alt="" />
           </div>
         </div>
 
-        <!-- Instructions -->
-        <div class="mt-24 p-4 rounded-2xl border-2 border-dashed border-[#FF6B6B]/30 bg-[#C4B5FD]/30">
-          <p class="text-black/50 text-sm text-center">
-            💡 提示：选择牌阵模式 → 点击洗牌 → 点击抽牌 → 点击卡牌翻转查看结果
-          </p>
+        <div v-if="drawnCards.length > 0 && !isShuffling" class="flex flex-col items-center">
+          <div class="flex flex-wrap items-end justify-center gap-8">
+            <div v-for="(card, index) in drawnCards" :key="card.id">
+              <TarotCard
+                :card="card"
+                :cardBack="cardBack"
+                :reversed="card.reversed"
+                :index="index"
+                :position="card.position"
+                @click="onCardClick(index)"
+              />
+            </div>
+          </div>
+
+          <Transition name="fade">
+            <div v-if="showResult && currentReading" class="mt-16 max-w-2xl">
+              <p class="ed-meta mb-4">Reading</p>
+              <p class="font-display text-2xl md:text-3xl leading-snug">
+                {{ currentReading.interpretation }}
+              </p>
+            </div>
+          </Transition>
         </div>
       </div>
     </section>
@@ -308,14 +206,4 @@ onMounted(() => {
   transform: translateY(20px);
 }
 
-.animate-shuffle {
-  animation: shuffle 0.5s ease-in-out infinite;
-  animation-delay: calc(var(--i) * 0.1s);
-}
-
-@keyframes shuffle {
-  0%, 100% { transform: translateX(0) rotate(0); }
-  25% { transform: translateX(-15px) rotate(-10deg); }
-  75% { transform: translateX(15px) rotate(10deg); }
-}
 </style>

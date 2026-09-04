@@ -4,8 +4,8 @@
   "description": "探索奶蛙的奇妙世界，佛系躺平，治愈你的每一天",
   "start_url": "./index.html",
   "display": "standalone",
-  "background_color": "#FFFDF5",
-  "theme_color": "#FFD93D",
+  "background_color": "#F3F0E8",
+  "theme_color": "#A94B3C",
   "lang": "zh-CN",
   "icons": [
     {
